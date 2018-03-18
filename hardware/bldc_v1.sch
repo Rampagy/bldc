@@ -31,12 +31,12 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:bldc_v1-cache
+LIBS:infineon
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 4
+Sheet 1 3
 Title "Brushless DC controller"
 Date "2018-03-16"
 Rev "1"
@@ -47,21 +47,26 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 1600 1100 1500 800 
-U 5AAC2C8D
-F0 "Page1" 60
-F1 "BLDC_V1_P1.sch" 60
+S 1850 1450 1500 1400
+U 5AAE8848
+F0 "GateDriver" 60
+F1 "GateDriver.sch" 60
 $EndSheet
 $Sheet
-S 1600 2250 1500 1250
-U 5AAC2E0F
-F0 "Page2" 60
-F1 "BLDC_V1_P2.sch" 60
-$EndSheet
-$Sheet
-S 1500 3850 2100 1400
-U 5AAC2E54
-F0 "Page3" 60
-F1 "BLDC_V1_P3.sch" 60
+S 4950 1450 1550 1450
+U 5AAE8860
+F0 "MOSFETS" 60
+F1 "MOSFETS.sch" 60
+F2 "PhaseA" O R 6500 1900 60 
+F3 "+V" I L 4950 1550 60 
+F4 "PhaseB" O R 6500 2050 60 
+F5 "PhaseC" O R 6500 2200 60 
+F6 "GND" O L 4950 2800 60 
+F7 "HS_A_GATE" I L 4950 1850 60 
+F8 "LS_A_GATE" I L 4950 1950 60 
+F9 "HS_B_GATE" I L 4950 2050 60 
+F10 "LS_B_GATE" I L 4950 2150 60 
+F11 "HS_C_GATE" I L 4950 2250 60 
+F12 "LS_C_GATE" I L 4950 2350 60 
 $EndSheet
 $EndSCHEMATC
