@@ -36,7 +36,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 3 4
 Title "MOSFETS"
 Date "2018-03-18"
 Rev "1"
@@ -115,7 +115,7 @@ $EndComp
 Text HLabel 4150 2400 2    60   Output ~ 0
 PhaseA
 Text HLabel 1800 900  0    60   Input ~ 0
-Vbatt
+48v
 Wire Wire Line
 	6250 2900 6250 2250
 Text HLabel 7700 2550 2    60   Output ~ 0
@@ -587,13 +587,13 @@ F 3 "" H 4400 2200 50  0001 C CNN
 	1    3750 2900
 	1    0    0    -1  
 $EndComp
-Text HLabel 1100 1250 0    60   Input ~ 0
+Text HLabel 1700 700  0    60   Input ~ 0
 +5V
 Connection ~ 6250 900 
-Text Label 1250 1250 0    60   ~ 0
+Text Label 1850 700  0    60   ~ 0
 5V
 Wire Wire Line
-	1100 1250 1250 1250
+	1700 700  1850 700 
 $Comp
 L R R13
 U 1 1 5AB0B7A4
@@ -602,6 +602,7 @@ F 0 "R13" V 3830 2400 50  0000 C CNN
 F 1 "0.001" V 3750 2400 50  0000 C CNN
 F 2 "" V 3680 2400 50  0001 C CNN
 F 3 "" H 3750 2400 50  0001 C CNN
+F 4 "CSNL2512FT1L00 " V 3900 2400 60  0000 C CNN "PartNumber"
 	1    3750 2400
 	0    -1   -1   0   
 $EndComp
@@ -661,6 +662,7 @@ F 0 "R14" V 7280 2550 50  0000 C CNN
 F 1 "0.001" V 7200 2550 50  0000 C CNN
 F 2 "" V 7130 2550 50  0001 C CNN
 F 3 "" H 7200 2550 50  0001 C CNN
+F 4 "CSNL2512FT1L00" V 7350 2550 60  0000 C CNN "PartNumber"
 	1    7200 2550
 	0    -1   -1   0   
 $EndComp

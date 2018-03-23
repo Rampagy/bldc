@@ -1,0 +1,311 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:infineon
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 4 4
+Title "PowerConverter"
+Date "2018-03-22"
+Rev "1"
+Comp "Loma Incorporated"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L TL2575HV 12vConverter
+U 1 1 5AB4721C
+P 3200 1450
+F 0 "12vConverter" H 3200 1950 60  0000 C CNN
+F 1 "TL2575HV" H 3200 1850 60  0000 C CNN
+F 2 "" H 3150 1450 60  0001 C CNN
+F 3 "" H 3150 1450 60  0001 C CNN
+	1    3200 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L TL2575HV 5vConverter
+U 1 1 5AB4724C
+P 3200 3900
+F 0 "5vConverter" H 3200 4400 60  0000 C CNN
+F 1 "TL2575HV" H 3200 4300 60  0000 C CNN
+F 2 "" H 3150 3900 60  0001 C CNN
+F 3 "" H 3150 3900 60  0001 C CNN
+	1    3200 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 5AB473CB
+P 5200 2200
+F 0 "R1" V 5280 2200 50  0000 C CNN
+F 1 "2k" V 5200 2200 50  0000 C CNN
+F 2 "" V 5130 2200 50  0001 C CNN
+F 3 "" H 5200 2200 50  0001 C CNN
+F 4 "RR0816P-202-D " H 5750 2200 60  0000 C CNN "PN"
+	1    5200 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 5AB47408
+P 5200 1700
+F 0 "R2" V 5280 1700 50  0000 C CNN
+F 1 "18k" V 5200 1700 50  0000 C CNN
+F 2 "" V 5130 1700 50  0001 C CNN
+F 3 "" H 5200 1700 50  0001 C CNN
+F 4 "ERA-6AEB183V" H 5650 1700 60  0000 C CNN "PN"
+	1    5200 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R4
+U 1 1 5AB4745C
+P 5300 4100
+F 0 "R4" V 5380 4100 50  0000 C CNN
+F 1 "6.04k" V 5300 4100 50  0000 C CNN
+F 2 "" V 5230 4100 50  0001 C CNN
+F 3 "" H 5300 4100 50  0001 C CNN
+F 4 "ERA-3AEB6041V" H 5850 4100 60  0000 C CNN "PN"
+	1    5300 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R3
+U 1 1 5AB47CAF
+P 5300 4600
+F 0 "R3" V 5380 4600 50  0000 C CNN
+F 1 "2k" V 5300 4600 50  0000 C CNN
+F 2 "" V 5230 4600 50  0001 C CNN
+F 3 "" H 5300 4600 50  0001 C CNN
+F 4 "RR0816P-202-D " H 5850 4600 60  0000 C CNN "PN"
+	1    5300 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L L L1
+U 1 1 5AB48433
+P 4050 1450
+F 0 "L1" V 4000 1450 50  0000 C CNN
+F 1 "680uH" V 4125 1450 50  0000 C CNN
+F 2 "" H 4050 1450 50  0001 C CNN
+F 3 "" H 4050 1450 50  0001 C CNN
+F 4 "60B684C" V 3900 1450 60  0000 C CNN "PN"
+	1    4050 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4200 1450 5600 1450
+Wire Wire Line
+	5200 1450 5200 1550
+Wire Wire Line
+	5200 1850 5200 2050
+Wire Wire Line
+	3750 1200 5000 1200
+Wire Wire Line
+	5000 1200 5000 1950
+Wire Wire Line
+	5000 1950 5200 1950
+Connection ~ 5200 1950
+Wire Wire Line
+	5200 2450 5200 2350
+Wire Wire Line
+	2150 2450 5200 2450
+Wire Wire Line
+	3350 2450 3350 2000
+Wire Wire Line
+	3000 2000 3000 2450
+Connection ~ 3350 2450
+Text HLabel 1150 1500 0    60   UnSpc ~ 0
+GND
+Connection ~ 3000 2450
+Text HLabel 5600 1450 2    60   Output ~ 0
+12v
+Connection ~ 5200 1450
+Text Label 1350 1500 0    60   ~ 0
+GND
+Wire Wire Line
+	1150 1500 1350 1500
+Text Label 2150 2450 2    60   ~ 0
+GND
+Text HLabel 1150 1300 0    60   Input ~ 0
+48v
+Text Label 1350 1300 0    60   ~ 0
+48v
+Wire Wire Line
+	1150 1300 1350 1300
+Text Label 2150 1200 2    60   ~ 0
+48v
+Wire Wire Line
+	3900 1450 3750 1450
+$Comp
+L C C1
+U 1 1 5AB48931
+P 4500 1900
+F 0 "C1" H 4525 2000 50  0000 L CNN
+F 1 "330uF" H 4525 1800 50  0000 L CNN
+F 2 "" H 4538 1750 50  0001 C CNN
+F 3 "" H 4500 1900 50  0001 C CNN
+F 4 "EEE-1EA331UP" V 4350 1800 60  0000 C CNN "PN"
+	1    4500 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 1750 4500 1450
+Connection ~ 4500 1450
+Wire Wire Line
+	4500 2050 4500 2450
+Connection ~ 4500 2450
+$Comp
+L D_Schottky D1
+U 1 1 5AB48BB4
+P 3800 1950
+F 0 "D1" H 3800 2050 50  0000 C CNN
+F 1 "NRVTS260ESFT1G" H 3800 1850 50  0000 C CNN
+F 2 "" H 3800 1950 50  0001 C CNN
+F 3 "" H 3800 1950 50  0001 C CNN
+	1    3800 1950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2150 1200 2600 1200
+$Comp
+L L L2
+U 1 1 5AB492B5
+P 4150 3900
+F 0 "L2" V 4100 3900 50  0000 C CNN
+F 1 "330uH" V 4225 3900 50  0000 C CNN
+F 2 "" H 4150 3900 50  0001 C CNN
+F 3 "" H 4150 3900 50  0001 C CNN
+F 4 "33331C" V 4000 3900 60  0000 C CNN "PN"
+	1    4150 3900
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4000 3900 3750 3900
+Wire Wire Line
+	4300 3900 5750 3900
+Wire Wire Line
+	5300 3900 5300 3950
+Wire Wire Line
+	5300 4450 5300 4250
+Wire Wire Line
+	5300 4350 5050 4350
+Wire Wire Line
+	5050 4350 5050 3650
+Wire Wire Line
+	5050 3650 3750 3650
+Connection ~ 5300 4350
+Text HLabel 5750 3900 2    60   Output ~ 0
+5v
+Connection ~ 5300 3900
+Text Label 2100 3650 2    60   ~ 0
+48v
+Wire Wire Line
+	2100 3650 2600 3650
+Text Label 2100 4850 2    60   ~ 0
+GND
+Wire Wire Line
+	2100 4850 5300 4850
+Wire Wire Line
+	5300 4850 5300 4750
+Wire Wire Line
+	3350 4450 3350 4850
+Connection ~ 3350 4850
+Wire Wire Line
+	3000 4450 3000 4850
+Connection ~ 3000 4850
+$Comp
+L D_Schottky D2
+U 1 1 5AB4996E
+P 3800 4350
+F 0 "D2" H 3800 4450 50  0000 C CNN
+F 1 "NRVTS260ESFT1G" H 3800 4250 50  0000 C CNN
+F 2 "" H 3800 4350 50  0001 C CNN
+F 3 "" H 3800 4350 50  0001 C CNN
+	1    3800 4350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3800 4200 3800 3900
+Connection ~ 3800 3900
+Wire Wire Line
+	3800 4500 3800 4850
+Connection ~ 3800 4850
+Wire Wire Line
+	3800 2100 3800 2450
+Connection ~ 3800 2450
+Wire Wire Line
+	3800 1800 3800 1450
+Connection ~ 3800 1450
+$Comp
+L C C3
+U 1 1 5AB49CE1
+P 2400 1700
+F 0 "C3" H 2425 1800 50  0000 L CNN
+F 1 "100uF" H 2425 1600 50  0000 L CNN
+F 2 "" H 2438 1550 50  0001 C CNN
+F 3 "" H 2400 1700 50  0001 C CNN
+F 4 " EEE-1JA101P" V 2250 1600 60  0000 C CNN "PN"
+	1    2400 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 1550 2400 1200
+Connection ~ 2400 1200
+Wire Wire Line
+	2400 1850 2400 2450
+Connection ~ 2400 2450
+$Comp
+L C C4
+U 1 1 5AB49F15
+P 2400 4150
+F 0 "C4" H 2425 4250 50  0000 L CNN
+F 1 "100uF" H 2425 4050 50  0000 L CNN
+F 2 "" H 2438 4000 50  0001 C CNN
+F 3 "" H 2400 4150 50  0001 C CNN
+F 4 " EEE-1JA101P" V 2250 4050 60  0000 C CNN "PN"
+	1    2400 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 4000 2400 3650
+Connection ~ 2400 3650
+Wire Wire Line
+	2400 4300 2400 4850
+Connection ~ 2400 4850
+$EndSCHEMATC

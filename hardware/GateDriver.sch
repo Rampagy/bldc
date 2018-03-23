@@ -36,7 +36,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 3
+Sheet 2 4
 Title "Gate Drivers"
 Date "2018-03-18"
 Rev "1"
@@ -118,7 +118,7 @@ Text HLabel 2250 3350 0    60   Input ~ 0
 PhaseB
 Text HLabel 2250 4500 0    60   Input ~ 0
 PhaseC
-Text HLabel 5100 900  0    60   Input ~ 0
+Text HLabel 5100 900  0    60   UnSpc ~ 0
 GND
 Text HLabel 4400 1850 2    60   Output ~ 0
 LS_A_GATE
