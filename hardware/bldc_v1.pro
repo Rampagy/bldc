@@ -1,4 +1,4 @@
-update=Thu 22 Mar 2018 10:06:47 PM CDT
+update=Sat 24 Mar 2018 09:55:45 AM CDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,6 +25,16 @@ version=1
 NetIExt=net
 [general]
 version=1
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=/home/alex/bldc/hardware/
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
 [eeschema]
 version=1
 LibDir=
@@ -62,13 +72,5 @@ LibName30=atmel
 LibName31=contrib
 LibName32=valves
 LibName33=libraries/infineon
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=/home/alex/bldc/hardware/
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
+LibName34=libraries/crf_1
+LibName35=libraries/STM32F4-DISCOVERY-SIMON

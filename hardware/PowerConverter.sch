@@ -32,11 +32,14 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:infineon
+LIBS:crf_1
+LIBS:STM32F4-DISCOVERY-SIMON
+LIBS:bldc_v1-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 4
+Sheet 4 5
 Title "PowerConverter"
 Date "2018-03-22"
 Rev "1"
