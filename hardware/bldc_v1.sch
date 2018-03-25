@@ -229,10 +229,10 @@ Wire Wire Line
 Wire Wire Line
 	1400 3200 1250 3200
 $Comp
-L Screw_Terminal_01x02 J1
+L Screw_Terminal_01x02 J4
 U 1 1 5AB7FC0B
 P 4150 4600
-F 0 "J1" H 4150 4700 50  0000 C CNN
+F 0 "J4" H 4150 4700 50  0000 C CNN
 F 1 "Screw_Terminal_01x02" V 4250 4600 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 4150 4600 50  0001 C CNN
 F 3 "" H 4150 4600 50  0001 C CNN
@@ -291,10 +291,10 @@ GND
 Wire Wire Line
 	1650 1050 1400 1050
 $Comp
-L Screw_Terminal_01x03 J3
+L Screw_Terminal_01x03 J5
 U 1 1 5AB8C60E
 P 7350 4750
-F 0 "J3" H 7350 4950 50  0000 C CNN
+F 0 "J5" H 7350 4950 50  0000 C CNN
 F 1 "Screw_Terminal_01x03" V 7450 4750 50  0000 C CNN
 F 2 "" H 7350 4750 50  0001 C CNN
 F 3 "" H 7350 4750 50  0001 C CNN
@@ -312,10 +312,10 @@ Wire Wire Line
 	7250 4550 7250 3750
 Connection ~ 7250 3750
 $Comp
-L Conn_01x06 J4
+L Conn_01x06 J1
 U 1 1 5AB8F4C0
 P 1050 3500
-F 0 "J4" H 1050 3800 50  0000 C CNN
+F 0 "J1" H 1050 3800 50  0000 C CNN
 F 1 "Conn_01x06" V 1150 3500 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm_SMD_Pin1Right" H 1050 3500 50  0001 C CNN
 F 3 "" H 1050 3500 50  0001 C CNN
@@ -324,10 +324,10 @@ F 4 "TSM-106-01-L-SV" V 1250 3500 60  0000 C CNN "PN"
 	-1   0    0    1   
 $EndComp
 $Comp
-L Screw_Terminal_01x05 J5
+L Screw_Terminal_01x05 J3
 U 1 1 5AB91720
 P 1900 2300
-F 0 "J5" V 2200 2300 50  0000 C CNN
+F 0 "J3" V 2200 2300 50  0000 C CNN
 F 1 "Screw_Terminal_01x05" V 2000 2300 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-5_P5.08mm" H 1900 2300 50  0001 C CNN
 F 3 "" H 1900 2300 50  0001 C CNN
