@@ -34,6 +34,7 @@ LIBS:valves
 LIBS:infineon
 LIBS:crf_1
 LIBS:STM32F4-DISCOVERY-SIMON
+LIBS:bldc_v1-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -246,15 +247,6 @@ Text Label 1650 1050 0    60   ~ 0
 GND
 Wire Wire Line
 	1650 1050 1400 1050
-Wire Wire Line
-	7450 4550 7450 3950
-Connection ~ 7450 3950
-Wire Wire Line
-	7350 4550 7350 3850
-Connection ~ 7350 3850
-Wire Wire Line
-	7250 4550 7250 3750
-Connection ~ 7250 3750
 $Comp
 L Conn_01x06 J1
 U 1 1 5AB8F4C0
@@ -352,4 +344,13 @@ NoConn ~ 4700 4450
 NoConn ~ 4600 4450
 NoConn ~ 4400 4450
 NoConn ~ 4300 4450
+Wire Wire Line
+	7250 4550 7250 3950
+Connection ~ 7250 3950
+Wire Wire Line
+	7350 4550 7350 3850
+Connection ~ 7350 3850
+Wire Wire Line
+	7450 4550 7450 3750
+Connection ~ 7450 3750
 $EndSCHEMATC
