@@ -34,6 +34,7 @@ LIBS:valves
 LIBS:infineon
 LIBS:crf_1
 LIBS:STM32F4-DISCOVERY-SIMON
+LIBS:bldc_v1-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -118,11 +119,11 @@ F 4 "GCM21BR72A104KA37K" H 1750 4350 60  0000 C CNN "PN"
 	1    0    0    -1  
 $EndComp
 Text HLabel 2250 2250 0    60   Input ~ 0
-PhaseA
+PhaseADrain
 Text HLabel 2250 3350 0    60   Input ~ 0
-PhaseB
+PhaseBDrain
 Text HLabel 2250 4500 0    60   Input ~ 0
-PhaseC
+PhaseCDrain
 Text HLabel 5100 900  0    60   UnSpc ~ 0
 GND
 Text HLabel 4400 1850 2    60   Output ~ 0
