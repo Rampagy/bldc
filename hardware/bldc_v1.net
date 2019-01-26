@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/alex/bldc/hardware/bldc_v1.sch)
-    (date "Sat 26 Jan 2019 08:27:53 AM CST")
+    (date "Sat 26 Jan 2019 10:45:09 AM CST")
     (tool "Eeschema 5.0.0-fee4fd1~65~ubuntu17.10.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
