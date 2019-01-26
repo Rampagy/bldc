@@ -1,41 +1,5 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:switches
-LIBS:relays
-LIBS:motors
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:infineon
-LIBS:crf_1
-LIBS:STM32F4-DISCOVERY-SIMON
-LIBS:bldc_v1-cache
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -50,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L UCC2720xA PhaseA1
+L infineon:UCC2720xA PhaseA1
 U 1 1 5AAF1479
 P 3800 1900
 F 0 "PhaseA1" H 3900 1500 60  0000 C CNN
@@ -61,7 +25,7 @@ F 3 "" H 3800 1900 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L UCC2720xA PhaseB1
+L infineon:UCC2720xA PhaseB1
 U 1 1 5AAF151B
 P 3800 3000
 F 0 "PhaseB1" H 3900 2600 60  0000 C CNN
@@ -72,7 +36,7 @@ F 3 "" H 3800 3000 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L UCC2720xA PhaseC1
+L infineon:UCC2720xA PhaseC1
 U 1 1 5AAF1572
 P 3800 4150
 F 0 "PhaseC1" H 3900 3750 60  0000 C CNN
@@ -83,7 +47,7 @@ F 3 "" H 3800 4150 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C3
+L Device:C C3
 U 1 1 5AAF19CF
 P 2450 2100
 F 0 "C3" H 2475 2200 50  0000 L CNN
@@ -95,7 +59,7 @@ F 4 "GCM21BR72A104KA37K" H 1800 2100 60  0000 C CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C1
+L Device:C C1
 U 1 1 5AAF1A5A
 P 2400 3200
 F 0 "C1" H 2425 3300 50  0000 L CNN
@@ -107,7 +71,7 @@ F 4 "GCM21BR72A104KA37K" H 1750 3200 60  0000 C CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C2
+L Device:C C2
 U 1 1 5AAF1AF9
 P 2400 4350
 F 0 "C2" H 2425 4450 50  0000 L CNN
@@ -119,11 +83,11 @@ F 4 "GCM21BR72A104KA37K" H 1750 4350 60  0000 C CNN "PN"
 	1    0    0    -1  
 $EndComp
 Text HLabel 2250 2250 0    60   Input ~ 0
-PhaseADrain
+PhaseASource
 Text HLabel 2250 3350 0    60   Input ~ 0
-PhaseBDrain
+PhaseBSource
 Text HLabel 2250 4500 0    60   Input ~ 0
-PhaseCDrain
+PhaseCSource
 Text HLabel 5100 900  0    60   UnSpc ~ 0
 GND
 Text HLabel 4400 1850 2    60   Output ~ 0
@@ -133,7 +97,7 @@ HS_A_GATE
 Wire Wire Line
 	3500 2050 3350 2050
 Wire Wire Line
-	2250 2250 2900 2250
+	2250 2250 2450 2250
 Wire Wire Line
 	3500 2150 2900 2150
 Wire Wire Line
@@ -151,7 +115,7 @@ Connection ~ 2400 3350
 Wire Wire Line
 	2400 3050 3500 3050
 Wire Wire Line
-	2250 4500 2850 4500
+	2250 4500 2400 4500
 Wire Wire Line
 	2850 4500 2850 4400
 Wire Wire Line
@@ -160,7 +124,7 @@ Connection ~ 2400 4500
 Wire Wire Line
 	2400 4200 3500 4200
 Wire Wire Line
-	2250 3350 2750 3350
+	2250 3350 2400 3350
 Wire Wire Line
 	2750 3350 2750 3250
 Wire Wire Line
@@ -178,7 +142,7 @@ Wire Wire Line
 Wire Wire Line
 	4300 4100 4450 4100
 Wire Wire Line
-	5300 900  5300 4200
+	5300 900  5300 1300
 Wire Wire Line
 	5300 1950 4300 1950
 Wire Wire Line
@@ -188,7 +152,7 @@ Wire Wire Line
 	5300 4200 4300 4200
 Connection ~ 5300 3050
 $Comp
-L C C4
+L Device:C C4
 U 1 1 5AAF26C0
 P 3900 1300
 F 0 "C4" H 3925 1400 50  0000 L CNN
@@ -205,11 +169,11 @@ Wire Wire Line
 	4050 1300 5300 1300
 Connection ~ 5300 1300
 Wire Wire Line
-	2950 1300 3750 1300
+	2950 1300 3500 1300
 Wire Wire Line
-	3500 950  3500 1850
+	3500 950  3500 1300
 $Comp
-L C C5
+L Device:C C5
 U 1 1 5AAF28D3
 P 3950 2500
 F 0 "C5" H 3975 2600 50  0000 L CNN
@@ -224,11 +188,11 @@ Wire Wire Line
 	4100 2500 5300 2500
 Connection ~ 5300 2500
 Wire Wire Line
-	3150 2500 3800 2500
+	3150 2500 3500 2500
 Wire Wire Line
 	3500 2500 3500 2950
 $Comp
-L C C6
+L Device:C C6
 U 1 1 5AAF29AA
 P 3950 3650
 F 0 "C6" H 3975 3750 50  0000 L CNN
@@ -245,7 +209,7 @@ Connection ~ 5300 3650
 Wire Wire Line
 	3500 4100 3500 3650
 Wire Wire Line
-	3150 3650 3800 3650
+	3150 3650 3500 3650
 Text HLabel 4400 2050 2    60   Input ~ 0
 LS_A_TTL_PWM
 Wire Wire Line
@@ -283,4 +247,28 @@ Text Label 3150 2500 0    60   ~ 0
 +12V
 Text Label 3150 3650 0    60   ~ 0
 +12V
+Wire Wire Line
+	2450 2250 2900 2250
+Wire Wire Line
+	2400 3350 2750 3350
+Wire Wire Line
+	2400 4500 2850 4500
+Wire Wire Line
+	5300 1950 5300 2500
+Wire Wire Line
+	5300 3050 5300 3650
+Wire Wire Line
+	5300 1300 5300 1950
+Wire Wire Line
+	5300 2500 5300 3050
+Wire Wire Line
+	5300 3650 5300 4200
+Wire Wire Line
+	3500 1300 3750 1300
+Wire Wire Line
+	3500 1300 3500 1850
+Wire Wire Line
+	3500 2500 3800 2500
+Wire Wire Line
+	3500 3650 3800 3650
 $EndSCHEMATC

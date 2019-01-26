@@ -1,41 +1,5 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:switches
-LIBS:relays
-LIBS:motors
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:infineon
-LIBS:crf_1
-LIBS:STM32F4-DISCOVERY-SIMON
-LIBS:bldc_v1-cache
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -54,23 +18,23 @@ S 4900 2600 1750 1700
 U 5AAE8848
 F0 "GateDriver" 60
 F1 "GateDriver.sch" 60
-F2 "PhaseC" I R 6650 4150 60 
-F3 "GND" U L 4900 2800 60 
-F4 "LS_A_GATE" O R 6650 3100 60 
-F5 "HS_A_GATE" O R 6650 3000 60 
-F6 "LS_B_GATE" O R 6650 3300 60 
-F7 "HS_B_GATE" O R 6650 3200 60 
-F8 "LS_C_GATE" O R 6650 3500 60 
-F9 "HS_C_GATE" O R 6650 3400 60 
-F10 "LS_A_TTL_PWM" I L 4900 3100 60 
-F11 "HS_A_TTL_PWM" I L 4900 3000 60 
-F12 "LS_B_TTL_PWM" I L 4900 3300 60 
-F13 "HS_B_TTL_PWM" I L 4900 3200 60 
-F14 "LS_C_TTL_PWM" I L 4900 3500 60 
-F15 "HS_C_TTL_PWM" I L 4900 3400 60 
-F16 "+12V" I L 4900 2700 60 
-F17 "PhaseADrain" I R 6650 3700 60 
-F18 "PhaseBDrain" I R 6650 3800 60 
+F2 "GND" U L 4900 2800 60 
+F3 "LS_A_GATE" O R 6650 3100 60 
+F4 "HS_A_GATE" O R 6650 3000 60 
+F5 "LS_B_GATE" O R 6650 3300 60 
+F6 "HS_B_GATE" O R 6650 3200 60 
+F7 "LS_C_GATE" O R 6650 3500 60 
+F8 "HS_C_GATE" O R 6650 3400 60 
+F9 "LS_A_TTL_PWM" I L 4900 3100 60 
+F10 "HS_A_TTL_PWM" I L 4900 3000 60 
+F11 "LS_B_TTL_PWM" I L 4900 3300 60 
+F12 "HS_B_TTL_PWM" I L 4900 3200 60 
+F13 "LS_C_TTL_PWM" I L 4900 3500 60 
+F14 "HS_C_TTL_PWM" I L 4900 3400 60 
+F15 "+12V" I L 4900 2700 60 
+F16 "PhaseASource" I R 6650 3700 60 
+F17 "PhaseBSource" I R 6650 3800 60 
+F18 "PhaseCSource" I R 6650 4150 60 
 $EndSheet
 $Sheet
 S 7900 2600 1500 1750
@@ -91,8 +55,8 @@ F12 "FB_A" O R 9400 2700 60
 F13 "FB_B" O R 9400 2800 60 
 F14 "48v" I L 7900 2650 60 
 F15 "5V" I L 7900 2750 60 
-F16 "PhaseADrain" O L 7900 3700 60 
-F17 "PhaseBDrain" O L 7900 3800 60 
+F16 "PhaseASource" O L 7900 3700 60 
+F17 "PhaseBSource" O L 7900 3800 60 
 $EndSheet
 Wire Wire Line
 	6650 3000 7900 3000
@@ -117,7 +81,7 @@ F4 "48v" I L 3650 2100 60
 F5 "5v" O R 4300 2100 60 
 $EndSheet
 Wire Wire Line
-	4300 2100 7400 2100
+	4300 2100 4750 2100
 Wire Wire Line
 	4900 2700 4700 2700
 Wire Wire Line
@@ -125,7 +89,7 @@ Wire Wire Line
 Wire Wire Line
 	4700 2300 4300 2300
 Wire Wire Line
-	3350 1750 7500 1750
+	3350 1750 3500 1750
 Wire Wire Line
 	3500 1750 3500 2100
 Wire Wire Line
@@ -244,7 +208,7 @@ GND
 Wire Wire Line
 	1650 1050 1400 1050
 $Comp
-L Conn_01x06 J1
+L Connector_Generic:Conn_01x06 J1
 U 1 1 5AB8F4C0
 P 1050 3500
 F 0 "J1" H 1050 3800 50  0000 C CNN
@@ -256,7 +220,7 @@ F 4 "TSM-106-01-L-SV" V 1250 3500 60  0000 C CNN "PN"
 	-1   0    0    1   
 $EndComp
 $Comp
-L Screw_Terminal_01x05 J3
+L Connector:Screw_Terminal_01x05 J3
 U 1 1 5AB91720
 P 1900 2300
 F 0 "J3" V 2200 2300 50  0000 C CNN
@@ -288,7 +252,7 @@ GND
 Wire Wire Line
 	2000 2600 2000 2500
 $Comp
-L 1x2_ScrewTerminal_65A J2
+L infineon:1x2_ScrewTerminal_65A J2
 U 1 1 5ABA8578
 P 1200 1050
 F 0 "J2" H 1200 1150 50  0000 C CNN
@@ -299,7 +263,7 @@ F 3 "" H 1200 1050 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Screw_Terminal_01x03 J5
+L Connector:Screw_Terminal_01x03 J5
 U 1 1 5ABABEF7
 P 7350 4750
 F 0 "J5" H 7350 4950 50  0000 C CNN
@@ -309,18 +273,6 @@ F 3 "" H 7350 4750 50  0001 C CNN
 F 4 "1986660-3" V 7550 4750 60  0000 C CNN "PN"
 	1    7350 4750
 	0    1    1    0   
-$EndComp
-$Comp
-L RJ45 J4
-U 1 1 5ABC4D57
-P 4350 4900
-F 0 "J4" H 4550 5400 50  0000 C CNN
-F 1 "RJ45" H 4200 5400 50  0000 C CNN
-F 2 "Connectors:RJ45_8" H 4350 4900 50  0001 C CNN
-F 3 "" H 4350 4900 50  0001 C CNN
-F 4 "SS-6488S-A-NF" H 4350 5500 60  0000 C CNN "PN"
-	1    4350 4900
-	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	4200 4200 4200 4450
@@ -341,7 +293,7 @@ NoConn ~ 4600 4450
 NoConn ~ 4400 4450
 NoConn ~ 4300 4450
 Wire Wire Line
-	7900 4150 6650 4150
+	7900 4150 7250 4150
 Wire Wire Line
 	7250 4550 7250 4150
 Connection ~ 7250 4150
@@ -357,4 +309,22 @@ Wire Wire Line
 	7900 4050 7350 4050
 Wire Wire Line
 	7350 4050 7350 4550
+Wire Wire Line
+	4750 2100 7400 2100
+Wire Wire Line
+	3500 1750 7500 1750
+Wire Wire Line
+	7250 4150 6650 4150
+$Comp
+L Connector:RJ45 J4
+U 1 1 5ABC4D57
+P 4400 4850
+F 0 "J4" V 4050 5100 50  0000 C CNN
+F 1 "RJ45" V 4050 4700 50  0000 C CNN
+F 2 "Connectors:RJ45_8" H 4400 4850 50  0001 C CNN
+F 3 "" H 4400 4850 50  0001 C CNN
+F 4 "SS-6488S-A-NF" V 3950 4900 60  0000 C CNN "PN"
+	1    4400 4850
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
