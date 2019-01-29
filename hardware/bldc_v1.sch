@@ -2,11 +2,11 @@ EESchema Schematic File Version 4
 LIBS:bldc_v1-cache
 EELAYER 26 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 5
 Title "Brushless DC controller"
-Date "2018-03-16"
+Date "2019-01-28"
 Rev "1"
 Comp "Loma Incorporated"
 Comment1 ""
