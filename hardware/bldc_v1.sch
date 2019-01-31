@@ -200,14 +200,10 @@ GND
 Text Label 3350 1750 2    60   ~ 0
 48v
 Connection ~ 3500 1750
-Text Label 1650 950  0    60   ~ 0
+Text Label 2350 750  0    60   ~ 0
 48v
-Wire Wire Line
-	1650 950  1400 950 
-Text Label 1650 1050 0    60   ~ 0
+Text Label 2350 1250 0    60   ~ 0
 GND
-Wire Wire Line
-	1650 1050 1400 1050
 $Comp
 L Connector_Generic:Conn_01x06 J1
 U 1 1 5AB8F4C0
@@ -328,4 +324,38 @@ F 4 "SS-6488S-A-NF" V 3950 4900 60  0000 C CNN "PN"
 	1    4400 4850
 	0    -1   -1   0   
 $EndComp
+$Comp
+L Device:CP1 C17
+U 1 1 5C5C16E0
+P 1900 1000
+F 0 "C17" H 2015 1091 50  0000 L CNN
+F 1 "330uF" H 2015 1000 50  0000 L CNN
+F 2 "" H 1900 1000 50  0001 C CNN
+F 3 "~" H 1900 1000 50  0001 C CNN
+F 4 "EEV-TG2A331M " H 2015 909 50  0000 L CNN "PN"
+	1    1900 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 1250 1900 1250
+Wire Wire Line
+	1900 1250 1900 1150
+Wire Wire Line
+	1900 850  1900 750 
+Wire Wire Line
+	1900 750  2350 750 
+Wire Wire Line
+	1750 950  1750 750 
+Wire Wire Line
+	1750 750  1900 750 
+Wire Wire Line
+	1400 950  1750 950 
+Connection ~ 1900 750 
+Wire Wire Line
+	1750 1050 1750 1250
+Wire Wire Line
+	1750 1250 1900 1250
+Wire Wire Line
+	1400 1050 1750 1050
+Connection ~ 1900 1250
 $EndSCHEMATC
