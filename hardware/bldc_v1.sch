@@ -200,9 +200,9 @@ GND
 Text Label 3350 1750 2    60   ~ 0
 48v
 Connection ~ 3500 1750
-Text Label 2350 750  0    60   ~ 0
+Text Label 3450 700  0    60   ~ 0
 48v
-Text Label 2350 1250 0    60   ~ 0
+Text Label 3450 1250 0    60   ~ 0
 GND
 $Comp
 L Connector_Generic:Conn_01x06 J1
@@ -327,35 +327,79 @@ $EndComp
 $Comp
 L Device:CP1 C17
 U 1 1 5C5C16E0
-P 1900 1000
-F 0 "C17" H 2015 1091 50  0000 L CNN
-F 1 "330uF" H 2015 1000 50  0000 L CNN
-F 2 "" H 1900 1000 50  0001 C CNN
-F 3 "~" H 1900 1000 50  0001 C CNN
-F 4 "EEV-TG2A331M " H 2015 909 50  0000 L CNN "PN"
-	1    1900 1000
+P 1950 1000
+F 0 "C17" H 2065 1091 50  0000 L CNN
+F 1 "100u" H 2065 1000 50  0000 L CNN
+F 2 "Capacitors_SMD:CP_Elec_10x10" H 1950 1000 50  0001 C CNN
+F 3 "~" H 1950 1000 50  0001 C CNN
+F 4 "EEE-1JA101P" V 1800 750 50  0000 L CNN "PN"
+	1    1950 1000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2350 1250 1900 1250
-Wire Wire Line
-	1900 1250 1900 1150
-Wire Wire Line
-	1900 850  1900 750 
-Wire Wire Line
-	1900 750  2350 750 
-Wire Wire Line
-	1750 950  1750 750 
-Wire Wire Line
-	1750 750  1900 750 
-Wire Wire Line
 	1400 950  1750 950 
-Connection ~ 1900 750 
 Wire Wire Line
 	1750 1050 1750 1250
 Wire Wire Line
-	1750 1250 1900 1250
-Wire Wire Line
 	1400 1050 1750 1050
-Connection ~ 1900 1250
+Wire Wire Line
+	1750 1250 1950 1250
+Wire Wire Line
+	1950 1150 1950 1250
+Connection ~ 1950 1250
+Wire Wire Line
+	1950 850  1950 700 
+Wire Wire Line
+	1950 700  1750 700 
+Wire Wire Line
+	1750 700  1750 950 
+$Comp
+L Device:CP1 C18
+U 1 1 5C53255D
+P 2500 1000
+F 0 "C18" H 2615 1091 50  0000 L CNN
+F 1 "100u" H 2615 1000 50  0000 L CNN
+F 2 "Capacitors_SMD:CP_Elec_10x10" H 2500 1000 50  0001 C CNN
+F 3 "~" H 2500 1000 50  0001 C CNN
+F 4 "EEE-1JA101P" V 2350 750 50  0000 L CNN "PN"
+	1    2500 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1 C19
+U 1 1 5C53258F
+P 3050 1000
+F 0 "C19" H 3165 1091 50  0000 L CNN
+F 1 "100u" H 3165 1000 50  0000 L CNN
+F 2 "Capacitors_SMD:CP_Elec_10x10" H 3050 1000 50  0001 C CNN
+F 3 "~" H 3050 1000 50  0001 C CNN
+F 4 "EEE-1JA101P" V 2900 750 50  0000 L CNN "PN"
+	1    3050 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 1250 3050 1150
+Wire Wire Line
+	1950 1250 2500 1250
+Wire Wire Line
+	2500 1150 2500 1250
+Connection ~ 2500 1250
+Wire Wire Line
+	2500 1250 3050 1250
+Wire Wire Line
+	2500 850  2500 700 
+Wire Wire Line
+	2500 700  1950 700 
+Connection ~ 1950 700 
+Wire Wire Line
+	3050 850  3050 700 
+Wire Wire Line
+	3050 700  2500 700 
+Connection ~ 2500 700 
+Wire Wire Line
+	3450 700  3050 700 
+Connection ~ 3050 700 
+Wire Wire Line
+	3050 1250 3450 1250
+Connection ~ 3050 1250
 $EndSCHEMATC
