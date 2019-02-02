@@ -362,4 +362,34 @@ Wire Wire Line
 	9200 1700 9450 1700
 Wire Wire Line
 	9200 1600 9450 1600
+Wire Notes Line
+	3950 2250 8000 2250
+Wire Notes Line
+	8000 2250 8000 850 
+Wire Notes Line
+	8000 850  3950 850 
+Wire Notes Line
+	3950 850  3950 2250
+Text Notes 3950 850  0    59   ~ 0
+Phase A
+Wire Notes Line
+	8000 2600 3950 2600
+Wire Notes Line
+	3950 2600 3950 4000
+Text Notes 3950 2600 0    59   ~ 0
+Phase B
+Wire Notes Line
+	3950 4000 8000 4000
+Wire Notes Line
+	8000 4000 8000 2600
+Wire Notes Line
+	8000 4300 3950 4300
+Wire Notes Line
+	3950 4300 3950 5700
+Text Notes 3950 4300 0    59   ~ 0
+Phase C
+Wire Notes Line
+	3950 5700 8000 5700
+Wire Notes Line
+	8000 5700 8000 4300
 $EndSCHEMATC
