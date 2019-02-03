@@ -387,13 +387,37 @@ Wire Notes Line
 Text Notes 7800 600  0    59   ~ 0
 Connections
 Wire Notes Line
-	650  700  650  1750
+	650  700  650  2550
 Wire Notes Line
-	650  1750 5450 1750
+	650  2550 5450 2550
 Wire Notes Line
-	5450 1750 5450 700 
+	5450 2550 5450 700 
 Wire Notes Line
 	5450 700  650  700 
 Text Notes 650  700  0    59   ~ 0
 Power Filtering
+$Comp
+L Device:C_Small C16
+U 1 1 5C5722DB
+P 2300 2000
+F 0 "C16" H 2392 2091 50  0000 L CNN
+F 1 "10.0uF" H 2392 2000 50  0000 L CNN
+F 2 "" H 2300 2000 50  0001 C CNN
+F 3 "~" H 2300 2000 50  0001 C CNN
+F 4 "C2012X5R1V106K125AC" H 2392 1909 50  0000 L CNN "PN"
+	1    2300 2000
+	1    0    0    -1  
+$EndComp
+Text Label 2150 2200 2    50   ~ 0
+GND
+Text Label 2150 1850 2    50   ~ 0
+5v
+Wire Wire Line
+	2150 1850 2300 1850
+Wire Wire Line
+	2300 1850 2300 1900
+Wire Wire Line
+	2150 2200 2300 2200
+Wire Wire Line
+	2300 2200 2300 2100
 $EndSCHEMATC

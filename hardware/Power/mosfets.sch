@@ -747,7 +747,7 @@ Connection ~ 3200 2650
 Text Label 2400 2000 0    50   ~ 0
 HS_A_GATE
 Wire Wire Line
-	6750 2650 6750 3700
+	6750 2650 6750 2900
 Connection ~ 6750 2650
 Wire Wire Line
 	10000 2650 10000 3100
@@ -892,9 +892,6 @@ Wire Wire Line
 Connection ~ 7950 2900
 Text HLabel 7500 2650 2    50   Output ~ 0
 PHASEB_SOURCE
-Connection ~ 7300 2900
-Wire Wire Line
-	7300 2900 6750 2900
 Wire Wire Line
 	7500 2650 7300 2650
 Wire Wire Line
@@ -943,4 +940,10 @@ Wire Wire Line
 Connection ~ 10250 3100
 Wire Wire Line
 	10250 3100 10000 3100
+Wire Wire Line
+	6750 2900 7300 2900
+Connection ~ 6750 2900
+Wire Wire Line
+	6750 2900 6750 3700
+Connection ~ 7300 2900
 $EndSCHEMATC
