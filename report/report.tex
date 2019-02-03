@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\begin{document}
+	
+	\title{Permanent Magnet Alternating Current Motor Controller}
+	\author{Alex Simon}
+	
+	\maketitle
+	
+	\begin{abstract}
+		This document explores the design decisions for a Permanent Magnet Alternating Current (PMAC) motor controller.  Specifically, the hardware component design choices and the commutation techniques used within the project.
+	\end{abstract}
+	
+	\section{Introduction}
+	This paper will explore the process of designing a PMAC motor controller and the difficulties discovered along the way.  Beginning with the printed circuit board (PCB) design stage, each of the major components used in the PCB will be evaluated.  Once the PCB has been designed two different commutation techniques will be explored.  Trapezoidal commutation will be evaluated first to validate the hardware design because it is less complex than Field Oriented Control (FOC).  Field Oriented Control will be evaluated last because the software complexity introduces a lot of area for error, but the hardware will already be validated from trapezoidal control.  The advantage of this order allows one problem to be solved at a time; hardware then control strategy.
+	
+	\section{Hardware Design}
+	The hardware is divided into two sections: the power and control stage.  Each stage is designed on a separate PCBs to minimize cost and for ease of testing.  This modular design also allows for each stage to be tested independently of the other and eventually costs less because fewer components will need to be replaced when something goes wrong.
+	
+		\subsection{Metal-Oxide-Semiconductor Field-Effect Transistor (MOSFET)}
+		To evaluate the advantages and disadvantages of each MOSFET a power calculation can be done.  The power consumed by a MOSFET can be estimated using Equations \ref{eq:MOSFET Tot Power}, \ref{eq:MOSFET On Power}, \ref{eq:MOSFET Off Power}, and \ref{eq:MOSFET Switch Power}.
+		
+			\begin{equation}
+				\label{eq:MOSFET Tot Power}
+				P_{Total} = P_{On} + P_{Off} + P_{Sw}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:MOSFET On Power}
+				P_{On} = (I_{Continuous})^2 * R_{ds(on)} * DutyCycle
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:MOSFET Off Power}
+				P_{Off} = (1 - DutyCycle) * V_{Off} * I_{Leakage}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:MOSFET Switch Power}
+				P_{Sw} = \frac{V_{Off} * I_{Continuous} * (T_{Rise} + T_{Fall}) * F_{Sw}}{2}
+			\end{equation}
+	
+		\noindent Using the given parameters for each MOSFET and Equations \ref{eq:MOSFET Tot Power}, \ref{eq:MOSFET On Power}, \ref{eq:MOSFET Off Power}, and \ref{eq:MOSFET Switch Power} it becomes easier to compare each MOSFET.  For this project 8 different MOSFETs were chosen for evaluation.  As shown in Table \ref{tab:MOSFET Power}, Infineons BSC016N06 consumes the least power, but due to the rated voltage, rated current and solderability Infineons IPB017N10N5 was chosen instead.
+		
+		\begin{table}[!ht]
+			\begin{center}
+				\label{tab:MOSFET Power}
+				\begin{tabular}{ |c|c|c|c|c| }
+					\hline
+					MOSFET & $P_{On}$ & $P_{Off}$ & $P_{Sw}$ & $P_{Total}$ \\
+					\hline \hline
+					BSC047N08NS3 & 0.94 & 24$\mu$ & 0.1344 & 1.07 \\
+					\hline
+					CSD18540Q5B & 0.44 & 24$\mu$ & 0.0576 & 0.50 \\
+					\hline
+					BSC014N06NS & 0.29 & 24$\mu$ & 0.1008 & 0.39 \\
+					\hline
+					BSC016N06NS & 0.32 & 24$\mu$ & 0.0864 & 0.41 \\
+					\hline
+					IPT012N08N5 & 0.24 & 2$\mu$ & 0.2928 & 0.53 \\
+					\hline
+					CSD18531Q5A & 0.70 & 24$\mu$ & 0.0504 & 0.75 \\
+					\hline
+					IPB017N10N5 & 0.34 & 24$\mu$ & 0.2400 & 0.58 \\
+					\hline
+					IPB044N15N5 & 0.88 & 24$\mu$ & 0.0528 & 0.93 \\
+					\hline
+				\end{tabular}
+				\caption{Power Consumption for each MOSFET assuming: $V_{Off}=48v$, $f_{Sw}=10kHz$, $I_{Continuous}=20$, $DutyCycle=50\%$.  Note: Equation \ref{eq:MOSFET Switch Power} uses rectangular commutation to estimate $P_{Sw}$.}
+			\end{center}
+		\end{table}
+	
+		\subsection{Gate Driver}
+		Write your subsection text here.
+	
+		\subsection{Bootstrap Capacitor}
+		Write your subsection text here.
+	
+		\subsection{DC-DC Converter (5 Volts)}
+		Write your subsection text here.
+	
+		\subsection{DC-DC Converter (12 Volts)}
+		Write your subsection text here.
+	
+		\subsection{Microcontroller}
+		Write your subsection text here.
+	
+		\begin{equation}
+		\label{simple_equation}
+		\alpha = \sqrt{ \beta }
+		\end{equation}
+	
+	\section{Commutation Techniques}
+	Write your section text here.
+	
+		\subsection{Trapezoidal Control}
+		Write your subsection text here.
+		
+		\subsection{Field Oriented Control}
+		Write your subsection text here.
+	
+	\section{Conclusion}
+	Write your conclusion here.
+	
+	\section{Lessons Learned}
+	Write your lessons learned here.
+	
+	
+\end{document}
