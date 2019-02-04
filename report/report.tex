@@ -1,6 +1,6 @@
 \documentclass{article}
-
 \usepackage{array}
+\usepackage[margin=1in]{geometry}
 
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
@@ -48,7 +48,6 @@
 		
 		\begin{table}[!ht]
 			\begin{center}
-				\label{tab:MOSFET Power}
 				\begin{tabular}{ |C{3cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|C{1.5cm}| }
 					\hline
 					MOSFET & $P_{On}$ & $P_{Off}$ & $P_{Sw}$ & $P_{Total}$ \\
@@ -71,6 +70,7 @@
 					\hline
 				\end{tabular}
 				\caption{Power Consumption for each MOSFET assuming: $V_{Off}=48v$, $f_{Sw}=10kHz$, $I_{Continuous}=20$, $DutyCycle=50\%$.  Note: Equation \ref{eq:MOSFET Switch Power} uses rectangular commutation to estimate $P_{Sw}$.}
+				\label{tab:MOSFET Power}
 			\end{center}
 		\end{table}
 	
@@ -85,7 +85,6 @@
 		
 		\begin{table}[!ht]
 			\begin{center}
-				\label{tab:gate comp}
 				\begin{tabular}{ |C{4cm}|c|c| }
 					\hline
 					Characteristic & UCC27201A & UCC27211 \\
@@ -106,6 +105,7 @@
 					\hline
 				\end{tabular}
 				\caption{With four of the seven highlighted characteristics being the same both driver would work, but for the added peak current UCC27211 has an edge.  In the event that more neggative voltage handling is needed UCC27201A can be a drop in replacement for the UCC27211.}
+				\label{tab:gate comp}
 			\end{center}
 		\end{table}
 		
