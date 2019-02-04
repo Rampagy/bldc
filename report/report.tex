@@ -1,5 +1,8 @@
 \documentclass{article}
-\usepackage{graphicx}
+
+\usepackage{array}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \begin{document}
 	
@@ -46,25 +49,25 @@
 		\begin{table}[!ht]
 			\begin{center}
 				\label{tab:MOSFET Power}
-				\begin{tabular}{ |c|c|c|c|c| }
+				\begin{tabular}{ |C{3cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|C{1.5cm}| }
 					\hline
 					MOSFET & $P_{On}$ & $P_{Off}$ & $P_{Sw}$ & $P_{Total}$ \\
 					\hline \hline
-					BSC047N08NS3 & 0.94 & 24$\mu$ & 0.1344 & 1.07 \\
+					BSC047N08NS3 & 0.94 & 24$\mu$ & 0.1344 & 1.07 \\ [0.5ex]
 					\hline
-					CSD18540Q5B & 0.44 & 24$\mu$ & 0.0576 & 0.50 \\
+					CSD18540Q5B & 0.44 & 24$\mu$ & 0.0576 & 0.50 \\ [0.5ex]
 					\hline
-					BSC014N06NS & 0.29 & 24$\mu$ & 0.1008 & 0.39 \\
+					BSC014N06NS & 0.29 & 24$\mu$ & 0.1008 & 0.39 \\ [0.5ex]
 					\hline
-					BSC016N06NS & 0.32 & 24$\mu$ & 0.0864 & 0.41 \\
+					BSC016N06NS & 0.32 & 24$\mu$ & 0.0864 & 0.41 \\ [0.5ex]
 					\hline
-					IPT012N08N5 & 0.24 & 2$\mu$ & 0.2928 & 0.53 \\
+					IPT012N08N5 & 0.24 & 2$\mu$ & 0.2928 & 0.53 \\ [0.5ex]
 					\hline
-					CSD18531Q5A & 0.70 & 24$\mu$ & 0.0504 & 0.75 \\
+					CSD18531Q5A & 0.70 & 24$\mu$ & 0.0504 & 0.75 \\ [0.5ex]
 					\hline
-					IPB017N10N5 & 0.34 & 24$\mu$ & 0.2400 & 0.58 \\
+					IPB017N10N5 & 0.34 & 24$\mu$ & 0.2400 & 0.58 \\ [0.5ex]
 					\hline
-					IPB044N15N5 & 0.88 & 24$\mu$ & 0.0528 & 0.93 \\
+					IPB044N15N5 & 0.88 & 24$\mu$ & 0.0528 & 0.93 \\ [0.5ex]
 					\hline
 				\end{tabular}
 				\caption{Power Consumption for each MOSFET assuming: $V_{Off}=48v$, $f_{Sw}=10kHz$, $I_{Continuous}=20$, $DutyCycle=50\%$.  Note: Equation \ref{eq:MOSFET Switch Power} uses rectangular commutation to estimate $P_{Sw}$.}
@@ -72,9 +75,41 @@
 		\end{table}
 	
 		\subsection{Gate Driver}
-		Write your subsection text here.
-	
-		\subsection{Bootstrap Capacitor}
+		A MOSFET is only as good as the gate driver behind it.  If the gate driver has slow rise and fall times, the MOSFET will have slow rise and fall times irregardless of its own rise and fall times.  In addition if the driver does not provide enough current fast the gate of the MOSFET will have slow rise and fall times, again irregardless of its own rise and fall times.  When choosing the gate driver a voltage rating of 150v $\geq V_{rated} \geq$ 100v was desired.  The 150v upper bound is for monetary and complexity reasons while the 100v lower bound is needed to withstand voltage transients.
+		\newline
+		\newline
+		After the voltage rating rise and fall times of the gate driver are most important. The goal is to have faster rise and fall times than the chosen MOSFET; 23$\mu$s and 27$\mu$s respectively for \textit{Infineons} IPB017N10N5.  The amount of peak current of the gate driver can also play a factor in rise and fall times as it needs to charge the MOSFET gate.  
+		\newline
+		\newline
+		With these three constraints it came down to 2 different Gate Drivers, \textit{Texas Instruments} UCC27201 and UCC27211, with UCC27211 being a revision later than UCC27201.  Table \ref{tab:gate comp} shows a comparison between several key characteristics of the drivers.
+		
+		\begin{table}[!ht]
+			\begin{center}
+				\label{tab:gate comp}
+				\begin{tabular}{ |C{4cm}|c|c| }
+					\hline
+					Characteristic & UCC27201A & UCC27211 \\
+					\hline
+					Rated Voltage (V) & 110 & 110 \\ [0.5ex]
+					\hline
+					Rise Time ($\mu$s) & 8.0 & 8.0 \\ [0.5ex]
+					\hline
+					Fall Time ($\mu$s) & 7.0 & 7.0 \\ [0.5ex]
+					\hline
+					Peak Current (A) & 3.0 & 4.0 \\ [0.5ex]
+					\hline
+					Negative voltage handling at HS pin (V) & -15.0 & -12.0 \\ [0.5ex]
+					\hline
+					Cost (\$) & 3.12 & 3.60 \\ [0.5ex]
+					\hline
+					Footprint & SOIC-8 & SOIC-8 \\ [0.5ex]
+					\hline
+				\end{tabular}
+				\caption{With four of the seven highlighted characteristics being the same both driver would work, but for the added peak current UCC27211 has an edge.  In the event that more neggative voltage handling is needed UCC27201A can be a drop in replacement for the UCC27211.}
+			\end{center}
+		\end{table}
+		
+		\subsubsection{Bootstrap Capacitor}
 		Write your subsection text here.
 	
 		\subsection{DC-DC Converter (5 Volts)}
