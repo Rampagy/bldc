@@ -79,10 +79,8 @@ Wire Wire Line
 	5000 4950 4800 4950
 Wire Wire Line
 	3600 4950 3400 4950
-Text HLabel 3400 3450 0    49   Input ~ 0
+Text HLabel 1900 3450 0    49   Input ~ 0
 PHASEB_FB
-Wire Wire Line
-	3400 3450 3600 3450
 Text HLabel 3400 3850 0    49   Output ~ 0
 HS_A_TTL_PWM
 Text HLabel 3400 3950 0    49   Output ~ 0
@@ -99,10 +97,8 @@ Text HLabel 3400 4550 0    49   BiDi ~ 0
 USART_RX
 Wire Wire Line
 	3400 4550 3600 4550
-Text HLabel 5000 3450 2    49   Input ~ 0
+Text HLabel 5750 3450 2    49   Input ~ 0
 PHASEA_FB
-Wire Wire Line
-	5000 3450 4800 3450
 Text HLabel 5000 3550 2    49   Input ~ 0
 HALL_C
 Wire Wire Line
@@ -220,4 +216,78 @@ Text HLabel 5000 4450 2    49   BiDi ~ 0
 USART_TX
 Wire Wire Line
 	5000 4450 4800 4450
+$Comp
+L Device:R_Small R6
+U 1 1 5C590F83
+P 2650 3750
+F 0 "R6" H 2500 3850 50  0000 L CNN
+F 1 "2.0k" H 2400 3750 50  0000 L CNN
+F 2 "" V 2580 3750 50  0001 C CNN
+F 3 "~" H 2650 3750 50  0001 C CNN
+F 4 "RR0816P-202-D" H 1900 3650 50  0000 L CNN "PN"
+	1    2650 3750
+	1    0    0    -1  
+$EndComp
+Text Label 2650 4100 3    50   ~ 0
+GND
+$Comp
+L Device:R_Small R5
+U 1 1 5C591E6C
+P 2300 3450
+F 0 "R5" V 2000 3400 50  0000 L CNN
+F 1 "1.8k" V 2100 3350 50  0000 L CNN
+F 2 "" V 2230 3450 50  0001 C CNN
+F 3 "~" H 2300 3450 50  0001 C CNN
+F 4 "ESR10EZPJ182" V 2200 3150 50  0000 L CNN "PN"
+	1    2300 3450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2650 3450 3600 3450
+Connection ~ 2650 3450
+Wire Wire Line
+	1900 3450 2200 3450
+Wire Wire Line
+	2400 3450 2650 3450
+Wire Wire Line
+	2650 3450 2650 3650
+Wire Wire Line
+	2650 3850 2650 4100
+$Comp
+L Device:R_Small R8
+U 1 1 5C597FB4
+P 5550 3450
+F 0 "R8" V 5350 3400 50  0000 L CNN
+F 1 "1.8k" V 5450 3400 50  0000 L CNN
+F 2 "" V 5480 3450 50  0001 C CNN
+F 3 "~" H 5550 3450 50  0001 C CNN
+F 4 "ESR10EZPJ182" V 5650 3350 50  0000 L CNN "PN"
+	1    5550 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R7
+U 1 1 5C599320
+P 5100 3150
+F 0 "R7" H 5150 3150 50  0000 L CNN
+F 1 "2.0k" H 5150 3050 50  0000 L CNN
+F 2 "" V 5030 3150 50  0001 C CNN
+F 3 "~" H 5100 3150 50  0001 C CNN
+F 4 "RR0816P-202-D" H 5150 3250 50  0000 L CNN "PN"
+	1    5100 3150
+	1    0    0    -1  
+$EndComp
+Text Label 5100 2900 0    50   ~ 0
+GND
+Wire Wire Line
+	5750 3450 5650 3450
+Wire Wire Line
+	4800 3450 5100 3450
+Wire Wire Line
+	5100 2900 5100 3050
+Wire Wire Line
+	5100 3250 5100 3450
+Connection ~ 5100 3450
+Wire Wire Line
+	5100 3450 5450 3450
 $EndSCHEMATC
