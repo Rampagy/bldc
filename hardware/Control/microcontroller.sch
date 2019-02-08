@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 3
+Sheet 2 4
 Title "Brushless DC Motor Controller"
-Date "2019-02-02"
+Date "2019-02-07"
 Rev "1"
 Comp "Loma Inrocporated"
 Comment1 ""
@@ -139,8 +139,6 @@ Text HLabel 8400 3750 2    49   Input ~ 0
 HALL_B
 Wire Wire Line
 	8400 3750 8200 3750
-NoConn ~ 3600 2650
-NoConn ~ 4800 2650
 NoConn ~ 4800 2750
 NoConn ~ 4800 2850
 NoConn ~ 4800 2950
@@ -172,7 +170,6 @@ NoConn ~ 3600 3150
 NoConn ~ 3600 3050
 NoConn ~ 3600 2950
 NoConn ~ 3600 2850
-NoConn ~ 7000 2750
 NoConn ~ 7000 2850
 NoConn ~ 7000 2950
 NoConn ~ 7000 3050
@@ -211,7 +208,6 @@ NoConn ~ 8200 3150
 NoConn ~ 8200 3050
 NoConn ~ 8200 2950
 NoConn ~ 8200 2850
-NoConn ~ 8200 2750
 Text HLabel 5000 4450 2    49   BiDi ~ 0
 USART_TX
 Wire Wire Line
@@ -235,10 +231,10 @@ L Device:R_Small R5
 U 1 1 5C591E6C
 P 2300 3450
 F 0 "R5" V 2000 3400 50  0000 L CNN
-F 1 "1.8k" V 2100 3350 50  0000 L CNN
+F 1 "680" V 2100 3350 50  0000 L CNN
 F 2 "" V 2230 3450 50  0001 C CNN
 F 3 "~" H 2300 3450 50  0001 C CNN
-F 4 "ESR10EZPJ182" V 2200 3150 50  0000 L CNN "PN"
+F 4 "CRGCQ0805F680R" V 2200 3150 50  0000 L CNN "PN"
 	1    2300 3450
 	0    1    1    0   
 $EndComp
@@ -258,10 +254,10 @@ L Device:R_Small R8
 U 1 1 5C597FB4
 P 5550 3450
 F 0 "R8" V 5350 3400 50  0000 L CNN
-F 1 "1.8k" V 5450 3400 50  0000 L CNN
+F 1 "680" V 5450 3400 50  0000 L CNN
 F 2 "" V 5480 3450 50  0001 C CNN
 F 3 "~" H 5550 3450 50  0001 C CNN
-F 4 "ESR10EZPJ182" V 5650 3350 50  0000 L CNN "PN"
+F 4 "CRGCQ0805F680R" V 5650 3350 50  0000 L CNN "PN"
 	1    5550 3450
 	0    1    1    0   
 $EndComp
@@ -290,4 +286,26 @@ Wire Wire Line
 Connection ~ 5100 3450
 Wire Wire Line
 	5100 3450 5450 3450
+Text Label 5000 2650 0    59   ~ 0
+3v
+Wire Wire Line
+	4800 2650 5000 2650
+Text Label 3400 2650 2    59   ~ 0
+3v
+Wire Wire Line
+	3600 2650 3400 2650
+Text Label 6850 2750 2    59   ~ 0
+3v
+Wire Wire Line
+	7000 2750 6850 2750
+Text Label 8350 2750 0    59   ~ 0
+3v
+Wire Wire Line
+	8350 2750 8200 2750
+Text HLabel 1100 1550 0    59   Output ~ 0
+3v
+Text Label 1350 1550 0    59   ~ 0
+3v
+Wire Wire Line
+	1350 1550 1100 1550
 $EndSCHEMATC

@@ -397,27 +397,23 @@ Wire Notes Line
 Text Notes 650  700  0    59   ~ 0
 Power Filtering
 $Comp
-L Device:C_Small C16
-U 1 1 5C5722DB
-P 2300 2000
-F 0 "C16" H 2392 2091 50  0000 L CNN
-F 1 "10.0uF" H 2392 2000 50  0000 L CNN
-F 2 "" H 2300 2000 50  0001 C CNN
-F 3 "~" H 2300 2000 50  0001 C CNN
-F 4 "C2012X5R1V106K125AC" H 2392 1909 50  0000 L CNN "PN"
-	1    2300 2000
-	1    0    0    -1  
+L Connector:Screw_Terminal_01x02 J4
+U 1 1 5C5DBDE6
+P 1300 2000
+F 0 "J4" H 1300 1700 50  0000 C CNN
+F 1 "Screw_Terminal_01x02" H 1300 1800 50  0000 C CNN
+F 2 "" H 1300 2000 50  0001 C CNN
+F 3 "~" H 1300 2000 50  0001 C CNN
+F 4 " 1986660-2 " H 1300 2150 50  0000 C CNN "PN"
+	1    1300 2000
+	-1   0    0    1   
 $EndComp
-Text Label 2150 2200 2    50   ~ 0
+Text Label 1750 1900 0    50   ~ 0
+48v
+Wire Wire Line
+	1750 1900 1500 1900
+Text Label 1750 2000 0    50   ~ 0
 GND
-Text Label 2150 1850 2    50   ~ 0
-5v
 Wire Wire Line
-	2150 1850 2300 1850
-Wire Wire Line
-	2300 1850 2300 1900
-Wire Wire Line
-	2150 2200 2300 2200
-Wire Wire Line
-	2300 2200 2300 2100
+	1750 2000 1500 2000
 $EndSCHEMATC

@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 3 4
 Title "Brushless DC Motor Controller"
-Date "2019-02-02"
+Date "2019-02-07"
 Rev "1"
 Comp "Loma Inrocporated"
 Comment1 ""
@@ -37,7 +37,7 @@ Text Label 1950 1500 0    50   ~ 0
 GND
 Wire Wire Line
 	1950 1500 1750 1500
-Text Label 3700 1650 2    50   ~ 0
+Text Label 2850 1650 2    50   ~ 0
 48v
 $Comp
 L Device:CP1 C1
@@ -51,7 +51,7 @@ F 4 "EEE-1JA101P" V 3700 1850 50  0000 L CNN "PN"
 	1    3850 2150
 	1    0    0    -1  
 $EndComp
-Text Label 3700 2650 2    50   ~ 0
+Text Label 2850 2650 2    50   ~ 0
 GND
 Wire Wire Line
 	4550 1850 4400 1850
@@ -78,10 +78,6 @@ Wire Wire Line
 Connection ~ 4400 2650
 Wire Wire Line
 	4400 2650 5050 2650
-Wire Wire Line
-	3700 2650 3850 2650
-Wire Wire Line
-	3700 1650 3850 1650
 Wire Wire Line
 	3850 2000 3850 1650
 Connection ~ 3850 1650
@@ -187,13 +183,13 @@ Wire Wire Line
 	8150 1850 7700 1850
 Connection ~ 7700 1850
 Wire Notes Line
-	3350 1200 8800 1200
+	2600 1200 8800 1200
 Wire Notes Line
 	8800 1200 8800 2850
 Wire Notes Line
-	8800 2850 3350 2850
+	8800 2850 2600 2850
 Wire Notes Line
-	3350 2850 3350 1200
+	2600 2850 2600 1200
 Text Notes 3350 1200 0    59   ~ 0
 12v Converter
 $Comp
@@ -207,7 +203,7 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/lm2575.pdf" H 5050 4150 50 
 	1    5050 4150
 	1    0    0    -1  
 $EndComp
-Text Label 3700 4050 2    50   ~ 0
+Text Label 2850 4050 2    50   ~ 0
 48v
 $Comp
 L Device:CP1 C2
@@ -221,7 +217,7 @@ F 4 "80ZLH1000MEFC16X40" V 3700 4150 50  0000 L CNN "PN"
 	1    3850 4550
 	1    0    0    -1  
 $EndComp
-Text Label 3700 5050 2    50   ~ 0
+Text Label 2850 5050 2    50   ~ 0
 GND
 Wire Wire Line
 	4550 4250 4400 4250
@@ -248,10 +244,6 @@ Wire Wire Line
 Connection ~ 4400 5050
 Wire Wire Line
 	4400 5050 5050 5050
-Wire Wire Line
-	3700 5050 3850 5050
-Wire Wire Line
-	3700 4050 3850 4050
 Wire Wire Line
 	3850 4400 3850 4050
 Connection ~ 3850 4050
@@ -355,15 +347,67 @@ Wire Wire Line
 	8150 4250 7700 4250
 Connection ~ 7700 4250
 Wire Notes Line
-	3350 3600 8800 3600
+	2600 3600 8800 3600
 Wire Notes Line
 	8800 3600 8800 5250
 Wire Notes Line
-	8800 5250 3350 5250
+	8800 5250 2600 5250
 Wire Notes Line
-	3350 5250 3350 3600
+	2600 5250 2600 3600
 Text Notes 3350 3600 0    59   ~ 0
 5v Converter
 Wire Wire Line
 	3850 4050 4550 4050
+$Comp
+L Device:C C5
+U 1 1 5C5E68E9
+P 3250 2150
+F 0 "C5" H 3365 2241 50  0000 L CNN
+F 1 "2.2uF" H 3365 2150 50  0000 L CNN
+F 2 "" H 3288 2000 50  0001 C CNN
+F 3 "~" H 3250 2150 50  0001 C CNN
+F 4 "CGA5L3X7S2A225M160AB" V 3100 1700 50  0000 L CNN "PN"
+	1    3250 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 2000 3250 1650
+Wire Wire Line
+	3250 1650 3850 1650
+Wire Wire Line
+	3250 2650 3250 2300
+Wire Wire Line
+	3250 2650 3850 2650
+Wire Wire Line
+	2850 1650 3250 1650
+Connection ~ 3250 1650
+Wire Wire Line
+	3250 2650 2850 2650
+Connection ~ 3250 2650
+$Comp
+L Device:C C6
+U 1 1 5C5F0240
+P 3250 4550
+F 0 "C6" H 3365 4641 50  0000 L CNN
+F 1 "2.2uF" H 3365 4550 50  0000 L CNN
+F 2 "" H 3288 4400 50  0001 C CNN
+F 3 "~" H 3250 4550 50  0001 C CNN
+F 4 "CGA5L3X7S2A225M160AB" V 3100 4100 50  0000 L CNN "PN"
+	1    3250 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 4050 3250 4050
+Wire Wire Line
+	2850 5050 3250 5050
+Wire Wire Line
+	3250 4400 3250 4050
+Connection ~ 3250 4050
+Wire Wire Line
+	3250 4050 3850 4050
+Wire Wire Line
+	3250 4700 3250 5050
+Connection ~ 3250 5050
+Wire Wire Line
+	3250 5050 3850 5050
 $EndSCHEMATC
