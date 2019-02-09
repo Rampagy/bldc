@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 4
+Sheet 2 3
 Title "Brushless DC Motor Controller"
 Date "2019-02-07"
 Rev "1"
@@ -168,7 +168,6 @@ NoConn ~ 3600 3350
 NoConn ~ 3600 3250
 NoConn ~ 3600 3150
 NoConn ~ 3600 3050
-NoConn ~ 3600 2950
 NoConn ~ 3600 2850
 NoConn ~ 7000 2850
 NoConn ~ 7000 2950
@@ -308,4 +307,8 @@ Text Label 1350 1550 0    59   ~ 0
 3v
 Wire Wire Line
 	1350 1550 1100 1550
+Text HLabel 3400 2950 0    59   Input ~ 0
+T_Snsr
+Wire Wire Line
+	3600 2950 3400 2950
 $EndSCHEMATC

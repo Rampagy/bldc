@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
-Sheet 1 4
+Sheet 1 3
 Title "Brushless DC Motor Controller"
 Date "2019-02-07"
 Rev "1"
@@ -37,6 +37,7 @@ F16 "HALL_B" I L 4900 2900 49
 F17 "HALL_C" I L 4900 3000 49 
 F18 "USART_TX" B L 4900 2300 49 
 F19 "3v" O L 4900 1450 59 
+F20 "T_Snsr" I L 4900 3200 59 
 $EndSheet
 $Comp
 L Connector_Generic:Conn_02x07_Counter_Clockwise J1
@@ -50,7 +51,6 @@ F 4 "302-S141" H 1800 1750 50  0000 C CNN "PN"
 	1    1750 2150
 	1    0    0    -1  
 $EndComp
-NoConn ~ 2050 2450
 NoConn ~ 1550 2450
 Text Label 2400 1850 0    50   ~ 0
 HS_A_TTL_PWM
@@ -349,89 +349,16 @@ Wire Wire Line
 	6350 4150 6550 4150
 Wire Wire Line
 	6350 4050 6550 4050
-$Sheet
-S 5050 4800 1950 1500
-U 5C62087D
-F0 "shootthroughprotection" 59
-F1 "shootthroughprotection.sch" 59
-F2 "HS_A_TTL_PWM" I L 5050 5250 59 
-F3 "5v" I L 5050 4850 59 
-F4 "HS_A_CMOS_PWM" O R 7000 5050 59 
-F5 "LS_A_CMOS_PWM" O R 7000 5150 59 
-F6 "HS_B_CMOS_PWM" O R 7000 5350 59 
-F7 "LS_B_CMOS_PWM" O R 7000 5450 59 
-F8 "HS_C_CMOS_PWM" O R 7000 5650 59 
-F9 "LS_C_CMOS_PWM" O R 7000 5750 59 
-F10 "GND" O L 5050 5050 59 
-F11 "LS_A_TTL_PWM" I L 5050 5350 59 
-F12 "HS_B_TTL_PWM" I L 5050 5550 59 
-F13 "LS_B_TTL_PWM" I L 5050 5650 59 
-F14 "HS_C_TTL_PWM" I L 5050 5850 59 
-F15 "LS_C_TTL_PWM" I L 5050 5950 59 
-F16 "3v" I L 5050 4950 59 
-$EndSheet
-Text Label 4750 5250 2    49   ~ 0
-HS_A_TTL_PWM
-Text Label 4750 5350 2    49   ~ 0
-LS_A_TTL_PWM
-Text Label 4750 5550 2    49   ~ 0
-HS_B_TTL_PWM
-Text Label 4750 5650 2    49   ~ 0
-LS_B_TTL_PWM
-Text Label 4750 5850 2    49   ~ 0
-HS_C_TTL_PWM
-Text Label 4750 5950 2    49   ~ 0
-LS_C_TTL_PWM
-Wire Wire Line
-	4750 5250 5050 5250
-Wire Wire Line
-	5050 5350 4750 5350
-Wire Wire Line
-	4750 5550 5050 5550
-Wire Wire Line
-	5050 5650 4750 5650
-Wire Wire Line
-	4750 5850 5050 5850
-Wire Wire Line
-	5050 5950 4750 5950
-Text Label 4750 5050 2    59   ~ 0
-GND
-Wire Wire Line
-	4750 5050 5050 5050
-Text Label 4750 4850 2    59   ~ 0
-5v
-Wire Wire Line
-	4750 4850 5050 4850
-Text Label 4750 4950 2    59   ~ 0
-3v
-Wire Wire Line
-	4750 4950 5050 4950
-Text Label 7200 5050 0    59   ~ 0
-HS_A_CMOS_PWM
-Text Label 7200 5150 0    59   ~ 0
-LS_A_CMOS_PWM
-Text Label 7200 5350 0    59   ~ 0
-HS_B_CMOS_PWM
-Text Label 7200 5450 0    59   ~ 0
-LS_B_CMOS_PWM
-Text Label 7200 5650 0    59   ~ 0
-HS_C_CMOS_PWM
-Text Label 7200 5750 0    59   ~ 0
-LS_C_CMOS_PWM
-Wire Wire Line
-	7200 5050 7000 5050
-Wire Wire Line
-	7000 5150 7200 5150
-Wire Wire Line
-	7200 5350 7000 5350
-Wire Wire Line
-	7000 5450 7200 5450
-Wire Wire Line
-	7200 5650 7000 5650
-Wire Wire Line
-	7000 5750 7200 5750
 Text Label 4700 1450 2    59   ~ 0
 3v
 Wire Wire Line
 	4700 1450 4900 1450
+Text Label 2400 2450 0    59   ~ 0
+T_Snsr
+Wire Wire Line
+	2050 2450 2400 2450
+Text Label 4700 3200 2    59   ~ 0
+T_Snsr
+Wire Wire Line
+	4700 3200 4900 3200
 $EndSCHEMATC
