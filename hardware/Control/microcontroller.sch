@@ -314,4 +314,8 @@ Text HLabel 3400 3050 0    59   Input ~ 0
 AUX_0
 Wire Wire Line
 	3600 3050 3400 3050
+Text Label 3000 3450 0    59   ~ 0
+PC5
+Text Label 5100 3450 0    59   ~ 0
+PC4
 $EndSCHEMATC
