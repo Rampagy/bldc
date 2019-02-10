@@ -37,7 +37,8 @@ F16 "HALL_B" I L 4900 2900 49
 F17 "HALL_C" I L 4900 3000 49 
 F18 "USART_TX" B L 4900 2300 49 
 F19 "3v" O L 4900 1450 59 
-F20 "T_Snsr" I L 4900 3200 59 
+F20 "AUX_1" I R 7000 3100 59 
+F21 "AUX_0" I R 7000 3000 59 
 $EndSheet
 $Comp
 L Connector_Generic:Conn_02x07_Counter_Clockwise J1
@@ -51,7 +52,6 @@ F 4 "302-S141" H 1800 1750 50  0000 C CNN "PN"
 	1    1750 2150
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1550 2450
 Text Label 2400 1850 0    50   ~ 0
 HS_A_TTL_PWM
 Wire Wire Line
@@ -354,11 +354,19 @@ Text Label 4700 1450 2    59   ~ 0
 Wire Wire Line
 	4700 1450 4900 1450
 Text Label 2400 2450 0    59   ~ 0
-T_Snsr
+AUX_1
 Wire Wire Line
 	2050 2450 2400 2450
-Text Label 4700 3200 2    59   ~ 0
-T_Snsr
+Text Label 7200 3100 0    59   ~ 0
+AUX_1
+Text Label 1250 2450 2    59   ~ 0
+AUX_0
 Wire Wire Line
-	4700 3200 4900 3200
+	1250 2450 1550 2450
+Wire Wire Line
+	7200 3100 7000 3100
+Text Label 7200 3000 0    59   ~ 0
+AUX_0
+Wire Wire Line
+	7200 3000 7000 3000
 $EndSCHEMATC

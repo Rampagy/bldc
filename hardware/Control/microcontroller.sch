@@ -167,7 +167,6 @@ NoConn ~ 3600 3550
 NoConn ~ 3600 3350
 NoConn ~ 3600 3250
 NoConn ~ 3600 3150
-NoConn ~ 3600 3050
 NoConn ~ 3600 2850
 NoConn ~ 7000 2850
 NoConn ~ 7000 2950
@@ -308,7 +307,11 @@ Text Label 1350 1550 0    59   ~ 0
 Wire Wire Line
 	1350 1550 1100 1550
 Text HLabel 3400 2950 0    59   Input ~ 0
-T_Snsr
+AUX_1
 Wire Wire Line
 	3600 2950 3400 2950
+Text HLabel 3400 3050 0    59   Input ~ 0
+AUX_0
+Wire Wire Line
+	3600 3050 3400 3050
 $EndSCHEMATC
