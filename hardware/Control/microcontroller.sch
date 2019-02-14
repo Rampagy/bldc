@@ -266,28 +266,6 @@ F 4 "RR0816P-202-D" V 2200 3850 50  0000 L CNN "PN"
 $EndComp
 Text Label 2300 4550 3    50   ~ 0
 GND
-Text Label 6800 2150 0    59   ~ 0
-3v
-Wire Wire Line
-	6600 2150 6800 2150
-Text Label 5200 2150 2    59   ~ 0
-3v
-Wire Wire Line
-	5400 2150 5200 2150
-Text Label 8650 2250 2    59   ~ 0
-3v
-Wire Wire Line
-	8800 2250 8650 2250
-Text Label 10150 2250 0    59   ~ 0
-3v
-Wire Wire Line
-	10150 2250 10000 2250
-Text HLabel 1100 1550 0    59   Output ~ 0
-3v
-Text Label 1350 1550 0    59   ~ 0
-3v
-Wire Wire Line
-	1350 1550 1100 1550
 Text HLabel 5200 2450 0    59   Input ~ 0
 AUX_1
 Wire Wire Line
@@ -589,4 +567,8 @@ Wire Notes Line
 	750  7100 750  2450
 Text Notes 750  2450 0    59   ~ 0
 Signal Filtering
+NoConn ~ 5400 2150
+NoConn ~ 6600 2150
+NoConn ~ 8800 2250
+NoConn ~ 10000 2250
 $EndSCHEMATC
