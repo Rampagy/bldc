@@ -36,8 +36,8 @@ F15 "I2C_SDA" B L 4900 2600 49
 F16 "HALL_B" I L 4900 2900 49 
 F17 "HALL_C" I L 4900 3000 49 
 F18 "USART_TX" B L 4900 2300 49 
-F20 "AUX_1" I R 7000 3100 59 
-F21 "AUX_0" I R 7000 3000 59 
+F19 "AUX_1" I R 7000 3100 59 
+F20 "AUX_0" I R 7000 3000 59 
 $EndSheet
 $Comp
 L Connector_Generic:Conn_02x07_Counter_Clockwise J1
@@ -206,7 +206,7 @@ U 1 1 5C58A6B3
 P 1000 6850
 F 0 "MK1" H 1100 6896 50  0000 L CNN
 F 1 "Mounting_Hole" H 1100 6805 50  0000 L CNN
-F 2 "MountingHole:MountingHole_5.3mm_M5" H 1000 6850 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965_Pad" H 1000 6850 50  0001 C CNN
 F 3 "" H 1000 6850 50  0001 C CNN
 	1    1000 6850
 	1    0    0    -1  
@@ -217,7 +217,7 @@ U 1 1 5C58A722
 P 2200 6850
 F 0 "MK3" H 2300 6896 50  0000 L CNN
 F 1 "Mounting_Hole" H 2300 6805 50  0000 L CNN
-F 2 "MountingHole:MountingHole_5.3mm_M5" H 2200 6850 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965_Pad" H 2200 6850 50  0001 C CNN
 F 3 "" H 2200 6850 50  0001 C CNN
 	1    2200 6850
 	1    0    0    -1  
@@ -228,7 +228,7 @@ U 1 1 5C58A768
 P 1000 7350
 F 0 "MK2" H 1100 7396 50  0000 L CNN
 F 1 "Mounting_Hole" H 1100 7305 50  0000 L CNN
-F 2 "MountingHole:MountingHole_5.3mm_M5" H 1000 7350 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965_Pad" H 1000 7350 50  0001 C CNN
 F 3 "" H 1000 7350 50  0001 C CNN
 	1    1000 7350
 	1    0    0    -1  
@@ -239,7 +239,7 @@ U 1 1 5C58A7A5
 P 2200 7350
 F 0 "MK4" H 2300 7396 50  0000 L CNN
 F 1 "Mounting_Hole" H 2300 7305 50  0000 L CNN
-F 2 "MountingHole:MountingHole_5.3mm_M5" H 2200 7350 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965_Pad" H 2200 7350 50  0001 C CNN
 F 3 "" H 2200 7350 50  0001 C CNN
 	1    2200 7350
 	1    0    0    -1  
