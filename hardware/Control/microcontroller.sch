@@ -274,9 +274,9 @@ Text HLabel 5200 2550 0    59   Input ~ 0
 AUX_0
 Wire Wire Line
 	5400 2550 5200 2550
-Text Label 1250 3900 0    59   ~ 0
+Text Label 1250 3900 0    50   ~ 0
 PC5
-Text Label 2450 3900 0    59   ~ 0
+Text Label 2450 3900 0    50   ~ 0
 PC4
 Wire Wire Line
 	1100 3650 1100 3900
@@ -296,15 +296,15 @@ Wire Wire Line
 	2300 3900 2300 3650
 Wire Wire Line
 	2300 3150 2300 3450
-Text Label 6800 2950 0    59   ~ 0
+Text Label 6800 2950 0    50   ~ 0
 PC4
 Wire Wire Line
 	6800 2950 6600 2950
-Text Label 5200 2950 2    59   ~ 0
+Text Label 5200 2950 2    50   ~ 0
 PC5
 Wire Wire Line
 	5200 2950 5400 2950
-Text Label 6800 3050 0    59   ~ 0
+Text Label 6800 3050 0    50   ~ 0
 HALL_C_SENSE
 $Comp
 L Device:R R9
@@ -338,7 +338,7 @@ Wire Wire Line
 	1100 6550 1100 6650
 Text Label 1100 6800 3    59   ~ 0
 GND
-Text Label 1250 6050 0    59   ~ 0
+Text Label 1250 6050 0    50   ~ 0
 HALL_C_SENSE
 Wire Wire Line
 	1250 6050 1100 6050
@@ -377,7 +377,7 @@ Wire Wire Line
 	2200 6550 2200 6650
 Text Label 2200 6800 3    59   ~ 0
 GND
-Text Label 2350 6050 0    59   ~ 0
+Text Label 2350 6050 0    50   ~ 0
 HALL_B_SENSE
 Wire Wire Line
 	2350 6050 2200 6050
@@ -416,16 +416,16 @@ Wire Wire Line
 	3300 6550 3300 6650
 Text Label 3300 6800 3    59   ~ 0
 GND
-Text Label 3450 6050 0    59   ~ 0
+Text Label 3450 6050 0    50   ~ 0
 HALL_A_SENSE
 Wire Wire Line
 	3450 6050 3300 6050
 Connection ~ 3300 6050
 Wire Wire Line
 	3300 6050 3300 5850
-Text Label 10200 3250 0    59   ~ 0
+Text Label 10200 3250 0    50   ~ 0
 HALL_B_SENSE
-Text Label 8600 3250 2    59   ~ 0
+Text Label 8600 3250 2    50   ~ 0
 HALL_A_SENSE
 $Comp
 L Device:C_Small C7
