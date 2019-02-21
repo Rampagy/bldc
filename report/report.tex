@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{array}
 \usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
@@ -110,7 +112,46 @@
 		\end{table}
 		
 		\subsubsection{Bootstrap Capacitor}
-		Write your subsection text here.
+		The bootstrap capacitor is one of the most important components besides the driver itself.  This capacitor ensures the gate has sufficient voltage during operation, especially at high duty cycles. 
+		
+		\noindent To determine the size of Bootstrap Capacitor we must first find the gate charge of the MOSFET.  For the \textit{IPB017N10N5} MOSFET, we can see from the data sheet that $Q_G$ is 168nC.  Using the formulas from \textit{Texas Instruments} \cite{Bootstrap Equations}, we can calculate the bootstrap capacitance for this system.
+		
+		\vspace{3mm}
+		\noindent Given the following parameters from the Gate Driver and MOSFET:
+		
+		\begin{center}
+			\begin{tabular}{ c c c }
+			$V_{DD} = 12V$ & $I_{DDO} = 2.6mA$ & $F_{SW} = 10KHz$ \\
+			$V_{DH} = 0.85V$ & $I_{HBS} = 0.5nA$ & $D_{MAX} = 0.99$ \\
+			$V_{HBL} = 5.5V$& $I_{HB} = 65\mu A$ & $Q_G = 168nC$ \\
+			\end{tabular}
+		\end{center}
+
+		Using Equation 3 from \textit{Bootstrap Circuitry Selection for Half-Bridge Configurations} \cite{Bootstrap Equations}.
+			
+		\begin{center}
+			$Q_{Total} = Q_G + I_{HBS}*\frac{D_{MAX}}{F_{SW}} + \frac{I_{HB}}{F_{SW}}$ \\
+			\vspace{3mm}  
+			$Q_{Total} = 168*10^{-9} + 0.5*10^{-9}(\frac{0.99}{10^4}) + \frac{65*10^{-6}}{10^4} = 174.5nC$ \\
+			\vspace{3mm}
+			$\Delta V_{HB} = V_{DD} - V_{DH} - V_{HBL}$ \\
+			\vspace{3mm}
+			$\Delta V_{HB} = 12 - 0.85 - 5.5 = 5.65V$ \\
+			\vspace{3mm}
+			$C_{Boot} \ge 10*\frac{Q_{Total}}{\Delta V_{HB}}$ \\
+			\vspace{3mm}
+			$C_{Boot} \ge 771nF$ \\
+		\end{center}
+		
+		\noindent When comparing the calculations to \textit{Silicon Labs} \cite{silabs}, the boot strap capacitor values are within $\pm 63nF$ of each other, as shown in Figure \ref{fig:silabsCalc}.
+	
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.3]{silabs_bootstrap_cap}
+			\end{center}
+			\caption{Bootstrap capacitor calculator provided by \textit{Silicon Labs} \cite{silabs}.}
+			\label{fig:silabsCalc}
+		\end{figure}
 	
 		\subsection{DC-DC Converter (5 Volts)}
 		Write your subsection text here.
@@ -140,6 +181,23 @@
 	
 	\section{Lessons Learned}
 	Write your lessons learned here.
+	
+	
+	
+	
+	\begin{thebibliography}{9}
+		\bibitem{Bootstrap Equations}
+		Texas Instruments.
+		\textit{Bootstrap Circuitry Selection for Half-Bridge Configurations}.
+		\\\texttt{http://www.ti.com/lit/an/slua887/slua887.pdf}
+		
+		\bibitem{silabs} 
+		Silicon Labs. 
+		\textit{Isolation Bootstrap Calculator}. 
+		\\\texttt{https://www.silabs.com/support/isolation-bootstrap-calculator}
+		
+	\end{thebibliography}
+	
 	
 	
 \end{document}
