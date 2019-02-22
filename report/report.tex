@@ -121,7 +121,7 @@
 		
 		\begin{center}
 			\begin{tabular}{ c c c }
-			$V_{DD} = 12V$ & $I_{DDO} = 2.6mA$ & $F_{SW} = 10KHz$ \\
+			$V_{DD} = 12V$ & $I_{DDO} = 2.6mA$ & $F_{SW} = 10kHz$ \\
 			$V_{DH} = 0.85V$ & $I_{HBS} = 0.5nA$ & $D_{MAX} = 0.99$ \\
 			$V_{HBL} = 5.5V$& $I_{HB} = 65\mu A$ & $Q_G = 168nC$ \\
 			\end{tabular}
@@ -153,10 +153,36 @@
 			\label{fig:silabsCalc}
 		\end{figure}
 	
-		\subsection{DC-DC Converter (5 Volts)}
-		Write your subsection text here.
+		\subsection{DC-DC Converter}
+		To convert 48v into a usable 12v and 5v for the Microcontroller, Gate Driver, etc... I needed a high voltage regulator.  The two types of regulators are linear and switching, and based on the large voltage conversion a switching regulator is the better choice.  \textit{Texas Instruments} TL2575HV switching regulator had the specifications for the job \cite{buck converter}.  In addition it has an adjustable regulator so that I could use the same Integrated Circuit (IC) for both of the conversions.
 	
-		\subsection{DC-DC Converter (12 Volts)}
+		\subsubsection{5 Volts}
+		The 48v to 5v conversion is the harder of the two due do the extensive voltage difference, but running though the calculations given by \cite{buck converter} it is possible.
+		
+		\vspace{3mm}
+		\noindent Known:
+		\begin{center}
+			\begin{tabular}{ c c c }
+			$V_{in} = 48v$ & $V_{out} = 5v$ & $R_{1} = 2k\Omega$ \\
+			$I_{load} = 1A$ & $V_{ref} = 1.23v$ & $F_{sw} = 52kHz$
+			\end{tabular}
+		\end{center}
+	
+		\noindent Following the sizing steps given by the TL2575HV data sheet \cite{buck converter}:
+		\begin{center}
+			$R_{2} = R_{1}(\frac{V_{out}}{V_{ref}} - 1) = 6.13k\Omega$ \\
+			\vspace{2mm}
+			$\epsilon * \tau = (V_{in} - V_{out})*t_{on} = (V_{in} - V_{out}) * \frac{V_{out}}{V_{in}} * \frac{1000}{f_{sw}} = 86.14 V*\mu s$ \\
+			\vspace{4mm}
+			$86.14 V*\mu s \rightarrow L1 = 330\mu H$ \\
+			\vspace{3mm}
+			$I_{L_{1}(pk)} = I_{load} + (V_{in} - V_{out}) * \frac{\frac{V_{out}}{V_{in}} * \frac{1}{f_{sw}}}{2*L_{1}} = 1.13 A$ \\
+			\vspace{4mm}
+			$C_{out} \ge 7758 * \frac{V_{in}}{V_{out} * L_{1}} \rightarrow C_{out} \ge 235.1\mu F \rightarrow C_{out} \approx 1mF$
+		\end{center}
+		
+		
+		\subsubsection{12 Volts}
 		Write your subsection text here.
 	
 		\subsection{Microcontroller}
@@ -195,6 +221,13 @@
 		Silicon Labs. 
 		\textit{Isolation Bootstrap Calculator}. 
 		\\\texttt{https://www.silabs.com/support/isolation-bootstrap-calculator}
+		
+		\bibitem{buck converter}
+		Texas Instruments.
+		\textit{TL2575, TL2575HV 1-A Simple Step-Down Switching Voltage Regulators}
+		\texttt{http://www.ti.com/lit/ds/symlink/tl2575-12.pdf}
+		
+		
 		
 	\end{thebibliography}
 	
