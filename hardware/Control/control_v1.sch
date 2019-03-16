@@ -102,13 +102,13 @@ Wire Wire Line
 $Comp
 L Connector:RJ45 J4
 U 1 1 5C55B055
-P 1750 5250
-F 0 "J4" H 1805 5917 50  0000 C CNN
-F 1 "RJ45" H 1805 5826 50  0000 C CNN
-F 2 "Connector_RJ:RJ45_Amphenol_54602-x08_Horizontal" V 1750 5275 50  0001 C CNN
-F 3 "~" V 1750 5275 50  0001 C CNN
-F 4 "609-1046-ND" H 1750 4800 50  0000 C CNN "PN"
-	1    1750 5250
+P 1400 5250
+F 0 "J4" H 1455 5917 50  0000 C CNN
+F 1 "RJ45" H 1455 5826 50  0000 C CNN
+F 2 "Connector_RJ:RJ45_Amphenol_54602-x08_Horizontal" V 1400 5275 50  0001 C CNN
+F 3 "~" V 1400 5275 50  0001 C CNN
+F 4 "609-1046-ND" H 1400 4800 50  0000 C CNN "PN"
+	1    1400 5250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -123,26 +123,23 @@ F 4 "ED2612-ND" V 1850 3200 50  0000 C CNN "PN"
 	1    1750 3200
 	-1   0    0    1   
 $EndComp
-Text Label 2550 4850 0    50   ~ 0
+Text Label 2200 4850 0    50   ~ 0
 I2C_SDA
-Text Label 2550 4950 0    50   ~ 0
+Text Label 2200 4950 0    50   ~ 0
 I2C_SCL
 Wire Wire Line
-	2550 4850 2150 4850
+	2200 4850 1800 4850
 Wire Wire Line
-	2550 4950 2150 4950
-Text Label 2550 5050 0    50   ~ 0
+	2200 4950 1800 4950
+Text Label 2200 5050 0    50   ~ 0
 GND
-Wire Wire Line
-	2550 5050 2150 5050
-Text Label 2550 5350 0    50   ~ 0
+Text Label 2200 5350 0    50   ~ 0
 5v
 Wire Wire Line
-	2550 5350 2150 5350
-NoConn ~ 2150 5150
-NoConn ~ 2150 5250
-NoConn ~ 2150 5450
-NoConn ~ 2150 5550
+	2200 5350 1800 5350
+NoConn ~ 1800 5250
+NoConn ~ 1800 5450
+NoConn ~ 1800 5550
 $Comp
 L Connector_Generic:Conn_01x06 J3
 U 1 1 5C584728
@@ -201,7 +198,7 @@ Wire Notes Line
 Text Notes 700  1450 0    59   ~ 0
 Connections
 $Comp
-L Mechanical:Mounting_Hole MK1
+L Mechanical:Mounting_Hole_PAD MK1
 U 1 1 5C58A6B3
 P 1000 6850
 F 0 "MK1" H 1100 6896 50  0000 L CNN
@@ -212,7 +209,7 @@ F 3 "" H 1000 6850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK3
+L Mechanical:Mounting_Hole_PAD MK3
 U 1 1 5C58A722
 P 2200 6850
 F 0 "MK3" H 2300 6896 50  0000 L CNN
@@ -223,7 +220,7 @@ F 3 "" H 2200 6850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK2
+L Mechanical:Mounting_Hole_PAD MK2
 U 1 1 5C58A768
 P 1000 7350
 F 0 "MK2" H 1100 7396 50  0000 L CNN
@@ -234,7 +231,7 @@ F 3 "" H 1000 7350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK4
+L Mechanical:Mounting_Hole_PAD MK4
 U 1 1 5C58A7A5
 P 2200 7350
 F 0 "MK4" H 2300 7396 50  0000 L CNN
@@ -245,11 +242,11 @@ F 3 "" H 2200 7350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
-	800  6650 800  7550
+	800  6650 800  7700
 Wire Notes Line
-	800  7550 2950 7550
+	800  7700 2950 7700
 Wire Notes Line
-	2950 7550 2950 6650
+	2950 7700 2950 6650
 Wire Notes Line
 	2950 6650 800  6650
 Text Notes 800  6650 0    59   ~ 0
@@ -331,6 +328,7 @@ F2 "48v" I L 5450 4050 59
 F3 "GND" O L 5450 4150 59 
 F4 "12v" O R 6350 4050 59 
 F5 "5v" O R 6350 4150 59 
+F6 "TransEnale_TTL" I L 5450 4250 59 
 $EndSheet
 Text Label 5250 4050 2    59   ~ 0
 48v
@@ -364,4 +362,22 @@ Text Label 7200 3000 0    59   ~ 0
 AUX_0
 Wire Wire Line
 	7200 3000 7000 3000
+Text Label 5250 4250 2    59   ~ 0
+TransEnable_TTL
+Wire Wire Line
+	5250 4250 5450 4250
+Text Label 2200 5150 0    59   ~ 0
+TransEnable_TTL
+Wire Wire Line
+	2200 5150 1800 5150
+Wire Wire Line
+	2200 5050 1800 5050
+Text Label 2200 6950 3    50   ~ 0
+GND
+Text Label 1000 6950 3    50   ~ 0
+GND
+Text Label 1000 7450 3    50   ~ 0
+GND
+Text Label 2200 7450 3    50   ~ 0
+GND
 $EndSCHEMATC
