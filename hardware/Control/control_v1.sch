@@ -352,21 +352,13 @@ Text Label 5400 5550 2    50   ~ 0
 GND
 Wire Wire Line
 	5400 5550 5500 5550
-Text Label 6500 5100 0    59   ~ 0
+Text Label 7650 4800 0    59   ~ 0
 +RX
-Wire Wire Line
-	6500 5100 6350 5100
-Wire Wire Line
-	6500 5250 6350 5250
-Text Label 6500 5250 0    59   ~ 0
+Text Label 7650 5250 0    59   ~ 0
 -RX
-Text Label 6500 5400 0    59   ~ 0
+Text Label 7650 5400 0    59   ~ 0
 +TX
-Wire Wire Line
-	6500 5400 6350 5400
-Wire Wire Line
-	6500 5550 6350 5550
-Text Label 6500 5550 0    59   ~ 0
+Text Label 7650 5850 0    59   ~ 0
 -TX
 Text Label 2200 4950 0    59   ~ 0
 +RX
@@ -392,4 +384,64 @@ Wire Wire Line
 	1800 5450 2200 5450
 Wire Wire Line
 	2200 5550 1800 5550
+$Comp
+L Device:R R17
+U 1 1 5C942AB2
+P 6900 5050
+F 0 "R17" H 6970 5141 50  0000 L CNN
+F 1 "120" H 6970 5050 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" V 6830 5050 50  0001 C CNN
+F 3 "~" H 6900 5050 50  0001 C CNN
+F 4 "A126336CT-ND" H 6970 4959 50  0000 L CNN "PN"
+	1    6900 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 5250 6900 5250
+Wire Wire Line
+	6900 5200 6900 5250
+Connection ~ 6900 5250
+Wire Wire Line
+	6900 5250 7650 5250
+Wire Wire Line
+	7650 4800 6900 4800
+Wire Wire Line
+	6900 4800 6900 4900
+Wire Wire Line
+	6900 4800 6600 4800
+Wire Wire Line
+	6600 4800 6600 5100
+Wire Wire Line
+	6350 5100 6600 5100
+Connection ~ 6900 4800
+$Comp
+L Device:R R18
+U 1 1 5C94C529
+P 6900 5600
+F 0 "R18" H 6970 5691 50  0000 L CNN
+F 1 "120" H 6970 5600 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" V 6830 5600 50  0001 C CNN
+F 3 "~" H 6900 5600 50  0001 C CNN
+F 4 "A126336CT-ND" H 6970 5509 50  0000 L CNN "PN"
+	1    6900 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7650 5850 6900 5850
+Wire Wire Line
+	6900 5850 6900 5750
+Wire Wire Line
+	6650 5550 6650 5850
+Wire Wire Line
+	6650 5850 6900 5850
+Wire Wire Line
+	6350 5550 6650 5550
+Connection ~ 6900 5850
+Wire Wire Line
+	6900 5450 6900 5400
+Wire Wire Line
+	6350 5400 6900 5400
+Wire Wire Line
+	6900 5400 7650 5400
+Connection ~ 6900 5400
 $EndSCHEMATC
