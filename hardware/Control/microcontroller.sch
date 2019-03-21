@@ -123,18 +123,10 @@ Wire Wire Line
 	10150 2150 10000 2150
 Wire Wire Line
 	8800 2150 8650 2150
-Text HLabel 8600 2950 0    49   BiDi ~ 0
-I2C_SCL
-Wire Wire Line
-	8600 2950 8800 2950
 Text HLabel 3300 5300 1    49   Input ~ 0
 HALL_A
 Wire Wire Line
 	8600 3250 8800 3250
-Text HLabel 10200 3150 2    49   BiDi ~ 0
-I2C_SDA
-Wire Wire Line
-	10200 3150 10000 3150
 Text HLabel 2200 5300 1    49   Input ~ 0
 HALL_B
 Wire Wire Line
@@ -571,4 +563,6 @@ Wire Wire Line
 	1400 6500 1400 6650
 Wire Wire Line
 	1400 6300 1400 6200
+NoConn ~ 10000 3150
+NoConn ~ 8800 2950
 $EndSCHEMATC

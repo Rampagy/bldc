@@ -31,13 +31,11 @@ F10 "HALL_A" I L 4900 2800 49
 F11 "LS_A_TTL_PWM" O R 7000 2100 49 
 F12 "LS_B_TTL_PWM" O R 7000 2400 49 
 F13 "LS_C_TTL_PWM" O R 7000 2700 49 
-F14 "I2C_SCL" B L 4900 2500 49 
-F15 "I2C_SDA" B L 4900 2600 49 
-F16 "HALL_B" I L 4900 2900 49 
-F17 "HALL_C" I L 4900 3000 49 
-F18 "USART_TX" B L 4900 2300 49 
-F19 "AUX_1" I R 7000 3100 59 
-F20 "AUX_0" I R 7000 3000 59 
+F14 "HALL_B" I L 4900 2900 49 
+F15 "HALL_C" I L 4900 3000 49 
+F16 "USART_TX" B L 4900 2300 49 
+F17 "AUX_1" I R 7000 3100 59 
+F18 "AUX_0" I R 7000 3000 59 
 $EndSheet
 $Comp
 L Connector_Generic:Conn_02x07_Counter_Clockwise J1
@@ -100,18 +98,6 @@ Wire Wire Line
 Wire Wire Line
 	1550 1850 1250 1850
 $Comp
-L Connector:RJ45 J4
-U 1 1 5C55B055
-P 1400 5250
-F 0 "J4" H 1455 5917 50  0000 C CNN
-F 1 "RJ45" H 1455 5826 50  0000 C CNN
-F 2 "Connector_RJ:RJ45_Amphenol_54602-x08_Horizontal" V 1400 5275 50  0001 C CNN
-F 3 "~" V 1400 5275 50  0001 C CNN
-F 4 "609-1046-ND" H 1400 4800 50  0000 C CNN "PN"
-	1    1400 5250
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:Screw_Terminal_01x05 J2
 U 1 1 5C55B155
 P 1750 3200
@@ -123,50 +109,21 @@ F 4 "ED2612-ND" V 1850 3200 50  0000 C CNN "PN"
 	1    1750 3200
 	-1   0    0    1   
 $EndComp
-Text Label 2200 4850 0    50   ~ 0
-I2C_SDA
-Text Label 2200 4950 0    50   ~ 0
-I2C_SCL
 Wire Wire Line
 	2200 4850 1800 4850
 Wire Wire Line
 	2200 4950 1800 4950
-Text Label 2200 5050 0    50   ~ 0
+Text Label 2200 5050 0    59   ~ 0
 GND
-Text Label 2200 5350 0    50   ~ 0
+Text Label 2200 5350 0    59   ~ 0
 5v
 Wire Wire Line
 	2200 5350 1800 5350
 NoConn ~ 1800 5250
-NoConn ~ 1800 5450
-NoConn ~ 1800 5550
-$Comp
-L Connector_Generic:Conn_01x06 J3
-U 1 1 5C584728
-P 1750 4150
-F 0 "J3" H 1650 3650 50  0000 C CNN
-F 1 "Conn_01x06" H 1600 3750 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal" H 1750 4150 50  0001 C CNN
-F 3 "~" H 1750 4150 50  0001 C CNN
-F 4 "952-2372-ND" V 1900 4100 50  0000 C CNN "PN"
-	1    1750 4150
-	-1   0    0    1   
-$EndComp
-Text Label 2300 3850 0    50   ~ 0
-GND
-Text Label 2300 4150 0    50   ~ 0
+Text Label 5400 5250 2    50   ~ 0
 USART_RX
-Text Label 2300 4250 0    50   ~ 0
+Text Label 5400 5400 2    50   ~ 0
 USART_TX
-Wire Wire Line
-	2300 4250 1950 4250
-Wire Wire Line
-	1950 4150 2300 4150
-Wire Wire Line
-	2300 3850 1950 3850
-NoConn ~ 1950 3950
-NoConn ~ 1950 4050
-NoConn ~ 1950 4350
 Text Label 2400 3100 0    50   ~ 0
 GND
 Text Label 2400 3000 0    50   ~ 0
@@ -257,14 +214,6 @@ Text Label 4700 2900 2    49   ~ 0
 HALL_B
 Text Label 4700 3000 2    49   ~ 0
 HALL_C
-Text Label 4700 2600 2    49   ~ 0
-I2C_SDA
-Text Label 4700 2500 2    49   ~ 0
-I2C_SCL
-Wire Wire Line
-	4700 2500 4900 2500
-Wire Wire Line
-	4900 2600 4700 2600
 Wire Wire Line
 	4700 2800 4900 2800
 Wire Wire Line
@@ -380,4 +329,67 @@ Text Label 1000 7450 3    50   ~ 0
 GND
 Text Label 2200 7450 3    50   ~ 0
 GND
+$Comp
+L Interface_RS485:DS89C21 U3
+U 1 1 5C943CE3
+P 5900 5200
+F 0 "U3" H 5925 5586 59  0000 C CNN
+F 1 "DS89C21" H 5925 5481 59  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5800 5450 59  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ds89c21.pdf" H 5900 5550 59  0001 C CNN
+	1    5900 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5400 5400 5500 5400
+Wire Wire Line
+	5400 5250 5500 5250
+Text Label 5400 5100 2    50   ~ 0
+5v
+Wire Wire Line
+	5400 5100 5500 5100
+Text Label 5400 5550 2    50   ~ 0
+GND
+Wire Wire Line
+	5400 5550 5500 5550
+Text Label 6500 5100 0    59   ~ 0
++RX
+Wire Wire Line
+	6500 5100 6350 5100
+Wire Wire Line
+	6500 5250 6350 5250
+Text Label 6500 5250 0    59   ~ 0
+-RX
+Text Label 6500 5400 0    59   ~ 0
++TX
+Wire Wire Line
+	6500 5400 6350 5400
+Wire Wire Line
+	6500 5550 6350 5550
+Text Label 6500 5550 0    59   ~ 0
+-TX
+Text Label 2200 4950 0    59   ~ 0
++RX
+Text Label 2200 4850 0    59   ~ 0
+-RX
+Text Label 2200 5450 0    59   ~ 0
++TX
+Text Label 2200 5550 0    59   ~ 0
+-TX
+$Comp
+L Connector:RJ45 J4
+U 1 1 5C55B055
+P 1400 5250
+F 0 "J4" H 1455 5917 50  0000 C CNN
+F 1 "RJ45" H 1455 5826 50  0000 C CNN
+F 2 "Connector_RJ:RJ45_Amphenol_54602-x08_Horizontal" V 1400 5275 50  0001 C CNN
+F 3 "~" V 1400 5275 50  0001 C CNN
+F 4 "609-1046-ND" H 1400 4800 50  0000 C CNN "PN"
+	1    1400 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1800 5450 2200 5450
+Wire Wire Line
+	2200 5550 1800 5550
 $EndSCHEMATC

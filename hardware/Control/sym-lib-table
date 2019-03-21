@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name stm32discovery)(type Legacy)(uri ${KILOCALLIB}/libraries/STM32F4-DISCOVERY-SIMON.lib)(options "")(descr ""))
+  (lib (name Interface_RS485)(type Legacy)(uri /home/alex/bldc/hardware/libraries/Interface_RS485.lib)(options "")(descr ""))
 )
