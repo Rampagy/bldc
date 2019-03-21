@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name Interface_RS485)(type Legacy)(uri ${KILOCALLIB}/libraries/Interface_RS485.lib)(options "")(descr ""))
+)
