@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:Operator-cache
 EELAYER 26 0
 EELAYER END
 $Descr USLetter 11000 8500
@@ -245,23 +246,23 @@ Wire Wire Line
 $Comp
 L Connector:Screw_Terminal_01x02 J2
 U 1 1 5C93C239
-P 9500 3300
-F 0 "J2" H 9580 3337 50  0000 L CNN
-F 1 "Screw_Terminal_01x02" H 9580 3246 50  0000 L CNN
-F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal" H 9500 3300 50  0001 C CNN
-F 3 "~" H 9500 3300 50  0001 C CNN
-F 4 "277-1667-ND" H 9580 3155 50  0000 L CNN "PN"
-	1    9500 3300
+P 8750 1450
+F 0 "J2" H 8830 1487 50  0000 L CNN
+F 1 "Screw_Terminal_01x02" H 8830 1396 50  0000 L CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal" H 8750 1450 50  0001 C CNN
+F 3 "~" H 8750 1450 50  0001 C CNN
+F 4 "277-1667-ND" H 8830 1305 50  0000 L CNN "PN"
+	1    8750 1450
 	1    0    0    -1  
 $EndComp
-Text Label 9100 3300 2    50   ~ 0
+Text Label 8350 1450 2    50   ~ 0
 5v
 Wire Wire Line
-	9100 3300 9300 3300
-Text Label 9100 3400 2    50   ~ 0
+	8350 1450 8550 1450
+Text Label 8350 1550 2    50   ~ 0
 A0
 Wire Wire Line
-	9100 3400 9200 3400
+	8350 1550 8450 1550
 Text Label 7150 2950 0    50   ~ 0
 A0
 Wire Wire Line
@@ -269,29 +270,25 @@ Wire Wire Line
 $Comp
 L Device:R R3
 U 1 1 5C93E2AE
-P 9200 3650
-F 0 "R3" H 9270 3741 50  0000 L CNN
-F 1 "2k" H 9270 3650 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" V 9130 3650 50  0001 C CNN
-F 3 "~" H 9200 3650 50  0001 C CNN
-F 4 "A126358CT-ND" H 9270 3559 50  0000 L CNN "PN"
-	1    9200 3650
+P 8450 1800
+F 0 "R3" H 8520 1891 50  0000 L CNN
+F 1 "2k" H 8520 1800 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" V 8380 1800 50  0001 C CNN
+F 3 "~" H 8450 1800 50  0001 C CNN
+F 4 "A126358CT-ND" H 8520 1709 50  0000 L CNN "PN"
+	1    8450 1800
 	1    0    0    -1  
 $EndComp
-Text Label 9200 4000 3    50   ~ 0
+Text Label 8450 2150 3    50   ~ 0
 GND
 Wire Wire Line
-	9200 4000 9200 3800
+	8450 2150 8450 1950
 Wire Wire Line
-	9200 3500 9200 3400
-Connection ~ 9200 3400
+	8450 1650 8450 1550
+Connection ~ 8450 1550
 Wire Wire Line
-	9200 3400 9300 3400
-NoConn ~ 6950 3050
-NoConn ~ 6950 3150
+	8450 1550 8550 1550
 NoConn ~ 6950 3250
-NoConn ~ 6950 3350
-NoConn ~ 6950 3450
 NoConn ~ 6950 3650
 NoConn ~ 6950 3750
 NoConn ~ 5950 3650
@@ -302,7 +299,58 @@ NoConn ~ 5950 3250
 NoConn ~ 5950 3150
 NoConn ~ 5950 3050
 NoConn ~ 5950 2950
-NoConn ~ 5950 2850
 NoConn ~ 5950 2750
-NoConn ~ 5950 2650
+$Comp
+L Connector:Conn_01x06_Male J3
+U 1 1 5C944321
+P 8850 3500
+F 0 "J3" H 8823 3380 50  0000 R CNN
+F 1 "Conn_01x06_Male" H 8823 3471 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 8850 3500 50  0001 C CNN
+F 3 "~" H 8850 3500 50  0001 C CNN
+	1    8850 3500
+	-1   0    0    1   
+$EndComp
+NoConn ~ 6950 3050
+NoConn ~ 6950 3150
+Text Label 5750 2650 2    50   ~ 0
+D3
+Text Label 5750 2850 2    50   ~ 0
+D5
+Text Label 7150 3350 0    50   ~ 0
+A4
+Text Label 7150 3450 0    50   ~ 0
+A5
+Wire Wire Line
+	7150 3350 6950 3350
+Wire Wire Line
+	6950 3450 7150 3450
+Wire Wire Line
+	5750 2650 5950 2650
+Wire Wire Line
+	5750 2850 5950 2850
+Text Label 8450 3200 2    50   ~ 0
+D3
+Text Label 8450 3300 2    50   ~ 0
+D5
+Text Label 8450 3400 2    50   ~ 0
+A4
+Text Label 8450 3500 2    50   ~ 0
+A5
+Text Label 8450 3600 2    50   ~ 0
+5v
+Text Label 8450 3700 2    50   ~ 0
+GND
+Wire Wire Line
+	8450 3700 8650 3700
+Wire Wire Line
+	8650 3600 8450 3600
+Wire Wire Line
+	8450 3500 8650 3500
+Wire Wire Line
+	8650 3400 8450 3400
+Wire Wire Line
+	8450 3300 8650 3300
+Wire Wire Line
+	8650 3200 8450 3200
 $EndSCHEMATC
