@@ -344,14 +344,10 @@ Wire Wire Line
 	5400 5400 5500 5400
 Wire Wire Line
 	5400 5250 5500 5250
-Text Label 5400 5100 2    50   ~ 0
+Text Label 4200 5100 2    50   ~ 0
 5v
-Wire Wire Line
-	5400 5100 5500 5100
-Text Label 5400 5550 2    50   ~ 0
+Text Label 4200 5550 2    50   ~ 0
 GND
-Wire Wire Line
-	5400 5550 5500 5550
 Text Label 7650 4800 0    59   ~ 0
 +RX
 Text Label 7650 5250 0    59   ~ 0
@@ -444,4 +440,30 @@ Wire Wire Line
 Wire Wire Line
 	6900 5400 7650 5400
 Connection ~ 6900 5400
+$Comp
+L Device:C C12
+U 1 1 5C9AF294
+P 4550 5300
+F 0 "C12" H 4300 5400 50  0000 L CNN
+F 1 "2.2uF" H 4250 5300 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.33x1.40mm_HandSolder" H 4588 5150 50  0001 C CNN
+F 3 "~" H 4550 5300 50  0001 C CNN
+F 4 "445-12947-1-ND" H 3750 5200 50  0000 L CNN "PN"
+	1    4550 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 5100 4550 5100
+Wire Wire Line
+	4200 5550 4550 5550
+Wire Wire Line
+	4550 5450 4550 5550
+Connection ~ 4550 5550
+Wire Wire Line
+	4550 5550 5500 5550
+Wire Wire Line
+	4550 5150 4550 5100
+Connection ~ 4550 5100
+Wire Wire Line
+	4550 5100 5500 5100
 $EndSCHEMATC
