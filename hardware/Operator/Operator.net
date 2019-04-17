@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/alex/bldc/hardware/Operator/Operator.sch)
-    (date "Tue 26 Mar 2019 08:06:25 PM CDT")
+    (date "Tue 16 Apr 2019 09:29:45 PM CDT")
     (tool "Eeschema 5.0.0-fee4fd1~65~ubuntu17.10.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -98,10 +98,11 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5C944321))
     (comp (ref C3)
-      (value 2.2nF)
+      (value 2.2uF)
+      (footprint Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder)
       (datasheet ~)
       (fields
-        (field (name PN) 478-3753-1-ND))
+        (field (name PN) 445-12947-1-ND))
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5C9AED9F)))
