@@ -2374,10 +2374,22 @@
         <group>
             <name>inc</name>
             <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cm4.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cm4_simd.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cmFunc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cmInstr.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\periph\inc\misc.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\periph\inc\stm32f4_discovery.h</name>
+                <name>$PROJ_DIR$\..\periph\inc\stm32f4xx.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_adc.h</name>
@@ -2425,9 +2437,6 @@
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_i2c.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_it.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_iwdg.h</name>
             </file>
             <file>
@@ -2465,9 +2474,6 @@
             <name>src</name>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\misc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\periph\src\stm32f4_discovery.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_adc.c</name>
@@ -2525,9 +2531,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_i2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\periph\src\stm32f4xx_it.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_iwdg.c</name>

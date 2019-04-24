@@ -32,11 +32,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state></state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state></state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -44,7 +44,7 @@
                 </option>
                 <option>
                     <name>OGCoreOrChip</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>GRuntimeLibSelect</name>
@@ -58,7 +58,7 @@
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state></state>
+                    <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>OGProductVersion</name>
@@ -78,7 +78,7 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state>Default	None</state>
+                    <state>STM32F407VG	ST STM32F407VG</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -117,7 +117,7 @@
                 <option>
                     <name>GBECoreSlave</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>OGUseCmsis</name>
@@ -134,21 +134,21 @@
                 <option>
                     <name>CoreVariant</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state>Default	None</state>
+                    <state>STM32F407VG	ST STM32F407VG</state>
                 </option>
                 <option>
                     <name>FPU2</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>4</state>
                 </option>
                 <option>
                     <name>NrRegs</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>NEON</name>
@@ -157,7 +157,7 @@
                 <option>
                     <name>GFPUCoreSlave2</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>OGCMSISPackSelectDevice</name>
@@ -198,7 +198,7 @@
                 </option>
                 <option>
                     <name>DSPExtension</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>TrustZone</name>
@@ -349,7 +349,9 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\..\periph\inc</state>
+                    <state>$PROJ_DIR$\..\periph\src</state>
+                    <state>$PROJ_DIR$\..\periph</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -416,7 +418,7 @@
                 </option>
                 <option>
                     <name>IccCppInlineSemantics</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccCmsis</name>
@@ -649,7 +651,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state></state>
+                    <state>Inverter.srec</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -768,7 +770,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\config\linker\ST\stm32f407xG.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -828,7 +830,7 @@
                 </option>
                 <option>
                     <name>IlinkProgramEntryLabel</name>
-                    <state></state>
+                    <state>__iar_program_start</state>
                 </option>
                 <option>
                     <name>DoFill</name>
@@ -1001,7 +1003,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state>###Unitialized###</state>
+                    <state>Inverter_import_lib.o</state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -1101,7 +1103,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>7.50.2.0</state>
+                    <state>8.32.4.20866</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -1113,7 +1115,7 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state></state>
+                    <state>Default	None</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -1147,7 +1149,7 @@
                 </option>
                 <option>
                     <name>RTConfigPath2</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</state>
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
@@ -1173,7 +1175,7 @@
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state></state>
+                    <state>Default	None</state>
                 </option>
                 <option>
                     <name>FPU2</name>
@@ -1368,7 +1370,7 @@
                 </option>
                 <option>
                     <name>OutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>CCLibConfigHeader</name>
@@ -1634,7 +1636,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -2076,10 +2078,22 @@
         <group>
             <name>inc</name>
             <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cm4.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cm4_simd.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cmFunc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\periph\inc\core_cmInstr.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\periph\inc\misc.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\periph\inc\stm32f4_discovery.h</name>
+                <name>$PROJ_DIR$\..\periph\inc\stm32f4xx.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_adc.h</name>
@@ -2127,9 +2141,6 @@
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_i2c.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_it.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\periph\inc\stm32f4xx_iwdg.h</name>
             </file>
             <file>
@@ -2167,9 +2178,6 @@
             <name>src</name>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\misc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\periph\src\stm32f4_discovery.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_adc.c</name>
@@ -2227,9 +2235,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_i2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\periph\src\stm32f4xx_it.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\periph\src\stm32f4xx_iwdg.c</name>
