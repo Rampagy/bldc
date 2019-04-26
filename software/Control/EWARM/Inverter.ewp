@@ -224,7 +224,8 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state></state>
+                    <state>USE_STDPERIPH_DRIVER</state>
+                    <state>STM32F4XX</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2278,6 +2279,18 @@
         </file>
     </group>
     <file>
+        <name>$PROJ_DIR$\..\delay.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\delay.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\main.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\uart.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\uart.h</name>
     </file>
 </project>

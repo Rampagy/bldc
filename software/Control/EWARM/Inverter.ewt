@@ -2574,6 +2574,18 @@
         </file>
     </group>
     <file>
+        <name>$PROJ_DIR$\..\delay.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\delay.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\main.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\uart.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\uart.h</name>
     </file>
 </project>
