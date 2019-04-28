@@ -20,6 +20,6 @@ void main()
     while(1)
     {
         UARTSendLine(message);
-        Delay(20000);
+        Delay(1000);
     }
 }

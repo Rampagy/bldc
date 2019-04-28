@@ -43,11 +43,11 @@ void SysTick_Handler(void) {
 void SysTick_Init(void) {
 
     /****************************************
-     *SystemFrequency/10000     1ms         *
-     *SystemFrequency/100000    0.1ms       *
-     *SystemFrequency/1000000   0.01us      *
+     *SystemFrequency/1000     1ms        *
+     *SystemFrequency/16800      0.1ms      *
+     *SystemFrequency/1680       0.01ms     *
      ****************************************/
-    while (SysTick_Config(SystemCoreClock / 100000) != 0) {
+    while (SysTick_Config(SystemCoreClock / 3360) != 0) {
     } // One SysTick interrupt now equals 0.1ms
 
     return;
