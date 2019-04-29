@@ -2580,7 +2580,16 @@
         <name>$PROJ_DIR$\..\delay.h</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\..\hall_effect.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\hall_effect.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\main.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\main.h</name>
     </file>
     <file>
         <name>$PROJ_DIR$\..\uart.c</name>
