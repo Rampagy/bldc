@@ -110,19 +110,34 @@ void Hall_Init(void)
     /* Add to NVIC */
     NVIC_Init(&NVIC_InitStruct);
 
-    //timer initialization for phase-advance
+    //timer initialization for speed calculation
     TIM_TimeBaseInitTypeDef  TIM_InitStructure1;
 
     //INITIALIZE TIM9
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
 
-    TIM_InitStructure1.TIM_Prescaler = 1680;//TIM9 base clock is 168MHz
+    TIM_InitStructure1.TIM_Prescaler = 840; // TIM9 base clock is 84MHz
     TIM_InitStructure1.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_InitStructure1.TIM_Period = 50000;
+    TIM_InitStructure1.TIM_Period = 50000; // Each tick is 10 us
     TIM_InitStructure1.TIM_ClockDivision = TIM_CKD_DIV1;
 
     TIM_TimeBaseInit(TIM9, &TIM_InitStructure1);
     TIM_Cmd(TIM9, ENABLE);
+
+    /* Timer Interrupt Config */
+    //TIM9 interrupt
+    NVIC_InitStruct.NVIC_IRQChannel = TIM1_BRK_TIM9_IRQn;
+    /* Set priority */
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
+    /* Set sub priority */
+    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 1;
+    /* Enable interrupt */
+    NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+    /* Add to NVIC */
+    NVIC_Init(&NVIC_InitStruct);
+
+    // Enable interrupt
+    TIM_ITConfig(TIM9, TIM_IT_Update, ENABLE);
 
     return;
 }
@@ -231,15 +246,28 @@ void Hall_Decoder (void)
 
     // Capture time since last interrupt, measure motor speed using value
     // If the timer rolls over, assume the motor is not spinning
-    if(TIM9->SR & 0x0001 == 1) {
-
+    if(TIM9->SR & 0x0001 == 1)
+    {
       motorSpeedCount = 0;
-      TIM9->SR &= 0xFFFE;
-
-    } else {
-
+      TIM_ClearITPendingBit(TIM9, TIM_IT_Update);  //reset flag
+    }
+    else
+    {
       motorSpeedCount = TIM9->CNT;
       TIM9->CNT = 0x0000;
     }
+    return;
 }
+
+void TIM1_BRK_TIM9_IRQHandler(void)
+{
+    if (TIM_GetITStatus(TIM9, TIM_IT_Update) != RESET)
+    {
+        GPIO_ToggleBits(GPIOD, GPIO_Pin_12);    // blue LED
+        motorSpeedCount = 0;
+        TIM_ClearITPendingBit(TIM9, TIM_IT_Update);  //reset flag
+    }
+    return;
+}
+
 

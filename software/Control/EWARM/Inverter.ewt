@@ -2586,6 +2586,12 @@
         <name>$PROJ_DIR$\..\hall_effect.h</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\..\led_init.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\led_init.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\main.c</name>
     </file>
     <file>

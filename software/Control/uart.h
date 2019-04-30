@@ -19,7 +19,7 @@
 
 
 void UARTSendLine(char[]);
-void UARTSendString();
+void UARTSendString(char[]);
 
 void USART3_IRQHandler (void);
 void UARTInit(uint32_t);
