@@ -2279,6 +2279,12 @@
         </file>
     </group>
     <file>
+        <name>$PROJ_DIR$\..\debug.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\debug.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\delay.c</name>
     </file>
     <file>
@@ -2289,12 +2295,6 @@
     </file>
     <file>
         <name>$PROJ_DIR$\..\hall_effect.h</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\led_init.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\led_init.h</name>
     </file>
     <file>
         <name>$PROJ_DIR$\..\main.c</name>

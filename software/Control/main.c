@@ -12,12 +12,12 @@
 #include "uart.h"
 #include "delay.h"
 #include "hall_effect.h"
-#include "led_init.h"
+#include "debug.h"
 
 void main()
 {
     (void) SysTick_Init();
-    (void) Led_Init();
+    (void) Debug_Init();
     (void) UARTInit(256000);
     (void) Hall_Init();
 
