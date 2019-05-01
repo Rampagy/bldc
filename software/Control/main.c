@@ -8,18 +8,21 @@
 #include <stm32f4xx.h>
 #include <system_stm32f4xx.h>
 
+#include "main.h"
 #include "uart.h"
 #include "delay.h"
+#include "hall_effect.h"
+#include "led_init.h"
 
 void main()
 {
-    SysTick_Init();
-    UARTInit(9600);
+    (void) SysTick_Init();
+    (void) Led_Init();
+    (void) UARTInit(256000);
+    (void) Hall_Init();
 
-    char message[5] = "Hola!";
     while(1)
     {
-        UARTSendLine(message);
-        Delay(20000);
+
     }
 }
