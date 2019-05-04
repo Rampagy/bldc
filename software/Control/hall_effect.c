@@ -11,8 +11,7 @@ void EXTI4_IRQHandler(void)
     /* Clear interrupt flag */
     EXTI_ClearITPendingBit(EXTI_Line4);
 
-    //GPIO_ToggleBits(GPIOD, GPIO_Pin_13); // orange LED
-    // Hall effact A (U - orange wire) - PB4
+    // Hall effect A (U - orange wire) - PB4
     // Read value from GPIO to determine if rising or falling edge
     // if 1 = rising edge, if 0 = falling edge
 
@@ -29,8 +28,6 @@ void EXTI9_5_IRQHandler(void)
     /* Clear interrupt flag */
     EXTI_ClearITPendingBit(EXTI_Line5);
 
-    //GPIO_ToggleBits(GPIOD, GPIO_Pin_14); // red LED
-
     // Hall effect B (V - yellow wire) - PB5
     // Read value from GPIO to determine if rising or falling edge
     // if 1 = rising edge, if 0 = falling edge
@@ -45,8 +42,6 @@ void EXTI9_5_IRQHandler(void)
 void EXTI0_IRQHandler(void)
 {
     /* Do your stuff when PB0 is changed */
-
-    //GPIO_ToggleBits(GPIOD, GPIO_Pin_15); // blue LED
 
     // Hall effect C (W - blue wire) - PB0
     // Read value from GPIO to determine if rising or falling edge
@@ -65,6 +60,11 @@ void EXTI0_IRQHandler(void)
 //this interrupt re-calculates the motor position based off of the hall state
 void Hall_Decoder (void)
 {
+    // capture motor speed, start counter for next hall effect interrupt
+    motorSpeedCount = TIM13->CNT;
+    TIM13->CNT = 0x0000;
+    GPIO_ResetBits(GPIOD, LED_RED);
+
     /* Make motorPosition var with hallAState as MSB,
        hallBState as middle bit, hallCState as LSB */
     uint8_t gpioB = GPIOB->IDR;
@@ -94,23 +94,18 @@ void Hall_Decoder (void)
         break; // 300 degrees
       default: // Error State
         // Use last good known value if none are active
-        // Toggle LED state as indicator
-        GPIO_ToggleBits(GPIOD, GPIO_Pin_13);    // orange LED
         break;
     }
 
-    // Capture time since last interrupt, measure motor speed using value
-    // If the timer rolls over, assume the motor is not spinning
-    motorSpeedCount = TIM13->CNT;
-    TIM13->CNT = 0x0000;
     return;
 }
 
+// motor speed count timeout, sets speed to zero if not hall effect has been detected
 void TIM8_UP_TIM13_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM13, TIM_IT_Update) != RESET)
     {
-        GPIO_ToggleBits(GPIOD, GPIO_Pin_12);    // green LED
+        GPIO_SetBits(GPIOD, LED_RED);
         motorSpeedCount = 0;
         TIM_ClearITPendingBit(TIM13, TIM_IT_Update);  //reset flag
     }

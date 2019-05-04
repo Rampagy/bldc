@@ -1,10 +1,17 @@
-#ifndef LED_INIT_H
-#define LED_INIT_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
 // includes
 #include <stm32f4xx_gpio.h>
-
 #include "uart.h"
+
+
+// defines
+
+#define LED_GREEN   GPIO_Pin_12     // None
+#define LED_ORANGE  GPIO_Pin_13     // None
+#define LED_RED     GPIO_Pin_14     // Zero Motor Speed
+#define LED_BLUE    GPIO_Pin_15     // RS485 Tx/Rx
 
 
 // function declarations

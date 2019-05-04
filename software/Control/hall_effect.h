@@ -12,6 +12,7 @@
 #include <misc.h>
 
 #include "uart.h"
+#include "debug.h"
 
 // function declarations
 void Hall_Init(void);

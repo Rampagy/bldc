@@ -70,7 +70,6 @@ void TIM8_BRK_TIM12_IRQHandler(void)
         message[8] = dec + 48;
 
         UARTSendLine(message);
-        GPIO_ToggleBits(GPIOD, GPIO_Pin_14);    // red LED
         TIM_ClearITPendingBit(TIM12, TIM_IT_Update);  //reset flag
     }
     return;
@@ -84,7 +83,7 @@ void Debug_Init(void)
     GPIO_InitTypeDef GPIO_InitStructure;
 
     /* Configure PD12, PD13, PD14 and PD15 in output pushpull mode (LEDs)*/
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+    GPIO_InitStructure.GPIO_Pin = LED_GREEN | LED_ORANGE | LED_RED | LED_BLUE;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;

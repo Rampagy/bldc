@@ -18,7 +18,7 @@ void main()
 {
     (void) SysTick_Init();
     (void) Debug_Init();
-    (void) UARTInit(256000);
+    (void) UARTInit(9600);
     (void) Hall_Init();
 
     while(1)
