@@ -40,7 +40,7 @@ void UARTSendString(char data[])
 //Handles the USART Interrupt. On a transfer empty interrupt, populates the data register with the next character to send.
 void USART3_IRQHandler (void)
 {
-    if(USART_GetITStatus(USART3, USART_IT_TXE) != RESET)
+    if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
         if(*bufferLoc == 0x00 || bufferLoc == &buffer[BUFFER_LENGTH])
@@ -53,15 +53,11 @@ void USART3_IRQHandler (void)
             USART_SendData(USART3, *bufferLoc); //Put the next character in the Data Register
             bufferLoc++; // Increment the buffer pointer
         }
-
-        USART_ClearITPendingBit(USART3, USART_IT_TXE);
     }
     else if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
-        //Save the data
+        //Save the data, reading from USART3->DR clears interrupt
         desiredThrottle = USART_ReceiveData(USART3);// USART3->DR;
-        USART_ClearITPendingBit(USART3, USART_IT_RXNE);
-
         //reset timer to avoid hitting the timeout
         TIM14->CNT = 0x00;
         GPIO_ResetBits(GPIOD, LED_BLUE);
@@ -101,7 +97,7 @@ void UARTInit(uint32_t baudRate)
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 
