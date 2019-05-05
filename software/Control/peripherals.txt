@@ -1,0 +1,9 @@
+Timers
+    TIM12   ->  RS485 Tx Messaging
+    TIM13   ->  Motor Speed Timeout
+    TIM14   ->  RS485 Rx Messaging Timeout (Heartbeat Timeout)
+    SysTick ->  Delay
+    
+
+
+USART3 -> RS485 Rx/Tx

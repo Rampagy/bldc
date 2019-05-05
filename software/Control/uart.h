@@ -24,6 +24,7 @@ void UARTSendLine(char[]);
 void UARTSendString(char[]);
 
 void USART3_IRQHandler (void);
+void TIM8_TRG_COM_TIM14_IRQHandler (void);
 void UARTInit(uint32_t);
 
 #endif

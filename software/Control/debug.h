@@ -7,11 +7,10 @@
 
 
 // defines
-
 #define LED_GREEN   GPIO_Pin_12     // None
 #define LED_ORANGE  GPIO_Pin_13     // None
 #define LED_RED     GPIO_Pin_14     // Zero Motor Speed
-#define LED_BLUE    GPIO_Pin_15     // RS485 Tx/Rx
+#define LED_BLUE    GPIO_Pin_15     // RS485 Rx Timed out
 
 
 // function declarations

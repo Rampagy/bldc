@@ -35,69 +35,12 @@ void UARTSendString(char data[])
     bufferLoc= &buffer[0]; //Reset the Pointer to the beginning of the buffer
 }
 
-//UARTInit
-//Initializes Pins 8 and 9 on GPIO D to UART3.
-//Inputs: baudRate: Desired Baud Rate for Serial Communication
-void UARTInit(uint32_t baudRate)
-{
-    //Enable GPIOD Clock Power
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
-
-    GPIO_InitTypeDef GPIO_InitStructure;
-
-    // pin 8 and 9 for UART
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-
-    /* Connect USART Pins to GPIO */
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource8, GPIO_AF_USART3);
-    GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_USART3);
-
-    //Enable USART3 Clock Power
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
-
-    USART_InitTypeDef USART_InitStructure;
-
-    USART_InitStructure.USART_BaudRate = baudRate;
-    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-    USART_InitStructure.USART_StopBits = USART_StopBits_1;
-    USART_InitStructure.USART_Parity = USART_Parity_No;
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-
-    USART_Init(USART3,&USART_InitStructure);
-
-    NVIC_InitTypeDef NVIC_InitStructure;
-
-
-    /* Enable and set User Button and IDD_WakeUP EXTI Interrupt to the lowest priority */
-    NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-
-    NVIC_Init(&NVIC_InitStructure);
-
-    USART3->SR=0x00;
-    USART3->DR = 0x00;
-    USART_ITConfig(USART3, USART_IT_TXE, ENABLE);
-    USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
-
-    USART_Cmd(USART3, ENABLE); //Enable UART3
-    return;
-}
-
 
 //USART3_IRQHandler
 //Handles the USART Interrupt. On a transfer empty interrupt, populates the data register with the next character to send.
 void USART3_IRQHandler (void)
 {
-    GPIO_ToggleBits(GPIOD, LED_BLUE);
-    if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
+    if(USART_GetITStatus(USART3, USART_IT_TXE) != RESET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
         if(*bufferLoc == 0x00 || bufferLoc == &buffer[BUFFER_LENGTH])
@@ -118,5 +61,100 @@ void USART3_IRQHandler (void)
         //Save the data
         desiredThrottle = USART_ReceiveData(USART3);// USART3->DR;
         USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+
+        //reset timer to avoid hitting the timeout
+        TIM14->CNT = 0x00;
+        GPIO_ResetBits(GPIOD, LED_BLUE);
     }
+}
+
+
+// this interrupt should only get hit if RS485 misses transmits
+void TIM8_TRG_COM_TIM14_IRQHandler (void)
+{
+    if (TIM_GetITStatus(TIM14, TIM_IT_Update) != RESET)
+    {
+        GPIO_SetBits(GPIOD, LED_BLUE);
+        TIM_ClearITPendingBit(TIM14, TIM_IT_Update);  //reset flag
+    }
+}
+
+
+//UARTInit
+//Initializes Pins 8 and 9 on GPIO D to UART3.
+//Inputs: baudRate: Desired Baud Rate for Serial Communication
+void UARTInit(uint32_t baudRate)
+{
+    GPIO_InitTypeDef GPIO_InitStructure;
+    TIM_TimeBaseInitTypeDef  TIM_InitStructure1;
+    USART_InitTypeDef USART_InitStructure;
+    NVIC_InitTypeDef NVIC_InitStructure;
+
+    //Enable GPIOD Clock Power
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+    //Enable USART3 Clock Power
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+    //Enable TIM14 power
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14, ENABLE);
+
+    // pin 8 and 9 for UART
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+    /* Connect USART Pins to GPIO */
+    GPIO_PinAFConfig(GPIOD, GPIO_PinSource8, GPIO_AF_USART3);
+    GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_USART3);
+
+    USART_InitStructure.USART_BaudRate = baudRate;
+    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+    USART_InitStructure.USART_StopBits = USART_StopBits_1;
+    USART_InitStructure.USART_Parity = USART_Parity_No;
+    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    USART_Init(USART3,&USART_InitStructure);
+
+    //Enable UART interrupt
+    NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+
+    /* timer 14 initialization for UART Rx timeout */
+    TIM_InitStructure1.TIM_Prescaler = 42; // TIM14 base clock is 42MHz
+    TIM_InitStructure1.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_InitStructure1.TIM_Period = 50000; // Each tick is 1 us
+    TIM_InitStructure1.TIM_ClockDivision = TIM_CKD_DIV1;
+
+    TIM_TimeBaseInit(TIM14, &TIM_InitStructure1);
+    TIM_Cmd(TIM14, ENABLE);
+
+    /* Timer 14 Interrupt Config */
+    NVIC_InitStructure.NVIC_IRQChannel = TIM8_TRG_COM_TIM14_IRQn;
+    /* Set priority */
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+    /* Set sub priority */
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+    /* Enable interrupt */
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    /* Add to NVIC */
+    NVIC_Init(&NVIC_InitStructure);
+
+    // Enable interrupt
+    TIM_ITConfig(TIM14, TIM_IT_Update, ENABLE);
+    TIM14->CNT = 0x00;
+
+    USART3->SR = 0x00;
+    USART3->DR = 0x00;
+    USART_ITConfig(USART3, USART_IT_TXE, ENABLE);
+    USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+
+    USART_Cmd(USART3, ENABLE); //Enable UART3
+
+
+    return;
 }

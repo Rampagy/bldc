@@ -16,13 +16,14 @@
 
 void main()
 {
-    (void) SysTick_Init();
-    (void) Debug_Init();
-    (void) UARTInit(9600);
-    (void) Hall_Init();
+    SystemCoreClockUpdate();
+    SysTick_Init();
+    Debug_Init();
+    UARTInit(9600);
+    Hall_Init();
 
     while(1)
     {
-
+        // (void) Delay(1000);  Delay 1 second
     }
 }

@@ -93,7 +93,7 @@ void Debug_Init(void)
 
 
     //timer initialization for debug output
-    TIM_TimeBaseInitTypeDef  TIM_InitStructure1;
+    TIM_TimeBaseInitTypeDef TIM_InitStructure1;
     NVIC_InitTypeDef NVIC_InitStruct;
 
     //INITIALIZE TIM12
