@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/alex/bldc/hardware/Operator/Operator.sch)
-    (date "Sat 27 Apr 2019 11:19:43 AM CDT")
+    (date "Wed 08 May 2019 05:56:19 PM CDT")
     (tool "Eeschema 5.0.0-fee4fd1~65~ubuntu17.10.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -17,7 +17,7 @@
   (components
     (comp (ref A1)
       (value Arduino_UNO_R3)
-      (footprint Module:Arduino_UNO_R3)
+      (footprint Custom:Arduino_UNO_R3)
       (datasheet https://www.arduino.cc/en/Main/arduinoBoardUno)
       (libsource (lib MCU_Module) (part Arduino_UNO_R3) (description "Arduino UNO Microcontroller Module, release 3"))
       (sheetpath (names /) (tstamps /))

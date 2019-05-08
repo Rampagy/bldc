@@ -6,7 +6,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "Operator Controls"
-Date "2019-03-20"
+Date "2019-05-08"
 Rev "1"
 Comp "Loma Incorporated"
 Comment1 ""
@@ -20,7 +20,7 @@ U 1 1 5C92F5C8
 P 6450 2950
 F 0 "A1" H 5850 4050 50  0000 C CNN
 F 1 "Arduino_UNO_R3" H 5850 3950 50  0000 C CNN
-F 2 "Module:Arduino_UNO_R3" H 6600 1900 50  0001 L CNN
+F 2 "Custom:Arduino_UNO_R3" H 6600 1900 50  0001 L CNN
 F 3 "https://www.arduino.cc/en/Main/arduinoBoardUno" H 6250 4000 50  0001 C CNN
 	1    6450 2950
 	1    0    0    -1  
