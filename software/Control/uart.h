@@ -7,6 +7,8 @@
 #include <misc.h>
 #include <system_stm32f4xx.h>
 
+#include "debug.h"
+
 //This controls the maximum amount of characters that can be sent across in one transaction.
 #define BUFFER_LENGTH 100
 
@@ -22,6 +24,7 @@ void UARTSendLine(char[]);
 void UARTSendString(char[]);
 
 void USART3_IRQHandler (void);
+void TIM8_TRG_COM_TIM14_IRQHandler (void);
 void UARTInit(uint32_t);
 
 #endif

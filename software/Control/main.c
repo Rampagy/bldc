@@ -12,17 +12,18 @@
 #include "uart.h"
 #include "delay.h"
 #include "hall_effect.h"
-#include "led_init.h"
+#include "debug.h"
 
 void main()
 {
-    (void) SysTick_Init();
-    (void) Led_Init();
-    (void) UARTInit(256000);
-    (void) Hall_Init();
+    SystemCoreClockUpdate();
+    SysTick_Init();
+    Debug_Init();
+    UARTInit(9600);
+    Hall_Init();
 
     while(1)
     {
-
+        // (void) Delay(1000);  Delay 1 second
     }
 }
