@@ -6,7 +6,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 3
 Title "Brushless DC Motor Controller"
-Date "2019-02-07"
+Date "2019-05-08"
 Rev "1"
 Comp "Loma Inrocporated"
 Comment1 ""
@@ -436,18 +436,6 @@ Text Label 3050 5400 2    50   ~ 0
 48v
 Wire Wire Line
 	3050 5400 3050 5550
-$Comp
-L Device:R_Small R15
-U 1 1 5C8D40D5
-P 2600 6450
-F 0 "R15" H 2650 6500 50  0000 L CNN
-F 1 "2k" H 2650 6400 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" H 2600 6450 50  0001 C CNN
-F 3 "~" H 2600 6450 50  0001 C CNN
-F 4 "A126358CT-ND" H 2300 6350 50  0000 C CNN "PN"
-	1    2600 6450
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2600 6350 2600 6200
 Wire Wire Line
@@ -507,4 +495,16 @@ F 4 "A129747CT-ND" V 2400 6150 50  0000 C CNN "PN"
 $EndComp
 Wire Wire Line
 	1950 6200 2200 6200
+$Comp
+L Device:R_Small R15
+U 1 1 5CD3D17E
+P 2600 6450
+F 0 "R15" H 2650 6400 50  0000 L CNN
+F 1 "6k" H 2650 6500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.33x1.40mm_HandSolder" H 2600 6450 50  0001 C CNN
+F 3 "~" H 2600 6450 50  0001 C CNN
+F 4 "P6.04KCCT-ND" V 2500 6250 50  0000 C CNN "PN"
+	1    2600 6450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

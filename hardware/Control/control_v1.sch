@@ -6,7 +6,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 3
 Title "Brushless DC Motor Controller"
-Date "2019-02-07"
+Date "2019-05-08"
 Rev "1"
 Comp "Loma Inrocporated"
 Comment1 ""
