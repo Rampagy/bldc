@@ -5,34 +5,25 @@ char* bufferLoc = &buffer[0];
 
 volatile uint8_t desiredThrottle = 0;
 
-/*UARTSendLine
+/*UARTSendData
  *Populates a buffer which gets shifted out UART3 at the baud rate specified by UARTInit.
  *Note, this function is non-blocking and repeated calls will stop the current transfer and start
  *a new transfer
 */
-void UARTSendLine(char data[])
-{
-    uint8_t length = strlen(&data[0]);//Get Length of Null Terminated String
-    for(int i = 0; i< length; i++)
-    {
-        buffer[i] = data[i];//Copy String into Buffer
-    }
-    buffer[length] = 0x0A; //set to the next line
-    buffer[length+1] = 0x0D; //reset to left side
-    buffer[length+2] = 0x00; //Add Terminating 0x00;
-    bufferLoc= &buffer[0]; //Reset the Pointer to the beginning of the buffer
-}
 
-
-void UARTSendString(char data[])
+void UARTSendData(char data[])
 {
-    uint8_t length = strlen(&data[0]);//Get Length of Null Terminated String
-    for(int i = 0; i< length; i++)
+    for(uint8_t i = 0; i < BUFFER_LENGTH; i++)
     {
-        buffer[i] = data[i];//Copy String into Buffer
+        //Copy String into Buffer
+        buffer[i] = data[i];
     }
-    buffer[length] = 0x00; //Add Terminating 0x00;
-    bufferLoc= &buffer[0]; //Reset the Pointer to the beginning of the buffer
+
+    //Reset the Pointer to the beginning of the buffer
+    bufferLoc= &buffer[0];
+
+    // Enable the transmitter
+    USART3->CR1 |= USART_Mode_Tx;
 }
 
 
@@ -43,10 +34,12 @@ void USART3_IRQHandler (void)
     if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
-        if(*bufferLoc == 0x00 || bufferLoc == &buffer[BUFFER_LENGTH])
+        if (((*(bufferLoc-1) == 0xFF) && (*(bufferLoc-2) == 0xFF)) ||
+           (bufferLoc == &buffer[BUFFER_LENGTH]))
         {
-            //If we have reached the end of the null-terminated string,
-            USART_SendData(USART3, 0x00); //Places a null character into the data register to clear the interrupt
+            //If we have reached the end of the null-terminated string clear the flag
+            USART3->CR1 &= ~USART_Mode_Tx;
+            USART_ClearITPendingBit(USART3, USART_IT_TXE);
         }
         else
         {
@@ -65,7 +58,7 @@ void USART3_IRQHandler (void)
 }
 
 
-// this interrupt should only get hit if RS485 misses transmits
+// this interrupt should only get hit if we are not receiving RS485 messages
 void TIM8_TRG_COM_TIM14_IRQHandler (void)
 {
     if (TIM_GetITStatus(TIM14, TIM_IT_Update) != RESET)
@@ -109,7 +102,7 @@ void UARTInit(uint32_t baudRate)
     USART_InitStructure.USART_WordLength = USART_WordLength_8b;
     USART_InitStructure.USART_StopBits = USART_StopBits_1;
     USART_InitStructure.USART_Parity = USART_Parity_No;
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+    USART_InitStructure.USART_Mode = USART_Mode_Rx;
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
     USART_Init(USART3,&USART_InitStructure);
 

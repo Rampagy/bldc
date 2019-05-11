@@ -2603,4 +2603,7 @@
     <file>
         <name>$PROJ_DIR$\..\uart.h</name>
     </file>
+    <file>
+        <name>$PROJ_DIR$\..\user_types.h</name>
+    </file>
 </project>

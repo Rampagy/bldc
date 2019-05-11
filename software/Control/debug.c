@@ -1,75 +1,23 @@
 #include "debug.h"
 
+debug_T debugData;
+
 
 void TIM8_BRK_TIM12_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM12, TIM_IT_Update) != RESET)
     {
-        // format debug data
-        char message[10] = "          ";
-
-        switch (motorAngPosition)
+        /*if (motorSpeedCount)
         {
-        default:
-        case 0:
-            message[0] = '0';
-            break;
-        case 60:
-            message[0] = '6';
-            message[1] = '0';
-            break;
-        case 120:
-            message[0] = '1';
-            message[1] = '2';
-            message[2] = '0';
-            break;
-        case 180:
-            message[0] = '1';
-            message[1] = '8';
-            message[2] = '0';
-            break;
-        case 240:
-            message[0] = '2';
-            message[1] = '4';
-            message[2] = '0';
-            break;
-        case 300:
-            message[0] = '3';
-            message[1] = '0';
-            message[2] = '0';
-            break;
-        }
-
-        uint16_t rpm;
-        if (motorSpeedCount)
-        {
-            rpm = (uint16_t)((uint32_t)250000 / motorSpeedCount);
+            debugData.u16_data[0] = (uint16_t)((uint32_t)250000 / motorSpeedCount);
         }
         else
         {
-            rpm = (uint16_t)(0);
-        }
+            debugData.u16_data[0] = (uint16_t)(0);
+        }*/
+        debugData.u16_data[0]++;
 
-        // thousands
-        uint8_t dec = rpm / 1000;
-        message[5] = dec + 48;
-        rpm -= (dec*1000);
-
-        // hundreds
-        dec = rpm / 100;
-        message[6] = dec + 48;
-        rpm -= (dec*100);
-
-        // tens
-        dec = rpm / 10;
-        message[7] = dec + 48;
-        rpm -= (dec*10);
-
-        // ones
-        dec = rpm / 1;
-        message[8] = dec + 48;
-
-        UARTSendLine(message);
+        UARTSendData(debugData.char_data);
         TIM_ClearITPendingBit(TIM12, TIM_IT_Update);  //reset flag
     }
     return;
@@ -78,6 +26,11 @@ void TIM8_BRK_TIM12_IRQHandler(void)
 
 void Debug_Init(void)
 {
+    for (uint8_t i = 0; i < DEBUG_BYTE_LENGTH; i++)
+    {
+        debugData.u8_data[i] = 0xFF;
+    }
+
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;

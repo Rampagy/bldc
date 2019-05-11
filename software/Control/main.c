@@ -1,8 +1,8 @@
-/**********************************
-    * Alex Simon
-    * Hex Bridge Power Inverter
-    * 4/23/2019
-    ********************************/
+/************************************
+ * Alex Simon                       *
+ * Hex Bridge Power Inverter        *
+ * 4/23/2019                        *
+ ************************************/
 
 #include <misc.h>
 #include <stm32f4xx.h>
