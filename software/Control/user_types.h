@@ -8,6 +8,7 @@
 #define LED_BLUE    GPIO_Pin_15     // RS485 Rx Timed out
 
 #define DEBUG_BYTE_LENGTH 10
+#define DEBUG_TERMINATING_BYTES 2
 
 // typedefs
 typedef union

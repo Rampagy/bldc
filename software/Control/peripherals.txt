@@ -1,7 +1,7 @@
 Timers
-    TIM12   ->  RS485 Tx Messaging
-    TIM13   ->  Motor Speed Timeout
-    TIM14   ->  RS485 Rx Messaging Timeout (Heartbeat Timeout)
+    TIM12   ->  RS485 Debug Messaging (10ms)
+    TIM13   ->  Motor Speed Timeout (50ms)
+    TIM14   ->  RS485 Rx Messaging Timeout (Heartbeat Timeout, 50ms)
     SysTick ->  Delay
     
 

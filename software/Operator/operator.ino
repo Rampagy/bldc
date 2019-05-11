@@ -17,6 +17,8 @@ typedef union
 //globals
 packet_T rxBuffer;
 uint8_t bufferLoc = 0;
+uint8_t rxTimer = 0;
+
 
 void setup()
 {
@@ -53,6 +55,8 @@ ISR(USART_RX_vect)
 {
     // transfer the data to the rxBuffer
     rxBuffer.u8_data[bufferLoc] = UDR0;
+    rxTimer = 0;
+    digitalWrite(LED_BUILTIN, LOW);
 
     // if the terminating bytes have been received
     if ((bufferLoc >= TERMINATING_BYTES) && 
@@ -74,7 +78,7 @@ ISR(USART_RX_vect)
     // TEMPORARY: enable TX and TX complete interrupt
     UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
     //write data to be transferred
-    UDR0 = rxBuffer.u8_data[1];
+    UDR0 = rxBuffer.u8_data[0];
 }
 
 
@@ -85,8 +89,12 @@ ISR(USART_RX_vect)
 //**************************************
 ISR(TIMER0_COMPA_vect)
 {
-    //Serial.write(100);
-    //digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN)^1);
+    rxTimer++;
+    if (rxTimer >= 5)
+    {
+        // debug timeout - RS485 not connected
+        digitalWrite(LED_BUILTIN, HIGH);
+    }
 }
 
 //*********************************************

@@ -34,8 +34,9 @@ void USART3_IRQHandler (void)
     if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
-        if (((*(bufferLoc-1) == 0xFF) && (*(bufferLoc-2) == 0xFF)) ||
-           (bufferLoc == &buffer[BUFFER_LENGTH]))
+        if (((bufferLoc - &buffer[0] >= DEBUG_TERMINATING_BYTES) &&
+            ((*(bufferLoc-DEBUG_TERMINATING_BYTES+1) == 0xFF) && (*(bufferLoc-DEBUG_TERMINATING_BYTES) == 0xFF))) ||
+            (bufferLoc == &buffer[BUFFER_LENGTH]))
         {
             //If we have reached the end of the null-terminated string clear the flag
             USART3->CR1 &= ~USART_Mode_Tx;
