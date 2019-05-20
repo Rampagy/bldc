@@ -3,7 +3,7 @@
 char buffer[BUFFER_LENGTH];
 char* bufferLoc = &buffer[0];
 
-volatile uint8_t desiredThrottle = 0;
+uint8_t desiredThrottle = 0;
 
 /*UARTSendData
  *Populates a buffer which gets shifted out UART3 at the baud rate specified by UARTInit.
@@ -31,7 +31,15 @@ void UARTSendData(char data[])
 //Handles the USART Interrupt. On a transfer empty interrupt, populates the data register with the next character to send.
 void USART3_IRQHandler (void)
 {
-    if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
+    if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)
+    {
+        //Save the data, reading from USART3->DR clears interrupt
+        desiredThrottle = USART_ReceiveData(USART3);// USART3->DR;
+        //reset timer to avoid hitting the timeout
+        TIM14->CNT = 0x00;
+        GPIO_ResetBits(GPIOD, LED_BLUE);
+    }
+    else if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
         if (((bufferLoc - &buffer[0] >= DEBUG_TERMINATING_BYTES) &&
@@ -47,14 +55,6 @@ void USART3_IRQHandler (void)
             USART_SendData(USART3, *bufferLoc); //Put the next character in the Data Register
             bufferLoc++; // Increment the buffer pointer
         }
-    }
-    else if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
-    {
-        //Save the data, reading from USART3->DR clears interrupt
-        desiredThrottle = USART_ReceiveData(USART3);// USART3->DR;
-        //reset timer to avoid hitting the timeout
-        TIM14->CNT = 0x00;
-        GPIO_ResetBits(GPIOD, LED_BLUE);
     }
 }
 
@@ -110,7 +110,7 @@ void UARTInit(uint32_t baudRate)
     //Enable UART interrupt
     NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
@@ -125,13 +125,9 @@ void UARTInit(uint32_t baudRate)
 
     /* Timer 14 Interrupt Config */
     NVIC_InitStructure.NVIC_IRQChannel = TIM8_TRG_COM_TIM14_IRQn;
-    /* Set priority */
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    /* Set sub priority */
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-    /* Enable interrupt */
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x01;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    /* Add to NVIC */
     NVIC_Init(&NVIC_InitStructure);
 
     // Enable interrupt

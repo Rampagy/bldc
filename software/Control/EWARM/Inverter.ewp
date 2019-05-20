@@ -226,6 +226,7 @@
                     <name>CCDefines</name>
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F4XX</state>
+                    <state>HSE_VALUE=8000000</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>

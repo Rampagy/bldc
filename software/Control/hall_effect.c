@@ -134,78 +134,53 @@ void Hall_Init(void)
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
     GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /* Tell system that you will use PD0 for EXTI_Line0 */
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource4); // Hall A
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource5); // Hall B
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource0); // Hall C
 
     /* PB4 is connected to EXTI_Line4 */
     EXTI_InitStruct.EXTI_Line = EXTI_Line4;
-    /* Enable interrupt */
     EXTI_InitStruct.EXTI_LineCmd = ENABLE;
-    /* Interrupt mode */
     EXTI_InitStruct.EXTI_Mode = EXTI_Mode_Interrupt;
-    /* Triggers on rising and falling edge */
     EXTI_InitStruct.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-    /* Add to EXTI */
     EXTI_Init(&EXTI_InitStruct);
 
     /* PB5 is connected to EXTI_Line5 */
     EXTI_InitStruct.EXTI_Line = EXTI_Line5;
-    /* Enable interrupt */
     EXTI_InitStruct.EXTI_LineCmd = ENABLE;
-    /* Interrupt mode */
     EXTI_InitStruct.EXTI_Mode = EXTI_Mode_Interrupt;
-    /* Triggers on rising and falling edge */
     EXTI_InitStruct.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-    /* Add to EXTI */
     EXTI_Init(&EXTI_InitStruct);
 
     /* PB0 is connected to EXTI_Line0 */
     EXTI_InitStruct.EXTI_Line = EXTI_Line0;
-    /* Enable interrupt */
     EXTI_InitStruct.EXTI_LineCmd = ENABLE;
-    /* Interrupt mode */
     EXTI_InitStruct.EXTI_Mode = EXTI_Mode_Interrupt;
-    /* Triggers on rising and falling edge */
     EXTI_InitStruct.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-    /* Add to EXTI */
     EXTI_Init(&EXTI_InitStruct);
 
     /* Add IRQ vector to NVIC */
     //PB4 interrupt
     NVIC_InitStruct.NVIC_IRQChannel = EXTI4_IRQn;
-    /* Set priority */
-    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x00;
-    /* Set sub priority */
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x02;
     NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;
-    /* Enable interrupt */
     NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-    /* Add to NVIC */
     NVIC_Init(&NVIC_InitStruct);
 
     /* Add IRQ vector to NVIC */
     //PB5 interrupt
     NVIC_InitStruct.NVIC_IRQChannel = EXTI9_5_IRQn;
-    /* Set priority */
-    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x00;
-    /* Set sub priority */
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x02;
     NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;
-    /* Enable interrupt */
     NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-    /* Add to NVIC */
     NVIC_Init(&NVIC_InitStruct);
 
     /* Add IRQ vector to NVIC */
     //PB0 interrupt
     NVIC_InitStruct.NVIC_IRQChannel = EXTI0_IRQn;
-    /* Set priority */
-    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x00;
-    /* Set sub priority */
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x02;
     NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;
-    /* Enable interrupt */
     NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-    /* Add to NVIC */
     NVIC_Init(&NVIC_InitStruct);
 
     //timer initialization for speed calculation
@@ -225,13 +200,9 @@ void Hall_Init(void)
     /* Timer Interrupt Config */
     //TIM13 interrupt
     NVIC_InitStruct.NVIC_IRQChannel = TIM8_UP_TIM13_IRQn;
-    /* Set priority */
-    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
-    /* Set sub priority */
-    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 1;
-    /* Enable interrupt */
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x04;
+    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;
     NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-    /* Add to NVIC */
     NVIC_Init(&NVIC_InitStruct);
 
     // Enable interrupt

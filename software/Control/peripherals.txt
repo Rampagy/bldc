@@ -4,6 +4,12 @@ Timers
     TIM14   ->  RS485 Rx Messaging Timeout (Heartbeat Timeout, 50ms)
     SysTick ->  Delay
     
-
-
 USART3 -> RS485 Rx/Tx
+
+
+Interrupt Priorities
+1.  USART3
+2.  TIM14 (USART3 timeout)
+3.  PB4, PB5, PB0 (hall effect)
+4.  TIM13 (Motor Speed Timeout)
+5.  TIM12 (RS485 debug)

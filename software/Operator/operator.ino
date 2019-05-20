@@ -42,7 +42,7 @@ void setup()
 //**************************************
 ISR(USART_TX_vect)
 {
-    // TEMPORARY: disable TX and TX complete interrupt
+    // disable TX and TX complete interrupt
     UCSR0B &= ~(1 << TXEN0) & ~(1 << TXCIE0);
 }
 
@@ -52,7 +52,7 @@ ISR(USART_TX_vect)
 //  Vector Address 18
 //**************************************
 ISR(USART_RX_vect)
-{
+{  
     // transfer the data to the rxBuffer
     rxBuffer.u8_data[bufferLoc] = UDR0;
     rxTimer = 0;
@@ -74,11 +74,6 @@ ISR(USART_RX_vect)
     
     // clear the rx complete flag
     UCSR0A &= ~(1 << RXC0);
-
-    // TEMPORARY: enable TX and TX complete interrupt
-    UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
-    //write data to be transferred
-    UDR0 = rxBuffer.u8_data[0];
 }
 
 
@@ -89,13 +84,25 @@ ISR(USART_RX_vect)
 //**************************************
 ISR(TIMER0_COMPA_vect)
 {
+    static uint8_t throttle = 0;
+    
     rxTimer++;
     if (rxTimer >= 5)
     {
         // debug timeout - RS485 not connected
         digitalWrite(LED_BUILTIN, HIGH);
     }
+
+    //send data
+    UARTSendData(throttle);
+    throttle++;
+
+    if (throttle >= 100)
+    {
+        throttle = 0;
+    }
 }
+
 
 //*********************************************
 //  Configure Timer 0
@@ -127,10 +134,24 @@ void SetupUART0()
     UCSR0C = 0; // same for UCSR0C
 
    pinMode(13, OUTPUT);  // configuring pin 13 as output
-   UBRR0 = 103; // for configuring baud rate of 9600bps
+   UBRR0 = 8; // for configuring baud rate of 115200bps - pg 182
    UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes 
    UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
 }
+
+
+//*********************************************
+//  Send UART data
+//*********************************************
+void UARTSendData(uint8_t packet)
+{
+    // enable TX and TX complete interrupt
+    UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
+
+    // write data to data register
+    UDR0 = packet;
+}
+
 
 void loop()
 {
