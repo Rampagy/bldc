@@ -18,6 +18,7 @@ typedef union
 packet_T rxBuffer;
 uint8_t bufferLoc = 0;
 uint8_t rxTimer = 0;
+volatile uint8_t Run10msTask = 0;
 
 
 void setup()
@@ -52,7 +53,7 @@ ISR(USART_TX_vect)
 //  Vector Address 18
 //**************************************
 ISR(USART_RX_vect)
-{  
+{
     // transfer the data to the rxBuffer
     rxBuffer.u8_data[bufferLoc] = UDR0;
     rxTimer = 0;
@@ -71,7 +72,7 @@ ISR(USART_RX_vect)
         // increment the buffer location
         bufferLoc++;
     }
-    
+
     // clear the rx complete flag
     UCSR0A &= ~(1 << RXC0);
 }
@@ -84,22 +85,56 @@ ISR(USART_RX_vect)
 //**************************************
 ISR(TIMER0_COMPA_vect)
 {
-    static uint8_t throttle = 0;
-    
+    Run10msTask = 1;
+}
+
+
+//*********************************************
+//  Logic called every 10ms
+//*********************************************
+void TenMsTask()
+{
+    ComputeThrottle();
+    RS485Watchdog();
+}
+
+//*********************************************
+//  RS485 Watchdog
+//*********************************************
+void RS485Watchdog()
+{
     rxTimer++;
-    if (rxTimer >= 5)
+    if (rxTimer > 5)
     {
         // debug timeout - RS485 not connected
         digitalWrite(LED_BUILTIN, HIGH);
     }
+}
+
+
+//*********************************************
+//  Compute Throttle
+//*********************************************
+void ComputeThrottle()
+{
+    static uint8_t throttle = 0;
+    static uint8_t throttleCounter = 0;
 
     //send data
     UARTSendData(throttle);
-    throttle++;
 
-    if (throttle >= 100)
+    if (throttle < 25)
     {
-        throttle = 0;
+        // increment every 10 task cycles up to 25% throttle
+        if (throttleCounter >= 9)
+        {
+            throttle++;
+            throttleCounter = 0;
+        }
+        else
+        {
+            throttleCounter++;
+        }
     }
 }
 
@@ -155,8 +190,21 @@ void UARTSendData(uint8_t packet)
 
 void loop()
 {
+    uint16_t startupTimer = 0;
+    
     while (1)
     {
-        //nop
+        if (Run10msTask)
+        {
+            Run10msTask = 0;
+            if (startupTimer >= 299)
+            {
+                TenMsTask();
+            }
+            else
+            {
+                startupTimer++;    
+            }
+        }
     }
 }

@@ -10,17 +10,14 @@
 
 #include "main.h"
 #include "uart.h"
-//#include "delay.h"
 #include "hall_effect.h"
 #include "debug.h"
 
 void main()
 {
     SystemCoreClockUpdate();
-    //SysTick_Init();
     Debug_Init();
     UARTInit(115200);
-    //USART3->BRR = 0x73;
     Hall_Init();
 
     while(1)
