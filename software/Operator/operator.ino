@@ -4,8 +4,9 @@
 //#include <avr/iom328p.h>
 
 //defines
-#define BUFFER_LENGTH 10 // must be even
-#define TERMINATING_BYTES 2
+#define BUFFER_LENGTH       10  // Must be even
+#define TERMINATING_BYTES   2
+#define TRANS_ENABLE        2   // Transmission enable is on pin 3
 
 //typedefs
 typedef union
@@ -32,8 +33,11 @@ void setup()
     // enable global interrupt
     sei();
 
-    // sets the built in LED as output
+    // Set built in LED as an output
     pinMode(LED_BUILTIN, OUTPUT);
+
+    // Set transmission enable (D2) as an output
+    pinMode(TRANS_ENABLE, OUTPUT);
 }
 
 //**************************************
@@ -96,6 +100,27 @@ void TenMsTask()
 {
     ComputeThrottle();
     RS485Watchdog();
+    ToggleTransEnable();
+}
+
+//*********************************************
+//  Toggle Transmission Enable
+//*********************************************
+void ToggleTransEnable()
+{
+    static uint8_t toggle_timer = 0;
+    static uint8_t pin_state = LOW;
+    
+    if (toggle_timer > 200)
+    {
+        toggle_timer = 0;
+        pin_state ^= HIGH;
+        digitalWrite(TRANS_ENABLE, pin_state);
+    }
+    else
+    {
+        toggle_timer++;
+    }
 }
 
 //*********************************************
@@ -168,10 +193,9 @@ void SetupUART0()
     UCSR0B = 0; // same for UCSR0B
     UCSR0C = 0; // same for UCSR0C
 
-   pinMode(13, OUTPUT);  // configuring pin 13 as output
-   UBRR0 = 8; // for configuring baud rate of 115200bps - pg 182
-   UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes 
-   UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
+    UBRR0 = 8; // for configuring baud rate of 115200bps - pg 182
+    UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes 
+    UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
 }
 
 
@@ -182,7 +206,7 @@ void UARTSendData(uint8_t packet)
 {
     // enable TX and TX complete interrupt
     UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
-
+   
     // write data to data register
     UDR0 = packet;
 }
