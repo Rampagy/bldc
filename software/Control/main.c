@@ -4,14 +4,7 @@
  * 4/23/2019                        *
  ************************************/
 
-#include <misc.h>
-#include <stm32f4xx.h>
-#include <system_stm32f4xx.h>
-
 #include "main.h"
-#include "uart.h"
-#include "hall_effect.h"
-#include "debug.h"
 
 void main()
 {
@@ -22,6 +15,30 @@ void main()
 
     while(1)
     {
+        if (RS485RxCompleted)
+        {
+            RS485RxCompleted = 0;
+            if (motorSpeedCount)
+            {
+                // STM uses little endian so it will pack LSB then MSB
+                debugData.u16_data[0] = (uint16_t)((uint32_t)250000 / motorSpeedCount);
+            }
+            else
+            {
+                // STM uses little endian so it will pack LSB then MSB
+                debugData.u16_data[0] = (uint16_t)(0);
+            }
+            UARTSendData(debugData.char_data);
+        }
         // (void) Delay(1000);  Delay 1 second
+
+        if (desiredThrottle != 25)
+        {
+            GPIO_SetBits(GPIOD, LED_ORANGE);
+        }
+        else
+        {
+            GPIO_ResetBits(GPIOD, LED_ORANGE);
+        }
     }
 }

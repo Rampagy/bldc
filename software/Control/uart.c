@@ -4,6 +4,7 @@ char buffer[BUFFER_LENGTH];
 char* bufferLoc = &buffer[0];
 
 uint8_t desiredThrottle = 0;
+uint8_t RS485RxCompleted = 0;
 
 /*UARTSendData
  *Populates a buffer which gets shifted out UART3 at the baud rate specified by UARTInit.
@@ -33,26 +34,28 @@ void USART3_IRQHandler (void)
 {
     if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)
     {
-        //Save the data, reading from USART3->DR clears interrupt
-        desiredThrottle = USART_ReceiveData(USART3);// USART3->DR;
         //reset timer to avoid hitting the timeout
         TIM14->CNT = 0x00;
         GPIO_ResetBits(GPIOD, LED_BLUE);
+        RS485RxCompleted = 1;
+        //Save the data, reading from USART3->DR clears interrupt
+        desiredThrottle = USART_ReceiveData(USART3);
     }
-    else if(USART_GetITStatus(USART3, USART_IT_TXE) == SET)
+    else if(USART_GetITStatus(USART3, USART_IT_TC) == SET)
     {
         //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
         if (((bufferLoc - &buffer[0] >= DEBUG_TERMINATING_BYTES) &&
             ((*(bufferLoc-DEBUG_TERMINATING_BYTES+1) == 0xFF) && (*(bufferLoc-DEBUG_TERMINATING_BYTES) == 0xFF))) ||
             (bufferLoc == &buffer[BUFFER_LENGTH]))
         {
-            //If we have reached the end of the null-terminated string clear the flag
+            //If we have reached the end of the null-terminated string
+            //disable transmit mode, clear the data register and clear the flag
             USART3->CR1 &= ~USART_Mode_Tx;
-            USART_ClearITPendingBit(USART3, USART_IT_TXE);
+            USART_SendData(USART3, 0);
         }
         else
         {
-            USART_SendData(USART3, *bufferLoc); //Put the next character in the Data Register
+            USART_SendData(USART3, *bufferLoc); //Put the next data in the Data Register
             bufferLoc++; // Increment the buffer pointer
         }
     }
@@ -64,6 +67,7 @@ void TIM8_TRG_COM_TIM14_IRQHandler (void)
 {
     if (TIM_GetITStatus(TIM14, TIM_IT_Update) != RESET)
     {
+        desiredThrottle = 0;
         GPIO_SetBits(GPIOD, LED_BLUE);
         TIM_ClearITPendingBit(TIM14, TIM_IT_Update);  //reset flag
     }
@@ -136,7 +140,7 @@ void UARTInit(uint32_t baudRate)
 
     USART3->SR = 0x00;
     USART3->DR = 0x00;
-    USART_ITConfig(USART3, USART_IT_TXE, ENABLE);
+    USART_ITConfig(USART3, USART_IT_TC, ENABLE);
     USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 
     USART_Cmd(USART3, ENABLE); //Enable UART3
