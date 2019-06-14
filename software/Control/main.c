@@ -12,6 +12,7 @@ void main()
     Debug_Init();
     UARTInit(115200);
     Hall_Init();
+    TIM_Config();
 
     while(1)
     {
@@ -40,5 +41,7 @@ void main()
         {
             GPIO_ResetBits(GPIOD, LED_ORANGE);
         }
+
+        SetPhaseDutyCycles(desiredThrottle*10, desiredThrottle*10, desiredThrottle*10);
     }
 }

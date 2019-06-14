@@ -9,6 +9,7 @@
 #include "uart.h"
 #include "hall_effect.h"
 #include "debug.h"
+#include "pwm_output.h"
 
 
 extern int16_t  motorAngPosition;

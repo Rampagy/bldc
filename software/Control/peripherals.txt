@@ -1,4 +1,5 @@
 Timers
+    TIM1    ->  Complimentary PWM for phases
     TIM13   ->  Motor Speed Timeout (50ms)
     TIM14   ->  RS485 Rx Messaging Timeout (Heartbeat Timeout, 50ms)
     SysTick ->  Delay
