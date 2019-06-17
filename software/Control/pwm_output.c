@@ -104,8 +104,8 @@ void TIM_Config(void)
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
     TIM_OCInitStructure.TIM_Pulse = 0; // duty cycle
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
-    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
+    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
     /* Set Idle state to Reset for all FETs, so break can be used for neutral */
     TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
     TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
@@ -121,7 +121,7 @@ void TIM_Config(void)
     TIM_BDTRInitStructure.TIM_DeadTime = (uint16_t)((((uint64_t)DEAD_TIME_NS * SystemCoreClock) / 1000000000) - 1); // (84)
     TIM_BDTRInitStructure.TIM_Break = TIM_Break_Enable;
     TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
-    TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Enable;
+    TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Disable;
 
     TIM_BDTRConfig(TIM1, &TIM_BDTRInitStructure);
 
