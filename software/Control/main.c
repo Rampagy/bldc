@@ -33,7 +33,7 @@ void main()
         }
         // (void) Delay(1000);  Delay 1 second
 
-        if (desiredThrottle != 25)
+        if (desiredThrottle <= 49)
         {
             GPIO_SetBits(GPIOD, LED_ORANGE);
         }
