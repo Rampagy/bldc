@@ -1,7 +1,6 @@
 // includes 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-//#include <avr/iom328p.h>
 
 //defines
 #define BUFFER_LENGTH       10  // Must be even
@@ -144,23 +143,63 @@ void ComputeThrottle()
 {
     static uint8_t throttle = 0;
     static uint8_t throttleCounter = 0;
+    static uint8_t throttle_dir = 0;
 
     //send data
     UARTSendData(throttle);
 
-    if (throttle < 25)
+    // count up
+    if (!throttle_dir)
     {
-        // increment every 10 task cycles up to 25% throttle
-        if (throttleCounter >= 9)
+        if (throttle >= 100)
         {
-            throttle++;
-            throttleCounter = 0;
+            throttleCounter++;
+            if (throttleCounter >= 200)
+            {
+                throttle_dir ^= 1;
+                throttleCounter = 0;
+            }
         }
         else
         {
-            throttleCounter++;
+            // increment every 10 task cycles
+            if (throttleCounter >= 2)
+            {
+                throttle++;
+                throttleCounter = 0;
+            }
+            else
+            {
+                throttleCounter++;
+            }
         }
     }
+    // count down
+    else
+    {
+        if (throttle <= 0)
+        {
+            throttleCounter++;
+            if (throttleCounter >= 200)
+            {
+                throttle_dir ^= 1;
+            }
+        }
+        else
+        {
+            // decrement every 10 task cycles
+            if (throttleCounter >= 2)
+            {
+                throttle--;
+                throttleCounter = 0;
+            }
+            else
+            {
+                throttleCounter++;
+            }
+        }
+    }
+    
 }
 
 
