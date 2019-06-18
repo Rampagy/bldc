@@ -110,7 +110,7 @@ void ToggleTransEnable()
     static uint8_t toggle_timer = 0;
     static uint8_t pin_state = LOW;
     
-    if (toggle_timer > 200)
+    if (toggle_timer >= 199)
     {
         toggle_timer = 0;
         pin_state ^= HIGH;
@@ -128,7 +128,7 @@ void ToggleTransEnable()
 void RS485Watchdog()
 {
     rxTimer++;
-    if (rxTimer > 5)
+    if (rxTimer >= 4)
     {
         // debug timeout - RS485 not connected
         digitalWrite(LED_BUILTIN, HIGH);
@@ -154,7 +154,7 @@ void ComputeThrottle()
         if (throttle >= 100)
         {
             throttleCounter++;
-            if (throttleCounter >= 200)
+            if (throttleCounter >= 199)
             {
                 throttle_dir ^= 1;
                 throttleCounter = 0;
@@ -163,7 +163,7 @@ void ComputeThrottle()
         else
         {
             // increment every 10 task cycles
-            if (throttleCounter >= 2)
+            if (throttleCounter >= 1)
             {
                 throttle++;
                 throttleCounter = 0;
@@ -180,7 +180,7 @@ void ComputeThrottle()
         if (throttle <= 0)
         {
             throttleCounter++;
-            if (throttleCounter >= 200)
+            if (throttleCounter >= 199)
             {
                 throttle_dir ^= 1;
             }
@@ -188,7 +188,7 @@ void ComputeThrottle()
         else
         {
             // decrement every 10 task cycles
-            if (throttleCounter >= 2)
+            if (throttleCounter >= 1)
             {
                 throttle--;
                 throttleCounter = 0;
