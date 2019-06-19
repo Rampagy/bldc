@@ -103,7 +103,8 @@ void TIM_Config(void)
     TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
-    TIM_OCInitStructure.TIM_Pulse = 0; // duty cycle
+    /* Duty Cycle - Active low drives usage of timerPeriod instead of 0 */
+    TIM_OCInitStructure.TIM_Pulse = timerPeriod;
     TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
     /* Set Idle state to Reset for all FETs, so break can be used for neutral */
