@@ -6,9 +6,9 @@ uint16_t timerPeriod = 0;
 
 void SetPhaseDutyCycles(uint16_t phaseAPercX10, uint16_t phaseBPercX10, uint16_t phaseCPercX10)
 {
-    TIM1->CCR1 = (uint16_t)(((uint32_t)phaseAPercX10 * timerPeriod) / 1000);
-    TIM1->CCR2 = (uint16_t)(((uint32_t)phaseBPercX10 * timerPeriod) / 1000);
-    TIM1->CCR3 = (uint16_t)(((uint32_t)phaseCPercX10 * timerPeriod) / 1000);
+    TIM1->CCR1 = (uint16_t)(((uint32_t)(1000 - phaseAPercX10) * timerPeriod) / 1000);
+    TIM1->CCR2 = (uint16_t)(((uint32_t)(1000 - phaseBPercX10) * timerPeriod) / 1000);
+    TIM1->CCR3 = (uint16_t)(((uint32_t)(1000 - phaseCPercX10) * timerPeriod) / 1000);
 }
 
 
@@ -91,7 +91,7 @@ void TIM_Config(void)
 
     /* Time Base configuration */
     TIM_TimeBaseStructure.TIM_Prescaler = 0;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned3;
     /* Compute the value to be set in ARR register to generate signal frequency at PWM_FREQ_HZ */
     TIM_TimeBaseStructure.TIM_Period = timerPeriod;
     TIM_TimeBaseStructure.TIM_ClockDivision = 0;
@@ -100,27 +100,32 @@ void TIM_Config(void)
     TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
 
     /* Channel 1, 2 and 3 Configuration in PWM mode */
-    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;
+    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
     TIM_OCInitStructure.TIM_Pulse = 0; // duty cycle
     TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
     /* Set Idle state to Reset for all FETs, so break can be used for neutral */
-    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
     TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
-
     TIM_OC1Init(TIM1, &TIM_OCInitStructure);
+
+    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
+    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
     TIM_OC2Init(TIM1, &TIM_OCInitStructure);
+
+    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
     TIM_OC3Init(TIM1, &TIM_OCInitStructure);
 
     /* Automatic Output enable, Break, dead time and lock configuration*/
     TIM_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
     TIM_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
-    TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_1;
+    TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_OFF;
     TIM_BDTRInitStructure.TIM_DeadTime = (uint16_t)((((uint64_t)DEAD_TIME_NS * SystemCoreClock) / 1000000000) - 1); // (84)
-    TIM_BDTRInitStructure.TIM_Break = TIM_Break_Enable;
-    TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
+    TIM_BDTRInitStructure.TIM_Break = TIM_Break_Disable;
+    TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_Low;
     TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Disable;
 
     TIM_BDTRConfig(TIM1, &TIM_BDTRInitStructure);
