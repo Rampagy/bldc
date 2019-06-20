@@ -6,9 +6,9 @@ uint16_t timerPeriod = 0;
 
 void SetPhaseDutyCycles(uint16_t phaseAPercX10, uint16_t phaseBPercX10, uint16_t phaseCPercX10)
 {
-    TIM1->CCR1 = (uint16_t)(((uint32_t)(1000 - phaseAPercX10) * timerPeriod) / 1000);
-    TIM1->CCR2 = (uint16_t)(((uint32_t)(1000 - phaseBPercX10) * timerPeriod) / 1000);
-    TIM1->CCR3 = (uint16_t)(((uint32_t)(1000 - phaseCPercX10) * timerPeriod) / 1000);
+    TIM1->CCR1 = (uint16_t)(((uint32_t)phaseAPercX10 * timerPeriod) / 1000);
+    TIM1->CCR2 = (uint16_t)(((uint32_t)phaseBPercX10 * timerPeriod) / 1000);
+    TIM1->CCR3 = (uint16_t)(((uint32_t)phaseCPercX10 * timerPeriod) / 1000);
 }
 
 
@@ -104,20 +104,14 @@ void TIM_Config(void)
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
     /* Duty Cycle - Active low drives usage of timerPeriod instead of 0 */
-    TIM_OCInitStructure.TIM_Pulse = timerPeriod;
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
-    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
+    TIM_OCInitStructure.TIM_Pulse = 0;
+    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
     /* Set Idle state to Reset for all FETs, so break can be used for neutral */
     TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
     TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
     TIM_OC1Init(TIM1, &TIM_OCInitStructure);
-
-    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
     TIM_OC2Init(TIM1, &TIM_OCInitStructure);
-
-    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
-    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
     TIM_OC3Init(TIM1, &TIM_OCInitStructure);
 
     /* Automatic Output enable, Break, dead time and lock configuration*/
