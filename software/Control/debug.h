@@ -11,7 +11,7 @@ void Debug_Init(void);
 void TIM8_BRK_TIM12_IRQHandler(void);
 
 // globals
-extern int16_t motorAngPosition;
+extern int16_t directAxisAngle;
 extern uint16_t motorSpeedCount;
 
 #endif

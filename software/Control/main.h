@@ -10,9 +10,10 @@
 #include "hall_effect.h"
 #include "debug.h"
 #include "pwm_output.h"
+#include "motor_control.h"
 
 
-extern int16_t  motorAngPosition;
+extern int16_t  directAxisAngle;
 extern uint16_t motorSpeedCount;
 extern uint8_t  desiredThrottle;
 extern uint8_t  RS485RxCompleted;

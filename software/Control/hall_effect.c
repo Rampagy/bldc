@@ -1,6 +1,6 @@
 #include "hall_effect.h"
 
-int16_t motorAngPosition = 0;
+int16_t directAxisAngle = 0;
 uint16_t motorSpeedCount = 0;
 
 /* Handle PB4 interrupt */
@@ -75,22 +75,22 @@ void Hall_Decoder (void)
 
     switch (motorPosition){
       case 5: //0b101:
-        motorAngPosition = 0;
+        directAxisAngle = 0;
         break; // 0 degrees
       case 4: //0b100:
-        motorAngPosition = 60;
+        directAxisAngle = 60;
         break; // 60 degrees
       case 6: //0b110:
-        motorAngPosition = 120;
+        directAxisAngle = 120;
         break; // 120 degrees
       case 2: //0b010:
-        motorAngPosition = 180;
+        directAxisAngle = 180;
         break; // 180 degrees
       case 3: //0b011:
-        motorAngPosition = 240;
+        directAxisAngle = 240;
         break; // 240 degrees
       case 1: //0b001:
-        motorAngPosition = 300;
+        directAxisAngle = 300;
         break; // 300 degrees
       default: // Error State
         // Use last good known value if none are active

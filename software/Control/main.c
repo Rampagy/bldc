@@ -14,6 +14,9 @@ void main()
     Hall_Init();
     TIM_Config();
 
+    // figure out what the initial motor position is
+    Hall_Decoder();
+
     while(1)
     {
         if (RS485RxCompleted)
@@ -31,9 +34,8 @@ void main()
             }
             UARTSendData(debugData.char_data);
         }
-        // (void) Delay(1000);  Delay 1 second
 
-        if ((desiredThrottle == 100) || (desiredThrottle == 0))
+        if (desiredThrottle == 0)
         {
             GPIO_SetBits(GPIOD, LED_ORANGE);
         }
@@ -42,6 +44,6 @@ void main()
             GPIO_ResetBits(GPIOD, LED_ORANGE);
         }
 
-        SetPhaseDutyCycles(desiredThrottle*10, desiredThrottle*10, desiredThrottle*10);
+        CalculatePhases();
     }
 }

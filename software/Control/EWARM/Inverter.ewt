@@ -2598,6 +2598,12 @@
         <name>$PROJ_DIR$\..\main.h</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\..\motor_control.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\motor_control.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\pwm_output.c</name>
     </file>
     <file>
