@@ -34,7 +34,7 @@ int16_t checkAngleOverflow(int16_t angle)
 void CalculatePhases(void)
 {
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
-#ifdef PHASE_ADVANCE
+#ifdef PHASE_PREDICTION
     uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
     uint16_t estimatedPhasePrediction = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
 #else
