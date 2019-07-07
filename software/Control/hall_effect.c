@@ -1,7 +1,8 @@
 #include "hall_effect.h"
 
-int16_t directAxisAngle = 0;
+int16_t  directAxisAngle = 0;
 uint16_t motorSpeedCount = 0;
+uint8_t  motorSpeedTimerOverrun = 0;
 
 /* Handle PB4 interrupt */
 void EXTI4_IRQHandler(void)
@@ -63,6 +64,7 @@ void Hall_Decoder (void)
     // capture motor speed, start counter for next hall effect interrupt
     motorSpeedCount = TIM13->CNT;
     TIM13->CNT = 0x0000;
+    motorSpeedTimerOverrun = 0;
     GPIO_ResetBits(GPIOD, LED_RED);
 
     /* Make motorPosition var with hallAState as MSB,
@@ -106,13 +108,14 @@ void TIM8_UP_TIM13_IRQHandler(void)
     if (TIM_GetITStatus(TIM13, TIM_IT_Update) != RESET)
     {
         GPIO_SetBits(GPIOD, LED_RED);
-        motorSpeedCount = 0;
-        TIM_ClearITPendingBit(TIM13, TIM_IT_Update);  //reset flag
+        motorSpeedTimerOverrun = 1;
+        motorSpeedCount = TIM13_PERIOD;  // on timeout set to max count so quadrature angle doesn't jump all crazy
+        TIM_ClearITPendingBit(TIM13, TIM_IT_Update);  // reset flag
     }
     return;
 }
 
-//initializes all of the hall effect input pins, and sets up the hall update interrupt
+// initializes all of the hall effect input pins, and sets up the hall update interrupt
 void Hall_Init(void)
 {
     /* Set variables used */
@@ -191,7 +194,7 @@ void Hall_Init(void)
 
     TIM_InitStructure1.TIM_Prescaler = 42; // TIM13 base clock is 42MHz
     TIM_InitStructure1.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_InitStructure1.TIM_Period = 50000; // Each tick is 1 us
+    TIM_InitStructure1.TIM_Period = TIM13_PERIOD; // Each tick is 1 us
     TIM_InitStructure1.TIM_ClockDivision = TIM_CKD_DIV1;
 
     TIM_TimeBaseInit(TIM13, &TIM_InitStructure1);

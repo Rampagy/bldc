@@ -14,6 +14,8 @@
 #include "uart.h"
 #include "debug.h"
 
+#define TIM13_PERIOD    50000
+
 // function declarations
 void Hall_Init(void);
 void Hall_Decoder(void);

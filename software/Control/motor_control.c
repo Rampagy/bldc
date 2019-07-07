@@ -1,8 +1,7 @@
 #include "motor_control.h"
 
 
-
-uint8_t SineLookupTable[360] = {
+const uint8_t SineLookupTable[360] = {
     50, 50, 51, 52, 53, 54, 55, 56, 56, 57, 58, 59, 60, 61, 62, 62, 63, 64, 65, 66,
     67, 67, 68, 69, 70, 71, 71, 72, 73, 74, 75, 75, 76, 77, 78, 78, 79, 80, 80, 81,
     82, 82, 83, 84, 84, 85, 86, 86, 87, 87, 88, 88, 89, 90, 90, 91, 91, 92, 92, 92,
@@ -26,14 +25,7 @@ uint8_t SineLookupTable[360] = {
 
 int16_t checkAngleOverflow(int16_t angle)
 {
-    if (angle >= 360)
-    {
-        angle -= 360;
-    }
-    else if (angle < 0)
-    {
-        angle += 360;
-    }
+    angle = (angle + 360) % 360;
 
     return angle;
 }
@@ -42,7 +34,15 @@ int16_t checkAngleOverflow(int16_t angle)
 void CalculatePhases(void)
 {
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
-    int16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + 120);
+#ifdef PHASE_ADVANCE
+    uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
+    uint16_t estimatedPhasePrediction = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
+#else
+    uint16_t estimatedPhasePrediction = 60;
+#endif
+
+    int16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + 60 + estimatedPhasePrediction);
+
 
     /*--------------------- Calculate Phase Duty Cycles ---------------------*/
     // Set phase multipliers to adjust voltages
