@@ -36,12 +36,14 @@ void CalculatePhases(void)
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
 #ifdef PHASE_PREDICTION
     uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
-    uint16_t estimatedPhasePrediction = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
+    uint16_t predictedPhaseAngle = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
 #else
-    uint16_t estimatedPhasePrediction = 60;
+    // half of the hall effect resolution, so that active torque region is centered around max torque point
+    uint16_t predictedPhaseAngle = 30;
 #endif
 
-    int16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + 60 + estimatedPhasePrediction);
+    // add 1 degree to account for calculation delay and preloading delay of the dutycycle
+    int16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + 90 + predictedPhaseAngle + 1);
 
 
     /*--------------------- Calculate Phase Duty Cycles ---------------------*/
