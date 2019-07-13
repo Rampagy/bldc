@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:control_v1-cache
-EELAYER 26 0
+EELAYER 29 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
@@ -155,7 +154,7 @@ Wire Notes Line
 Text Notes 700  1450 0    59   ~ 0
 Connections
 $Comp
-L Mechanical:Mounting_Hole_PAD MK1
+L Mechanical:MountingHole_Pad MK1
 U 1 1 5C58A6B3
 P 1000 6850
 F 0 "MK1" H 1100 6896 50  0000 L CNN
@@ -166,7 +165,7 @@ F 3 "" H 1000 6850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole_PAD MK3
+L Mechanical:MountingHole_Pad MK3
 U 1 1 5C58A722
 P 2200 6850
 F 0 "MK3" H 2300 6896 50  0000 L CNN
@@ -177,7 +176,7 @@ F 3 "" H 2200 6850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole_PAD MK2
+L Mechanical:MountingHole_Pad MK2
 U 1 1 5C58A768
 P 1000 7350
 F 0 "MK2" H 1100 7396 50  0000 L CNN
@@ -188,7 +187,7 @@ F 3 "" H 1000 7350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole_PAD MK4
+L Mechanical:MountingHole_Pad MK4
 U 1 1 5C58A7A5
 P 2200 7350
 F 0 "MK4" H 2300 7396 50  0000 L CNN
