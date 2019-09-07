@@ -61,18 +61,6 @@ F17 "PHASEC_SOURCE" O L 6700 4600 50
 F18 "PHASE_C" O R 8400 3750 50 
 $EndSheet
 $Comp
-L Connector:Screw_Terminal_01x02 J1
-U 1 1 5C537DC1
-P 1300 1350
-F 0 "J1" H 1300 1050 50  0000 C CNN
-F 1 "Screw_Terminal_01x02" H 1300 1150 50  0000 C CNN
-F 2 "" H 1300 1350 50  0001 C CNN
-F 3 "~" H 1300 1350 50  0001 C CNN
-F 4 " 1986660-2 " H 1300 1500 50  0000 C CNN "PN"
-	1    1300 1350
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:CP1_Small C1
 U 1 1 5C537EEE
 P 2200 1300
@@ -85,21 +73,9 @@ F 4 "80ZLH1000MEFC16X40" H 2250 1200 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1500 1250 1900 1250
-Wire Wire Line
-	1500 1350 1900 1350
-Wire Wire Line
-	1900 950  2200 950 
-Wire Wire Line
 	2200 950  2200 1200
 Wire Wire Line
-	1900 950  1900 1250
-Wire Wire Line
 	2200 1400 2200 1600
-Wire Wire Line
-	2200 1600 1900 1600
-Wire Wire Line
-	1900 1350 1900 1600
 $Comp
 L Device:CP1_Small C2
 U 1 1 5C53813F
@@ -154,18 +130,6 @@ Wire Wire Line
 	9200 1400 9550 1400
 Wire Wire Line
 	9550 1500 9200 1500
-$Comp
-L Connector:Screw_Terminal_01x03 J3
-U 1 1 5C53D1B9
-P 8950 2150
-F 0 "J3" H 8900 2450 50  0000 L CNN
-F 1 "Screw_Terminal_01x03" H 8550 2350 50  0000 L CNN
-F 2 "" H 8950 2150 50  0001 C CNN
-F 3 "~" H 8950 2150 50  0001 C CNN
-F 4 "1986660-3" H 8950 1950 50  0000 C CNN "PN"
-	1    8950 2150
-	1    0    0    -1  
-$EndComp
 Text Label 8350 1400 2    50   ~ 0
 PHASEA_FB
 Text Label 8350 1500 2    50   ~ 0
@@ -174,18 +138,12 @@ Wire Wire Line
 	8700 1500 8350 1500
 Wire Wire Line
 	8350 1400 8700 1400
-Text Label 8400 2050 2    50   ~ 0
+Text Label 8400 1850 2    50   ~ 0
 PHASE_A
-Text Label 8400 2150 2    50   ~ 0
+Text Label 8400 2100 2    50   ~ 0
 PHASE_B
-Text Label 8400 2250 2    50   ~ 0
+Text Label 8400 2350 2    50   ~ 0
 PHASE_C
-Wire Wire Line
-	8400 2050 8750 2050
-Wire Wire Line
-	8400 2150 8750 2150
-Wire Wire Line
-	8400 2250 8750 2250
 Text Label 3400 3300 2    50   ~ 0
 12v
 Text Label 3400 3400 2    50   ~ 0
@@ -323,45 +281,45 @@ Wire Wire Line
 Wire Wire Line
 	8400 4400 8650 4400
 $Comp
-L Mechanical:Mounting_Hole MK1
+L Mechanical:MountingHole MK1
 U 1 1 5C55DC62
 P 1850 6050
 F 0 "MK1" H 1950 6096 50  0000 L CNN
 F 1 "Mounting_Hole" H 1950 6005 50  0000 L CNN
-F 2 "" H 1850 6050 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965" H 1850 6050 50  0001 C CNN
 F 3 "" H 1850 6050 50  0001 C CNN
 	1    1850 6050
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK3
+L Mechanical:MountingHole MK3
 U 1 1 5C55DCE5
 P 3150 6050
 F 0 "MK3" H 3250 6096 50  0000 L CNN
 F 1 "Mounting_Hole" H 3250 6005 50  0000 L CNN
-F 2 "" H 3150 6050 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965" H 3150 6050 50  0001 C CNN
 F 3 "" H 3150 6050 50  0001 C CNN
 	1    3150 6050
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK2
+L Mechanical:MountingHole MK2
 U 1 1 5C55DD35
 P 1850 6700
 F 0 "MK2" H 1950 6746 50  0000 L CNN
 F 1 "Mounting_Hole" H 1950 6655 50  0000 L CNN
-F 2 "" H 1850 6700 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965" H 1850 6700 50  0001 C CNN
 F 3 "" H 1850 6700 50  0001 C CNN
 	1    1850 6700
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK4
+L Mechanical:MountingHole MK4
 U 1 1 5C55DD86
 P 3150 6700
 F 0 "MK4" H 3250 6746 50  0000 L CNN
 F 1 "Mounting_Hole" H 3250 6655 50  0000 L CNN
-F 2 "" H 3150 6700 50  0001 C CNN
+F 2 "MountingHole:MountingHole_5.3mm_M5_DIN965" H 3150 6700 50  0001 C CNN
 F 3 "" H 3150 6700 50  0001 C CNN
 	1    3150 6700
 	1    0    0    -1  
@@ -397,23 +355,73 @@ Wire Notes Line
 Text Notes 650  700  0    59   ~ 0
 Power Filtering
 $Comp
-L Connector:Screw_Terminal_01x02 J4
-U 1 1 5C5DBDE6
-P 1300 2000
-F 0 "J4" H 1300 1700 50  0000 C CNN
-F 1 "Screw_Terminal_01x02" H 1300 1800 50  0000 C CNN
-F 2 "" H 1300 2000 50  0001 C CNN
-F 3 "~" H 1300 2000 50  0001 C CNN
-F 4 " 1986660-2 " H 1300 2150 50  0000 C CNN "PN"
-	1    1300 2000
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5D7562AB
+P 1300 950
+F 0 "J?" H 1300 850 50  0000 C CNN
+F 1 "Screw_Terminal_01x01" H 1250 1050 50  0000 C CNN
+F 2 "" H 1300 950 50  0001 C CNN
+F 3 "~" H 1300 950 50  0001 C CNN
+F 4 "281-1598-ND" H 1300 1150 50  0000 C CNN "PN"
+	1    1300 950 
 	-1   0    0    1   
 $EndComp
-Text Label 1750 1900 0    50   ~ 0
-48v
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5D75645C
+P 9150 1850
+F 0 "J?" H 9230 1937 50  0000 L CNN
+F 1 "Screw_Terminal_01x01" H 9230 1846 50  0000 L CNN
+F 2 "" H 9150 1850 50  0001 C CNN
+F 3 "~" H 9150 1850 50  0001 C CNN
+F 4 "277-14522-ND" H 9230 1755 50  0000 L CNN "PN"
+	1    9150 1850
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1750 1900 1500 1900
-Text Label 1750 2000 0    50   ~ 0
-GND
+	1500 950  2200 950 
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5D75833A
+P 1300 1600
+F 0 "J?" H 1300 1500 50  0000 C CNN
+F 1 "Screw_Terminal_01x01" H 1250 1700 50  0000 C CNN
+F 2 "" H 1300 1600 50  0001 C CNN
+F 3 "~" H 1300 1600 50  0001 C CNN
+F 4 "281-1598-ND" H 1300 1800 50  0000 C CNN "PN"
+	1    1300 1600
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
-	1750 2000 1500 2000
+	1500 1600 2200 1600
+Wire Wire Line
+	8400 1850 8950 1850
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5D75FC36
+P 9150 2100
+F 0 "J?" H 9230 2187 50  0000 L CNN
+F 1 "Screw_Terminal_01x01" H 9230 2096 50  0000 L CNN
+F 2 "" H 9150 2100 50  0001 C CNN
+F 3 "~" H 9150 2100 50  0001 C CNN
+F 4 "277-14522-ND" H 9230 2005 50  0000 L CNN "PN"
+	1    9150 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Screw_Terminal_01x01 J?
+U 1 1 5D75FC66
+P 9150 2350
+F 0 "J?" H 9230 2437 50  0000 L CNN
+F 1 "Screw_Terminal_01x01" H 9230 2346 50  0000 L CNN
+F 2 "" H 9150 2350 50  0001 C CNN
+F 3 "~" H 9150 2350 50  0001 C CNN
+F 4 "277-14522-ND" H 9230 2255 50  0000 L CNN "PN"
+	1    9150 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 2100 8950 2100
+Wire Wire Line
+	8400 2350 8950 2350
 $EndSCHEMATC
