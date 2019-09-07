@@ -63,48 +63,18 @@ $EndSheet
 $Comp
 L Device:CP1_Small C1
 U 1 1 5C537EEE
-P 2200 1300
-F 0 "C1" H 2291 1391 50  0000 L CNN
-F 1 "1mF" H 2291 1300 50  0000 L CNN
-F 2 "" H 2200 1300 50  0001 C CNN
-F 3 "~" H 2200 1300 50  0001 C CNN
-F 4 "80ZLH1000MEFC16X40" H 2250 1200 50  0000 L CNN "PN"
-	1    2200 1300
+P 2000 1300
+F 0 "C1" H 2091 1391 50  0000 L CNN
+F 1 "680uF" H 2091 1300 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 2000 1300 50  0001 C CNN
+F 3 "~" H 2000 1300 50  0001 C CNN
+F 4 "493-1987-ND" H 2050 1200 50  0000 L CNN "PN"
+	1    2000 1300
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2200 950  2200 1200
-Wire Wire Line
-	2200 1400 2200 1600
-$Comp
-L Device:CP1_Small C2
-U 1 1 5C53813F
-P 3250 1300
-F 0 "C2" H 3341 1391 50  0000 L CNN
-F 1 "1mF" H 3341 1300 50  0000 L CNN
-F 2 "" H 3250 1300 50  0001 C CNN
-F 3 "~" H 3250 1300 50  0001 C CNN
-F 4 "80ZLH1000MEFC16X40" H 3300 1200 50  0000 L CNN "PN"
-	1    3250 1300
-	1    0    0    -1  
-$EndComp
-Connection ~ 2200 950 
-Connection ~ 2200 1600
-$Comp
-L Device:CP1_Small C3
-U 1 1 5C538243
-P 4300 1300
-F 0 "C3" H 4391 1391 50  0000 L CNN
-F 1 "1mF" H 4391 1300 50  0000 L CNN
-F 2 "" H 4300 1300 50  0001 C CNN
-F 3 "~" H 4300 1300 50  0001 C CNN
-F 4 "80ZLH1000MEFC16X40" H 4350 1200 50  0000 L CNN "PN"
-	1    4300 1300
-	1    0    0    -1  
-$EndComp
-Text Label 4700 950  0    50   ~ 0
+Text Label 5750 950  0    50   ~ 0
 48v
-Text Label 4700 1600 0    50   ~ 0
+Text Label 5700 1600 0    50   ~ 0
 GND
 Text Label 9550 1000 0    50   ~ 0
 HS_A_TTL_PWM
@@ -195,30 +165,6 @@ Wire Wire Line
 NoConn ~ 9200 1600
 NoConn ~ 8700 1600
 Wire Wire Line
-	2200 950  3250 950 
-Wire Wire Line
-	2200 1600 3250 1600
-Wire Wire Line
-	3250 1400 3250 1600
-Connection ~ 3250 1600
-Wire Wire Line
-	3250 1200 3250 950 
-Connection ~ 3250 950 
-Wire Wire Line
-	3250 950  4300 950 
-Wire Wire Line
-	3250 1600 4300 1600
-Wire Wire Line
-	4300 1400 4300 1600
-Wire Wire Line
-	4300 1200 4300 950 
-Wire Wire Line
-	4700 950  4300 950 
-Connection ~ 4300 950 
-Wire Wire Line
-	4300 1600 4700 1600
-Connection ~ 4300 1600
-Wire Wire Line
 	5350 4050 6700 4050
 Wire Wire Line
 	6700 4150 5350 4150
@@ -266,7 +212,7 @@ U 1 1 5C54FAB2
 P 8900 1300
 F 0 "J2" H 8950 1850 50  0000 C CNN
 F 1 "Conn_02x07_Counter_Clockwise" H 8950 1750 50  0000 C CNN
-F 2 "" H 8900 1300 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 8900 1300 50  0001 C CNN
 F 3 "~" H 8900 1300 50  0001 C CNN
 F 4 "302-S141" H 8950 900 50  0000 C CNN "PN"
 	1    8900 1300
@@ -345,13 +291,13 @@ Wire Notes Line
 Text Notes 7800 600  0    59   ~ 0
 Connections
 Wire Notes Line
-	650  700  650  2550
+	650  700  650  2350
 Wire Notes Line
-	650  2550 5450 2550
+	650  2350 6250 2350
 Wire Notes Line
-	5450 2550 5450 700 
+	6250 2350 6250 700 
 Wire Notes Line
-	5450 700  650  700 
+	6250 700  650  700 
 Text Notes 650  700  0    59   ~ 0
 Power Filtering
 $Comp
@@ -378,8 +324,6 @@ F 4 "277-14522-ND" H 9230 1755 50  0000 L CNN "PN"
 	1    9150 1850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1500 950  2200 950 
 $Comp
 L Connector:Screw_Terminal_01x01 J?
 U 1 1 5D75833A
@@ -392,8 +336,6 @@ F 4 "281-1598-ND" H 1300 1800 50  0000 C CNN "PN"
 	1    1300 1600
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	1500 1600 2200 1600
 Wire Wire Line
 	8400 1850 8950 1850
 $Comp
@@ -424,4 +366,153 @@ Wire Wire Line
 	8400 2100 8950 2100
 Wire Wire Line
 	8400 2350 8950 2350
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D742ACB
+P 2850 1300
+F 0 "C?" H 2941 1391 50  0000 L CNN
+F 1 "680uF" H 2941 1300 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 2850 1300 50  0001 C CNN
+F 3 "~" H 2850 1300 50  0001 C CNN
+F 4 "493-1987-ND" H 2900 1200 50  0000 L CNN "PN"
+	1    2850 1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D742B19
+P 3650 1300
+F 0 "C?" H 3741 1391 50  0000 L CNN
+F 1 "680uF" H 3741 1300 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 3650 1300 50  0001 C CNN
+F 3 "~" H 3650 1300 50  0001 C CNN
+F 4 "493-1987-ND" H 3700 1200 50  0000 L CNN "PN"
+	1    3650 1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D742DE2
+P 4450 1300
+F 0 "C?" H 4541 1391 50  0000 L CNN
+F 1 "100uF" H 4541 1300 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 4450 1300 50  0001 C CNN
+F 3 "~" H 4450 1300 50  0001 C CNN
+F 4 "493-12814-1-ND" H 4500 1200 50  0000 L CNN "PN"
+	1    4450 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 1600 2000 1600
+Wire Wire Line
+	1500 950  2000 950 
+Wire Wire Line
+	2000 1200 2000 950 
+Connection ~ 2000 950 
+Wire Wire Line
+	2000 950  2850 950 
+Wire Wire Line
+	2000 1400 2000 1600
+Connection ~ 2000 1600
+Wire Wire Line
+	2000 1600 2850 1600
+Wire Wire Line
+	2850 1400 2850 1600
+Connection ~ 2850 1600
+Wire Wire Line
+	2850 1600 3650 1600
+Wire Wire Line
+	2850 1200 2850 950 
+Connection ~ 2850 950 
+Wire Wire Line
+	2850 950  3650 950 
+Wire Wire Line
+	3650 1200 3650 950 
+Connection ~ 3650 950 
+Wire Wire Line
+	3650 950  4450 950 
+Wire Wire Line
+	3650 1400 3650 1600
+Connection ~ 3650 1600
+Wire Wire Line
+	3650 1600 4450 1600
+Wire Wire Line
+	4450 1400 4450 1600
+Connection ~ 4450 1600
+Wire Wire Line
+	4450 1200 4450 950 
+Connection ~ 4450 950 
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D759604
+P 5350 1300
+F 0 "C?" H 5441 1391 50  0000 L CNN
+F 1 "100uF" H 5441 1300 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 5350 1300 50  0001 C CNN
+F 3 "~" H 5350 1300 50  0001 C CNN
+F 4 "493-12814-1-ND" H 5400 1200 50  0000 L CNN "PN"
+	1    5350 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 1600 5350 1400
+Wire Wire Line
+	4450 1600 5350 1600
+Wire Wire Line
+	5350 1200 5350 950 
+Wire Wire Line
+	4450 950  5350 950 
+Wire Wire Line
+	5750 950  5350 950 
+Connection ~ 5350 950 
+Wire Wire Line
+	5350 1600 5700 1600
+Connection ~ 5350 1600
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D7716C8
+P 2550 2000
+F 0 "C?" H 2641 2091 50  0000 L CNN
+F 1 "100uF" H 2641 2000 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 2550 2000 50  0001 C CNN
+F 3 "~" H 2550 2000 50  0001 C CNN
+F 4 "493-12814-1-ND" H 2600 1900 50  0000 L CNN "PN"
+	1    2550 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1_Small C?
+U 1 1 5D774DD3
+P 3650 2000
+F 0 "C?" H 3741 2091 50  0000 L CNN
+F 1 "100uF" H 3741 2000 50  0000 L CNN
+F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 3650 2000 50  0001 C CNN
+F 3 "~" H 3650 2000 50  0001 C CNN
+F 4 "493-12814-1-ND" H 3700 1900 50  0000 L CNN "PN"
+	1    3650 2000
+	1    0    0    -1  
+$EndComp
+Text Label 3400 1800 2    50   ~ 0
+5v
+Text Label 2250 1800 2    50   ~ 0
+12v
+Text Label 2250 2250 2    50   ~ 0
+GND
+Wire Wire Line
+	3400 1800 3650 1800
+Wire Wire Line
+	3650 1800 3650 1900
+Wire Wire Line
+	2550 1900 2550 1800
+Wire Wire Line
+	2550 1800 2250 1800
+Wire Wire Line
+	2250 2250 2550 2250
+Wire Wire Line
+	3650 2250 3650 2100
+Wire Wire Line
+	2550 2100 2550 2250
+Connection ~ 2550 2250
+Wire Wire Line
+	2550 2250 3650 2250
 $EndSCHEMATC
