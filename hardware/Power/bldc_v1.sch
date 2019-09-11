@@ -301,10 +301,10 @@ Wire Notes Line
 Text Notes 650  700  0    59   ~ 0
 Power Filtering
 $Comp
-L Connector:Screw_Terminal_01x01 J?
+L Connector:Screw_Terminal_01x01 J1
 U 1 1 5D7562AB
 P 1300 950
-F 0 "J?" H 1300 850 50  0000 C CNN
+F 0 "J1" H 1300 850 50  0000 C CNN
 F 1 "Screw_Terminal_01x01" H 1250 1050 50  0000 C CNN
 F 2 "" H 1300 950 50  0001 C CNN
 F 3 "~" H 1300 950 50  0001 C CNN
@@ -313,10 +313,10 @@ F 4 "281-1598-ND" H 1300 1150 50  0000 C CNN "PN"
 	-1   0    0    1   
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x01 J?
+L Connector:Screw_Terminal_01x01 J4
 U 1 1 5D75645C
 P 9150 1850
-F 0 "J?" H 9230 1937 50  0000 L CNN
+F 0 "J4" H 9230 1937 50  0000 L CNN
 F 1 "Screw_Terminal_01x01" H 9230 1846 50  0000 L CNN
 F 2 "" H 9150 1850 50  0001 C CNN
 F 3 "~" H 9150 1850 50  0001 C CNN
@@ -325,10 +325,10 @@ F 4 "277-14522-ND" H 9230 1755 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x01 J?
+L Connector:Screw_Terminal_01x01 J3
 U 1 1 5D75833A
 P 1300 1600
-F 0 "J?" H 1300 1500 50  0000 C CNN
+F 0 "J3" H 1300 1500 50  0000 C CNN
 F 1 "Screw_Terminal_01x01" H 1250 1700 50  0000 C CNN
 F 2 "" H 1300 1600 50  0001 C CNN
 F 3 "~" H 1300 1600 50  0001 C CNN
@@ -339,10 +339,10 @@ $EndComp
 Wire Wire Line
 	8400 1850 8950 1850
 $Comp
-L Connector:Screw_Terminal_01x01 J?
+L Connector:Screw_Terminal_01x01 J5
 U 1 1 5D75FC36
 P 9150 2100
-F 0 "J?" H 9230 2187 50  0000 L CNN
+F 0 "J5" H 9230 2187 50  0000 L CNN
 F 1 "Screw_Terminal_01x01" H 9230 2096 50  0000 L CNN
 F 2 "" H 9150 2100 50  0001 C CNN
 F 3 "~" H 9150 2100 50  0001 C CNN
@@ -351,10 +351,10 @@ F 4 "277-14522-ND" H 9230 2005 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x01 J?
+L Connector:Screw_Terminal_01x01 J6
 U 1 1 5D75FC66
 P 9150 2350
-F 0 "J?" H 9230 2437 50  0000 L CNN
+F 0 "J6" H 9230 2437 50  0000 L CNN
 F 1 "Screw_Terminal_01x01" H 9230 2346 50  0000 L CNN
 F 2 "" H 9150 2350 50  0001 C CNN
 F 3 "~" H 9150 2350 50  0001 C CNN
@@ -367,10 +367,10 @@ Wire Wire Line
 Wire Wire Line
 	8400 2350 8950 2350
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C3
 U 1 1 5D742ACB
 P 2850 1300
-F 0 "C?" H 2941 1391 50  0000 L CNN
+F 0 "C3" H 2941 1391 50  0000 L CNN
 F 1 "680uF" H 2941 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 2850 1300 50  0001 C CNN
 F 3 "~" H 2850 1300 50  0001 C CNN
@@ -379,10 +379,10 @@ F 4 "493-1987-ND" H 2900 1200 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C18
 U 1 1 5D742B19
 P 3650 1300
-F 0 "C?" H 3741 1391 50  0000 L CNN
+F 0 "C18" H 3741 1391 50  0000 L CNN
 F 1 "680uF" H 3741 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 3650 1300 50  0001 C CNN
 F 3 "~" H 3650 1300 50  0001 C CNN
@@ -391,10 +391,10 @@ F 4 "493-1987-ND" H 3700 1200 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C20
 U 1 1 5D742DE2
 P 4450 1300
-F 0 "C?" H 4541 1391 50  0000 L CNN
+F 0 "C20" H 4541 1391 50  0000 L CNN
 F 1 "100uF" H 4541 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 4450 1300 50  0001 C CNN
 F 3 "~" H 4450 1300 50  0001 C CNN
@@ -443,10 +443,10 @@ Wire Wire Line
 	4450 1200 4450 950 
 Connection ~ 4450 950 
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C21
 U 1 1 5D759604
 P 5350 1300
-F 0 "C?" H 5441 1391 50  0000 L CNN
+F 0 "C21" H 5441 1391 50  0000 L CNN
 F 1 "100uF" H 5441 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 5350 1300 50  0001 C CNN
 F 3 "~" H 5350 1300 50  0001 C CNN
@@ -469,10 +469,10 @@ Wire Wire Line
 	5350 1600 5700 1600
 Connection ~ 5350 1600
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C2
 U 1 1 5D7716C8
 P 2550 2000
-F 0 "C?" H 2641 2091 50  0000 L CNN
+F 0 "C2" H 2641 2091 50  0000 L CNN
 F 1 "100uF" H 2641 2000 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 2550 2000 50  0001 C CNN
 F 3 "~" H 2550 2000 50  0001 C CNN
@@ -481,10 +481,10 @@ F 4 "493-12814-1-ND" H 2600 1900 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C?
+L Device:CP1_Small C19
 U 1 1 5D774DD3
 P 3650 2000
-F 0 "C?" H 3741 2091 50  0000 L CNN
+F 0 "C19" H 3741 2091 50  0000 L CNN
 F 1 "100uF" H 3741 2000 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 3650 2000 50  0001 C CNN
 F 3 "~" H 3650 2000 50  0001 C CNN
