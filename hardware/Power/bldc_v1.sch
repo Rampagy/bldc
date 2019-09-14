@@ -207,10 +207,10 @@ PHASE_C
 Wire Wire Line
 	8700 3750 8400 3750
 $Comp
-L Connector_Generic:Conn_02x07_Counter_Clockwise J2
+L Connector_Generic:Conn_02x07_Counter_Clockwise J3
 U 1 1 5C54FAB2
 P 8900 1300
-F 0 "J2" H 8950 1850 50  0000 C CNN
+F 0 "J3" H 8950 1850 50  0000 C CNN
 F 1 "Conn_02x07_Counter_Clockwise" H 8950 1750 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 8900 1300 50  0001 C CNN
 F 3 "~" H 8900 1300 50  0001 C CNN
@@ -325,10 +325,10 @@ F 4 "277-14522-ND" H 9230 1755 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Screw_Terminal_01x01 J3
+L Connector:Screw_Terminal_01x01 J2
 U 1 1 5D75833A
 P 1300 1600
-F 0 "J3" H 1300 1500 50  0000 C CNN
+F 0 "J2" H 1300 1500 50  0000 C CNN
 F 1 "Screw_Terminal_01x01" H 1250 1700 50  0000 C CNN
 F 2 "custom:Weidmuller 85amps" H 1300 1600 50  0001 C CNN
 F 3 "~" H 1300 1600 50  0001 C CNN
@@ -379,10 +379,10 @@ F 4 "493-1987-ND" H 2900 1200 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C18
+L Device:CP1_Small C4
 U 1 1 5D742B19
 P 3650 1300
-F 0 "C18" H 3741 1391 50  0000 L CNN
+F 0 "C4" H 3741 1391 50  0000 L CNN
 F 1 "680uF" H 3741 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D18.0mm_H35.5mm_P7.50mm" H 3650 1300 50  0001 C CNN
 F 3 "~" H 3650 1300 50  0001 C CNN
@@ -391,10 +391,10 @@ F 4 "493-1987-ND" H 3700 1200 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C20
+L Device:CP1_Small C6
 U 1 1 5D742DE2
 P 4450 1300
-F 0 "C20" H 4541 1391 50  0000 L CNN
+F 0 "C6" H 4541 1391 50  0000 L CNN
 F 1 "100uF" H 4541 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 4450 1300 50  0001 C CNN
 F 3 "~" H 4450 1300 50  0001 C CNN
@@ -443,10 +443,10 @@ Wire Wire Line
 	4450 1200 4450 950 
 Connection ~ 4450 950 
 $Comp
-L Device:CP1_Small C21
+L Device:CP1_Small C7
 U 1 1 5D759604
 P 5350 1300
-F 0 "C21" H 5441 1391 50  0000 L CNN
+F 0 "C7" H 5441 1391 50  0000 L CNN
 F 1 "100uF" H 5441 1300 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 5350 1300 50  0001 C CNN
 F 3 "~" H 5350 1300 50  0001 C CNN
@@ -481,10 +481,10 @@ F 4 "493-12814-1-ND" H 2600 1900 50  0000 L CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP1_Small C19
+L Device:CP1_Small C5
 U 1 1 5D774DD3
 P 3650 2000
-F 0 "C19" H 3741 2091 50  0000 L CNN
+F 0 "C5" H 3741 2091 50  0000 L CNN
 F 1 "100uF" H 3741 2000 50  0000 L CNN
 F 2 "Capacitor_THT:C_Radial_D10.0mm_H20.0mm_P5.00mm" H 3650 2000 50  0001 C CNN
 F 3 "~" H 3650 2000 50  0001 C CNN
