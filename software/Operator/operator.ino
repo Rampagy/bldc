@@ -1,35 +1,22 @@
-// includes 
+// includes
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include "Comm.h"
 
 //defines
-#define BUFFER_LENGTH       10  // Must be even
-#define TERMINATING_BYTES   2
 #define TRANS_ENABLE        2   // Transmission enable is on pin 3
 
-//typedefs
-typedef union
-{
-    uint8_t u8_data[BUFFER_LENGTH];
-    uint16_t u16_data[BUFFER_LENGTH>>1];
-} packet_T;
-
-//globals
-packet_T rxBuffer;
-uint8_t bufferLoc = 0;
-uint8_t rxTimer = 0;
 volatile uint8_t Run10msTask = 0;
 
+// Setup communication
+Comm comm;
 
 void setup()
 {
-    //Setup Timers
+    // Setup Timers
     SetupTimer0();
 
-    //Setup UART
-    SetupUART0();
-
-    // enable global interrupt
+    // Enable global interrupt
     sei();
 
     // Set built in LED as an output
@@ -37,47 +24,6 @@ void setup()
 
     // Set transmission enable (D2) as an output
     pinMode(TRANS_ENABLE, OUTPUT);
-}
-
-//**************************************
-//  UART Interrupt
-//  Called when Tx is complete
-//  Vector Address 20
-//**************************************
-ISR(USART_TX_vect)
-{
-    // disable TX and TX complete interrupt
-    UCSR0B &= ~(1 << TXEN0) & ~(1 << TXCIE0);
-}
-
-//**************************************
-//  UART Interrupt
-//  Called when Rx is complete
-//  Vector Address 18
-//**************************************
-ISR(USART_RX_vect)
-{
-    // transfer the data to the rxBuffer
-    rxBuffer.u8_data[bufferLoc] = UDR0;
-    rxTimer = 0;
-    digitalWrite(LED_BUILTIN, LOW);
-
-    // if the terminating bytes have been received
-    if ((bufferLoc >= TERMINATING_BYTES) && 
-        ((rxBuffer.u8_data[bufferLoc-TERMINATING_BYTES+1] == 0xFF) && 
-        (rxBuffer.u8_data[bufferLoc-TERMINATING_BYTES] == 0xFF)))
-    {
-        // reset buffer loc
-        bufferLoc = 0;
-    }
-    else
-    {
-        // increment the buffer location
-        bufferLoc++;
-    }
-
-    // clear the rx complete flag
-    UCSR0A &= ~(1 << RXC0);
 }
 
 
@@ -98,7 +44,7 @@ ISR(TIMER0_COMPA_vect)
 void TenMsTask()
 {
     ComputeThrottle();
-    RS485Watchdog();
+    (void)(comm.CheckWatchdog());
     ToggleTransEnable();
 }
 
@@ -109,7 +55,7 @@ void ToggleTransEnable()
 {
     static uint8_t toggle_timer = 0;
     static uint8_t pin_state = LOW;
-    
+
     if (toggle_timer >= 199)
     {
         toggle_timer = 0;
@@ -122,38 +68,23 @@ void ToggleTransEnable()
     }
 }
 
-//*********************************************
-//  RS485 Watchdog
-//*********************************************
-void RS485Watchdog()
-{
-    rxTimer++;
-    if (rxTimer >= 4)
-    {
-        // debug timeout - RS485 not connected
-        digitalWrite(LED_BUILTIN, HIGH);
-    }
-}
-
 
 //*********************************************
 //  Compute Throttle
 //*********************************************
 void ComputeThrottle()
 {
-    static uint8_t throttle = 0;
+    static int16_t throttle = 0;
     static uint8_t throttleCounter = 0;
     static uint8_t throttle_dir = 0;
-
-    //send data
-    UARTSendData(throttle);
 
     // count up
     if (!throttle_dir)
     {
-        if (throttle >= 100)
+        if (throttle >= 10)
         {
             throttleCounter++;
+            // stay at max for set amount before decrementing
             if (throttleCounter >= 199)
             {
                 throttle_dir ^= 1;
@@ -163,7 +94,7 @@ void ComputeThrottle()
         else
         {
             // increment every 10 task cycles
-            if (throttleCounter >= 1)
+            if (throttleCounter >= 9)
             {
                 throttle++;
                 throttleCounter = 0;
@@ -177,9 +108,10 @@ void ComputeThrottle()
     // count down
     else
     {
-        if (throttle <= 0)
+        if (throttle <= -10)
         {
             throttleCounter++;
+            // stay at min for set amount before incrementing
             if (throttleCounter >= 199)
             {
                 throttle_dir ^= 1;
@@ -188,7 +120,7 @@ void ComputeThrottle()
         else
         {
             // decrement every 10 task cycles
-            if (throttleCounter >= 1)
+            if (throttleCounter >= 9)
             {
                 throttle--;
                 throttleCounter = 0;
@@ -200,6 +132,8 @@ void ComputeThrottle()
         }
     }
     
+    // use scaling of ten
+    comm.SendData(throttle * 10);
 }
 
 
@@ -223,51 +157,80 @@ void SetupTimer0()
 }
 
 
-//*********************************************
-//  Configure UART
-//*********************************************
-void SetupUART0()
-{
-    UCSR0A = 0; // set entire UCSR0A register to 0
-    UCSR0B = 0; // same for UCSR0B
-    UCSR0C = 0; // same for UCSR0C
-
-    UBRR0 = 8; // for configuring baud rate of 115200bps - pg 182
-    UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes 
-    UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
-}
-
-
-//*********************************************
-//  Send UART data
-//*********************************************
-void UARTSendData(uint8_t packet)
-{
-    // enable TX and TX complete interrupt
-    UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
-   
-    // write data to data register
-    UDR0 = packet;
-}
-
-
 void loop()
 {
     uint16_t startupTimer = 0;
-    
+
     while (1)
     {
         if (Run10msTask)
         {
             Run10msTask = 0;
-            if (startupTimer >= 299)
+            if (startupTimer >= 99)
             {
                 TenMsTask();
             }
             else
             {
-                startupTimer++;    
+                startupTimer++;
             }
         }
     }
+}
+
+
+
+//**************************************
+//  UART Interrupt
+//  Called when Tx is complete
+//  Vector Address 20
+//**************************************
+ISR(USART_TX_vect)
+{
+    static uint8_t txByteCount = 0;
+
+    txByteCount++;
+
+    switch (txByteCount)
+    {
+        case 1:
+            // write data to data register
+            UDR0 = comm.txPacket && 0x00FF;
+            break;
+        default:
+            // disable TX and TX complete interrupt
+            UCSR0B &= ~(1 << TXEN0) & ~(1 << TXCIE0);
+            txByteCount = 0;
+            break;
+    }
+}
+
+//**************************************
+//  UART Interrupt
+//  Called when Rx is complete
+//  Vector Address 18
+//**************************************
+ISR(USART_RX_vect)
+{
+    // transfer the data to the rxBuffer
+    comm.rxBuffer.u8_data[comm.bufferLoc] = UDR0;
+    comm.rxTimer = 0;
+    digitalWrite(LED_BUILTIN, LOW);
+
+    // if the terminating bytes have been received
+    if ((comm.bufferLoc >= TERMINATING_BYTES) &&
+        ((comm.rxBuffer.u8_data[comm.bufferLoc-TERMINATING_BYTES+1] == 0xFF) &&
+        (comm.rxBuffer.u8_data[comm.bufferLoc-TERMINATING_BYTES] == 0xFF)))
+    {
+        // reset buffer loc
+        comm.bufferLoc = 0;
+    }
+    else
+    {
+        // increment the buffer location
+        comm.bufferLoc++;
+    }
+
+    // clear the rx complete flag
+    UCSR0A &= ~(1 << RXC0);
 }

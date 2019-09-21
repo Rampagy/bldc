@@ -1,0 +1,10 @@
+Comm	KEYWORD1
+SetupComm	KEYWORD2
+SendData	KEYWORD2
+CheckWatchdog	KEYWORD2
+rxBuffer	KEYWORD2
+timeout_threshold	KEYWORD2
+timed_out	KEYWORD2
+bufferLoc	KEYWORD2
+rxTimer	KEYWORD2
+txPacket	KEYWORD2
