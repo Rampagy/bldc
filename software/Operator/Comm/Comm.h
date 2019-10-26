@@ -29,7 +29,6 @@ class Comm
         uint8_t bufferLoc;
         uint8_t rxTimer;
         int16_t txPacket;
-
 };
 
 #endif

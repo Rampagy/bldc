@@ -2,14 +2,15 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include "Comm.h"
+#include "AccelerationControl.h"
+#include "types.h"
 
 //defines
 #define TRANS_ENABLE        2   // Transmission enable is on pin 3
 
-volatile uint8_t Run10msTask = 0;
-
-// Setup communication
+// globals
 Comm comm;
+volatile uint8_t Run10msTask = 0;
 
 void setup()
 {
@@ -44,28 +45,15 @@ ISR(TIMER0_COMPA_vect)
 void TenMsTask()
 {
     ComputeThrottle();
-    (void)(comm.CheckWatchdog());
-    ToggleTransEnable();
+    SetTransEnable(!comm.CheckWatchdog());
 }
 
 //*********************************************
-//  Toggle Transmission Enable
+//  Set Transmission Enable
 //*********************************************
-void ToggleTransEnable()
+void SetTransEnable(const uint8_t pin_state)
 {
-    static uint8_t toggle_timer = 0;
-    static uint8_t pin_state = LOW;
-
-    if (toggle_timer >= 199)
-    {
-        toggle_timer = 0;
-        pin_state ^= HIGH;
-        digitalWrite(TRANS_ENABLE, pin_state);
-    }
-    else
-    {
-        toggle_timer++;
-    }
+    digitalWrite(TRANS_ENABLE, pin_state);
 }
 
 
@@ -74,66 +62,62 @@ void ToggleTransEnable()
 //*********************************************
 void ComputeThrottle()
 {
-    static int16_t throttle = 0;
-    static uint8_t throttleCounter = 0;
-    static uint8_t throttle_dir = 0;
+    static int16_t throttleX100 = 0;
+    static drive_mode_t drive_mode = ACCELERATE;
+    static uint16_t count = 0;
 
-    // count up
-    if (!throttle_dir)
+    switch(drive_mode)
     {
-        if (throttle >= 10)
-        {
-            throttleCounter++;
-            // stay at max for set amount before decrementing
-            if (throttleCounter >= 199)
+        // accelerate to 20% at 40%/sec
+        case ACCELERATE:
+            if (linear_accel_to_target(&throttleX100, 40, 2000))
             {
-                throttle_dir ^= 1;
-                throttleCounter = 0;
+                drive_mode = HOLD_POSITIVE;
             }
-        }
-        else
-        {
-            // increment every 10 task cycles
-            if (throttleCounter >= 9)
+            break;
+
+        // sit at 20% for 5 seconds
+        case HOLD_POSITIVE:
+            if (count >= 499)
             {
-                throttle++;
-                throttleCounter = 0;
+                count = 0;
+                drive_mode = DECELERATE;
             }
             else
             {
-                throttleCounter++;
+                count++;
             }
-        }
-    }
-    // count down
-    else
-    {
-        if (throttle <= -10)
-        {
-            throttleCounter++;
-            // stay at min for set amount before incrementing
-            if (throttleCounter >= 199)
+            break;
+
+        // accelerate to -20% at 40%/sec
+        case DECELERATE:
+            if (linear_accel_to_target(&throttleX100, 40, -2000))
             {
-                throttle_dir ^= 1;
+                drive_mode = HOLD_NEGATIVE;
             }
-        }
-        else
-        {
-            // decrement every 10 task cycles
-            if (throttleCounter >= 9)
+            break;
+
+        // sit at -20% for 5 seconds
+        case HOLD_NEGATIVE:
+            if (count >= 499)
             {
-                throttle--;
-                throttleCounter = 0;
+                count = 0;
+                drive_mode = ACCELERATE;
             }
             else
             {
-                throttleCounter++;
+                count++;
             }
-        }
+            break;
+
+        // accelerate to stop
+        default:
+            (void)linear_accel_to_target(&throttleX100, 50, 0);
+            break;
     }
-    
-    // use scaling of ten
-    comm.SendData(throttle * 10);
+
+    // resolution on RS485 bus is X10
+    comm.SendData((int16_t)(throttleX100 / 10));
 }
 
 
@@ -166,7 +150,7 @@ void loop()
         if (Run10msTask)
         {
             Run10msTask = 0;
-            if (startupTimer >= 99)
+            if (startupTimer >= 99) // one second startup delay
             {
                 TenMsTask();
             }
