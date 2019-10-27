@@ -5,14 +5,13 @@
 #include <Arduino.h>
 
 // defines
-#define BUFFER_LENGTH       10  // Must be even
-#define TERMINATING_BYTES   2
+#define RX_BYTES    4   // 2 for motor speed, 2 for current consumption (must be even)
 
 //typedefs
 typedef union
 {
-    uint8_t u8_data[BUFFER_LENGTH];
-    uint16_t u16_data[BUFFER_LENGTH>>1];
+    uint8_t u8_data[RX_BYTES];
+    uint16_t u16_data[RX_BYTES>>1];
 } packet_T;
 
 

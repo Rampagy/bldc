@@ -202,9 +202,7 @@ ISR(USART_RX_vect)
     digitalWrite(LED_BUILTIN, LOW);
 
     // if the terminating bytes have been received
-    if ((comm.bufferLoc >= TERMINATING_BYTES) &&
-        ((comm.rxBuffer.u8_data[comm.bufferLoc-TERMINATING_BYTES+1] == 0xFF) &&
-        (comm.rxBuffer.u8_data[comm.bufferLoc-TERMINATING_BYTES] == 0xFF)))
+    if (comm.bufferLoc >= (RX_BYTES - 1))
     {
         // reset buffer loc
         comm.bufferLoc = 0;
