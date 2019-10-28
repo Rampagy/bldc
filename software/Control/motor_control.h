@@ -9,11 +9,11 @@
 #define PHASE_PREDICTION
 
 // function declarations
-void CalculatePhases(void);
+void CalculatePhases(uint16_t);
 
 // externs
 extern int16_t  directAxisAngle;
-extern uint16_t motorSpeedCount;
+extern uint16_t motorSpeedCount[];
 extern int16_t desiredThrottleX10;
 extern uint8_t  motorSpeedTimerOverrun;
 

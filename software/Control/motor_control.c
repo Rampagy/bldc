@@ -31,12 +31,13 @@ uint16_t checkAngleOverflow(int16_t angle)
 }
 
 
-void CalculatePhases(void)
+void CalculatePhases(uint16_t speedCnt)
 {
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
 #ifdef PHASE_PREDICTION
     uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
-    int16_t predictedPhaseAngle = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
+    currentTimerCount = currentTimerCount > speedCnt ? speedCnt : currentTimerCount;
+    int16_t predictedPhaseAngle = (((uint32_t)currentTimerCount * 100 * 60) / speedCnt) / 100;
 #else
     // half of the hall effect resolution, so that active torque region is centered around max torque point
     int16_t predictedPhaseAngle = 30;

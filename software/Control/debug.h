@@ -11,6 +11,6 @@ void Debug_Init(void);
 
 // globals
 extern int16_t directAxisAngle;
-extern uint16_t motorSpeedCount;
+extern uint16_t motorSpeedCount[];
 
 #endif

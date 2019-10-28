@@ -17,6 +17,9 @@ void main()
     // figure out what the initial motor position is
     Hall_Decoder();
 
+    // variable initializations
+    uint32_t speedCnt = 0;
+
     while(1)
     {
         if (RS485RxCompleted)
@@ -27,7 +30,6 @@ void main()
             GPIO_ResetBits(GPIOD, LED_BLUE);
             desiredThrottleX10 = (int16_t)(((uint16_t)(rxBuffer.u8_data[0] << 8) | rxBuffer.u8_data[1]) - 1000);
 
-            uint16_t speedCnt = motorSpeedCount;
             if (speedCnt)
             {
                 uint16_t motorSpeed = ((uint32_t)250000) / speedCnt;
@@ -51,6 +53,13 @@ void main()
             }
         }
 
-        CalculatePhases();
+        speedCnt = 0;
+        for (uint8_t i = 0 ; i < SPEED_BUFFER_LENGTH; i++)
+        {
+            speedCnt += motorSpeedCount[i];
+        }
+        speedCnt /= SPEED_BUFFER_LENGTH;
+
+        CalculatePhases((uint16_t)speedCnt);
     }
 }

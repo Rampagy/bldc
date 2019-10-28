@@ -1,8 +1,9 @@
 #include "hall_effect.h"
 
 int16_t  directAxisAngle = 0;
-uint16_t motorSpeedCount = 0;
+uint16_t motorSpeedCount[SPEED_BUFFER_LENGTH] = {0};
 uint8_t  motorSpeedTimerOverrun = 0;
+uint8_t speedIdx = 0;
 
 /* Handle PB4 interrupt */
 void EXTI4_IRQHandler(void)
@@ -62,8 +63,11 @@ void EXTI0_IRQHandler(void)
 void Hall_Decoder (void)
 {
     // capture motor speed, start counter for next hall effect interrupt
-    motorSpeedCount = TIM13->CNT;
+    motorSpeedCount[speedIdx] = TIM13->CNT;
     TIM13->CNT = 0x0000;
+    speedIdx++;
+    speedIdx %= SPEED_BUFFER_LENGTH;
+
     motorSpeedTimerOverrun = 0;
     GPIO_ResetBits(GPIOD, LED_RED);
 
@@ -109,7 +113,9 @@ void TIM8_UP_TIM13_IRQHandler(void)
     {
         GPIO_SetBits(GPIOD, LED_RED);
         motorSpeedTimerOverrun = 1;
-        motorSpeedCount = TIM13_PERIOD;  // on timeout set to max count so quadrature angle doesn't jump all crazy
+        motorSpeedCount[speedIdx] = TIM13_PERIOD;  // on timeout set to max count so quadrature angle doesn't jump all crazy
+        speedIdx++;
+        speedIdx %= SPEED_BUFFER_LENGTH;
         TIM_ClearITPendingBit(TIM13, TIM_IT_Update);  // reset flag
     }
     return;

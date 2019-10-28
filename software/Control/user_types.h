@@ -7,8 +7,9 @@
 #define LED_RED     GPIO_Pin_14     // Zero Motor Speed
 #define LED_BLUE    GPIO_Pin_15     // RS485 Rx Timed out
 
-#define TX_BYTES 4  // 2 bytes for motor speed, 2 bytes for current consumption (must be even)
-#define RX_BYTES 2  // 2 bytes for desired throttle
+#define TX_BYTES 4              // 2 bytes for motor speed, 2 bytes for current consumption (must be even)
+#define RX_BYTES 2              // 2 bytes for desired throttle
+#define SPEED_BUFFER_LENGTH 5   // length of speed buffer
 
 // typedefs
 typedef union
