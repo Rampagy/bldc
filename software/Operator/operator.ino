@@ -63,7 +63,7 @@ void SetTransEnable(const uint8_t pin_state)
 void ComputeThrottle()
 {
     static int16_t throttleX100 = 0;
-    static drive_mode_t drive_mode = ACCELERATE;
+    static drive_mode_t drive_mode = DECELERATE;
     static uint16_t count = 0;
 
     switch(drive_mode)
@@ -116,8 +116,8 @@ void ComputeThrottle()
             break;
     }
 
-    // resolution on RS485 bus is X10
-    comm.SendData((int16_t)(throttleX100 / 10));
+    // 0.1 slope, 1000 bias
+    comm.SendData((throttleX100 + 10000) / 10);
 }
 
 
@@ -172,14 +172,13 @@ void loop()
 ISR(USART_TX_vect)
 {
     static uint8_t txByteCount = 0;
-
     txByteCount++;
 
     switch (txByteCount)
     {
         case 1:
             // write data to data register
-            UDR0 = comm.txPacket && 0x00FF;
+            UDR0 = comm.txPacket & 0x00FF;
             break;
         default:
             // disable TX and TX complete interrupt
@@ -196,21 +195,24 @@ ISR(USART_TX_vect)
 //**************************************
 ISR(USART_RX_vect)
 {
-    // transfer the data to the rxBuffer
-    comm.rxBuffer.u8_data[comm.bufferLoc] = UDR0;
+    static uint8_t rxByteCount = 0;
+
     comm.rxTimer = 0;
     digitalWrite(LED_BUILTIN, LOW);
 
-    // if the terminating bytes have been received
-    if (comm.bufferLoc >= (RX_BYTES - 1))
+    switch(rxByteCount)
     {
-        // reset buffer loc
-        comm.bufferLoc = 0;
-    }
-    else
-    {
-        // increment the buffer location
-        comm.bufferLoc++;
+        case 1:
+        case 2:
+        case 3:
+            // transfer the data to the rxBuffer
+            comm.rxBuffer.u8_data[rxByteCount] = UDR0;
+            break;
+        default:
+            // transfer the data to the rxBuffer
+            comm.rxBuffer.u8_data[rxByteCount] = UDR0;
+            rxByteCount = 0;
+            break;
     }
 
     // clear the rx complete flag

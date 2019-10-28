@@ -13,10 +13,11 @@
 #include "motor_control.h"
 
 
-extern int16_t  directAxisAngle;
-extern uint16_t motorSpeedCount;
-extern uint8_t  desiredThrottle;
-extern uint8_t  RS485RxCompleted;
-extern debug_T  debugData;
+extern int16_t      directAxisAngle;
+extern uint16_t     motorSpeedCount;
+extern int16_t     desiredThrottle;
+extern uint8_t      RS485RxCompleted;
+extern debug_T      debugData;
+extern rxBuffer_T   rxBuffer;
 
 #endif

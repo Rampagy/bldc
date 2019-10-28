@@ -14,7 +14,7 @@ void CalculatePhases(void);
 // externs
 extern int16_t  directAxisAngle;
 extern uint16_t motorSpeedCount;
-extern uint8_t  desiredThrottle;
+extern int16_t desiredThrottle;
 extern uint8_t  motorSpeedTimerOverrun;
 
 #endif

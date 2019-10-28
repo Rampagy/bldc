@@ -10,13 +10,12 @@ Comm::Comm()
     UCSR0B = 0; // same for UCSR0B
     UCSR0C = 0; // same for UCSR0C
 
-    UBRR0 = 8; // for configuring baud rate of 115200bps - pg 182
+    UBRR0 = 103; // for configuring baud rate of 115200bps - pg 163
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes
     UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
 
     this->timeout_threshold = 4;
     this->timed_out = 0;
-    this->bufferLoc = 0;
     this->rxTimer = 0;
     this->txPacket = 0;
 }
@@ -25,7 +24,7 @@ Comm::Comm()
 //*********************************************
 //  Send UART data
 //*********************************************
-void Comm::SendData(int16_t packet)
+void Comm::SendData(uint16_t packet)
 {
     this->txPacket = packet;
 
@@ -33,7 +32,7 @@ void Comm::SendData(int16_t packet)
     UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
 
     // write data to data register
-    UDR0 = (this->txPacket && 0xFF00) >> 8;
+    UDR0 = (this->txPacket & 0xFF00) >> 8;
 }
 
 

@@ -9,8 +9,8 @@
 void main()
 {
     SystemCoreClockUpdate();
+    UARTInit(9600);
     Debug_Init();
-    UARTInit(115200);
     Hall_Init();
     TIM_Config();
 
@@ -22,28 +22,35 @@ void main()
         if (RS485RxCompleted)
         {
             RS485RxCompleted = 0;
-            if (motorSpeedCount)
+            //reset timer to avoid hitting the timeout
+            TIM14->CNT = 0x00;
+            GPIO_ResetBits(GPIOD, LED_BLUE);
+            desiredThrottle = (int16_t)(((uint16_t)(rxBuffer.u8_data[0] << 8) | rxBuffer.u8_data[1]) - 1000);
+
+            uint16_t speedCnt = motorSpeedCount;
+            if (speedCnt)
             {
-                // STM uses little endian so it will pack LSB then MSB
-                debugData.u16_data[0] = (uint16_t)((uint32_t)250000 / motorSpeedCount);
+                uint16_t motorSpeed = ((uint32_t)250000) / speedCnt;
+                debugData.u8_data[0] = (uint8_t)((motorSpeed & 0xFF00) >> 8);
+                debugData.u8_data[1] = (uint8_t)(motorSpeed & 0x00FF);
             }
             else
             {
-                // STM uses little endian so it will pack LSB then MSB
-                debugData.u16_data[0] = (uint16_t)(0);
+                debugData.u16_data[0] = 0;
             }
-            UARTSendData(debugData.char_data);
+            debugData.u16_data[1] = 0; // set to zero until current consumption is calculated
+            UARTSendData(debugData.u8_data);
+
+            if (desiredThrottle == 200 || desiredThrottle == -200)
+            {
+                GPIO_SetBits(GPIOD, LED_ORANGE);
+            }
+            else
+            {
+                GPIO_ResetBits(GPIOD, LED_ORANGE);
+            }
         }
 
-        if (desiredThrottle == 0)
-        {
-            GPIO_SetBits(GPIOD, LED_ORANGE);
-        }
-        else
-        {
-            GPIO_ResetBits(GPIOD, LED_ORANGE);
-        }
-
-        CalculatePhases();
+        //CalculatePhases();
     }
 }

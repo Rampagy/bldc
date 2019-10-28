@@ -1,10 +1,10 @@
 #include "uart.h"
 
-char buffer[BUFFER_LENGTH];
-char* bufferLoc = &buffer[0];
 
-uint8_t desiredThrottle = 0;
-uint8_t RS485RxCompleted = 0;
+uint8_t buffer[TX_BYTES];
+int16_t desiredThrottle = 0;
+volatile rxBuffer_T rxBuffer;
+volatile uint8_t RS485RxCompleted = 0;
 
 /*UARTSendData
  *Populates a buffer which gets shifted out UART3 at the baud rate specified by UARTInit.
@@ -12,16 +12,13 @@ uint8_t RS485RxCompleted = 0;
  *a new transfer
 */
 
-void UARTSendData(char data[])
+void UARTSendData(uint8_t data[])
 {
-    for(uint8_t i = 0; i < BUFFER_LENGTH; i++)
+    for(uint8_t i = 0; i < TX_BYTES; i++)
     {
         //Copy String into Buffer
         buffer[i] = data[i];
     }
-
-    //Reset the Pointer to the beginning of the buffer
-    bufferLoc= &buffer[0];
 
     // Enable the transmitter
     USART3->CR1 |= USART_Mode_Tx;
@@ -32,33 +29,38 @@ void UARTSendData(char data[])
 //Handles the USART Interrupt. On a transfer empty interrupt, populates the data register with the next character to send.
 void USART3_IRQHandler (void)
 {
-    if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)
+    static uint8_t txPacketCounter = 0;
+    static uint8_t rxPacketCounter = 0;
+
+    if (USART3->SR & USART_FLAG_RXNE)
     {
-        //reset timer to avoid hitting the timeout
-        TIM14->CNT = 0x00;
-        GPIO_ResetBits(GPIOD, LED_BLUE);
-        RS485RxCompleted = 1;
         //Save the data, reading from USART3->DR clears interrupt
-        desiredThrottle = USART_ReceiveData(USART3);
-    }
-    else if(USART_GetITStatus(USART3, USART_IT_TC) == SET)
-    {
-        //Clear Transmit Buffer Empty Flag by Writing to USART3->DR;
-        if (((bufferLoc - &buffer[0] >= DEBUG_TERMINATING_BYTES) &&
-            ((*(bufferLoc-DEBUG_TERMINATING_BYTES+1) == 0xFF) && (*(bufferLoc-DEBUG_TERMINATING_BYTES) == 0xFF))) ||
-            (bufferLoc == &buffer[BUFFER_LENGTH]))
+        rxBuffer.u8_data[rxPacketCounter] = USART3->DR;
+        rxPacketCounter++;
+
+        if (rxPacketCounter >= RX_BYTES)
         {
-            //If we have reached the end of the null-terminated string
-            //disable transmit mode, clear the data register and clear the flag
-            USART3->CR1 &= ~USART_Mode_Tx;
-            USART_SendData(USART3, 0);
+            RS485RxCompleted = 1;
+            rxPacketCounter = 0;
+        }
+    }
+    else if(USART3->SR & USART_FLAG_TC)
+    {
+        if (txPacketCounter <= TX_BYTES)
+        {
+            //Put the next data in the Data Register
+            USART3->DR = buffer[txPacketCounter];
+            txPacketCounter++;
         }
         else
         {
-            USART_SendData(USART3, *bufferLoc); //Put the next data in the Data Register
-            bufferLoc++; // Increment the buffer pointer
+            //disable transmit mode, clear the data register and clear the flag
+            USART3->CR1 &= ~USART_Mode_Tx;
+            USART_SendData(USART3, 0);
+            txPacketCounter = 0;
         }
     }
+    return;
 }
 
 
@@ -71,6 +73,7 @@ void TIM8_TRG_COM_TIM14_IRQHandler (void)
         GPIO_SetBits(GPIOD, LED_BLUE);
         TIM_ClearITPendingBit(TIM14, TIM_IT_Update);  //reset flag
     }
+    return;
 }
 
 

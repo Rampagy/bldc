@@ -5,11 +5,6 @@ debug_T debugData;
 
 void Debug_Init(void)
 {
-    for (uint8_t i = 0; i < DEBUG_BYTE_LENGTH; i++)
-    {
-        debugData.u8_data[i] = 0xFF;
-    }
-
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;

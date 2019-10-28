@@ -9,18 +9,12 @@
 #include <string.h>
 #include "user_types.h"
 
-//This controls the maximum amount of characters that can be sent across in one transaction.
-#define BUFFER_LENGTH DEBUG_BYTE_LENGTH
-
 //Example Use:
-
 //  char tempBuf[] = "Hello World...";
 //  UARTInit(9600);
 //  UARTSendLine(tempBuf);
 
-void UARTSendLine(char[]);
-void UARTSendString(char[]);
-void UARTSendData(char[]);
+void UARTSendData(uint8_t[]);
 
 void USART3_IRQHandler (void);
 void TIM8_TRG_COM_TIM14_IRQHandler (void);

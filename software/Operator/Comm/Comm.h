@@ -20,7 +20,7 @@ class Comm
     public:
         Comm(void);
         void SetupComm(void);
-        void SendData(int16_t packet);
+        void SendData(uint16_t packet);
         uint8_t CheckWatchdog(void);
         packet_T rxBuffer;
         uint8_t timeout_threshold;

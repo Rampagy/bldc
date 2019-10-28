@@ -2,21 +2,26 @@
 #define USER_TYPES_H
 
 // defines
-#define LED_GREEN   GPIO_Pin_12     // None
-#define LED_ORANGE  GPIO_Pin_13     // None
+#define LED_GREEN   GPIO_Pin_12     // Unused
+#define LED_ORANGE  GPIO_Pin_13     // hold command (-20% or 20%)
 #define LED_RED     GPIO_Pin_14     // Zero Motor Speed
 #define LED_BLUE    GPIO_Pin_15     // RS485 Rx Timed out
 
-#define DEBUG_BYTE_LENGTH 10
-#define DEBUG_TERMINATING_BYTES 2
+#define TX_BYTES 4  // 2 bytes for motor speed, 2 bytes for current consumption (must be even)
+#define RX_BYTES 2  // 2 bytes for desired throttle
 
 // typedefs
 typedef union
 {
-    char        char_data   [DEBUG_BYTE_LENGTH];
-    uint8_t     u8_data     [DEBUG_BYTE_LENGTH];
-    uint16_t    u16_data    [DEBUG_BYTE_LENGTH >> 1];
+    uint8_t     u8_data     [TX_BYTES];
+    uint16_t    u16_data    [TX_BYTES >> 1];
 } debug_T;
 
+// typedefs
+typedef union
+{
+    uint8_t     u8_data     [RX_BYTES];
+    uint16_t    u16_data    [RX_BYTES >> 1];
+} rxBuffer_T;
 
 #endif

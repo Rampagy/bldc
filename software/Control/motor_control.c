@@ -52,9 +52,9 @@ void CalculatePhases(void)
     uint16_t bMultiplier = SineLookupTable[checkAngleOverflow(quadratureAxisAngle + 120)];
     uint16_t cMultiplier = SineLookupTable[checkAngleOverflow(quadratureAxisAngle + 240)];
 
-    uint16_t aDutyCycle = (uint16_t)desiredThrottle * aMultiplier / 10;
-    uint16_t bDutyCycle = (uint16_t)desiredThrottle * bMultiplier / 10;
-    uint16_t cDutyCycle = (uint16_t)desiredThrottle * cMultiplier / 10;
+    uint16_t aDutyCycle = (uint16_t)desiredThrottle * aMultiplier / 100;
+    uint16_t bDutyCycle = (uint16_t)desiredThrottle * bMultiplier / 100;
+    uint16_t cDutyCycle = (uint16_t)desiredThrottle * cMultiplier / 100;
 
     SetPhaseDutyCycles(aDutyCycle, bDutyCycle, cDutyCycle);
 
