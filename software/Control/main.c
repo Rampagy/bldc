@@ -9,7 +9,7 @@
 void main()
 {
     SystemCoreClockUpdate();
-    UARTInit(9600);
+    UARTInit(115200);
     Debug_Init();
     Hall_Init();
     TIM_Config();
@@ -25,7 +25,7 @@ void main()
             //reset timer to avoid hitting the timeout
             TIM14->CNT = 0x00;
             GPIO_ResetBits(GPIOD, LED_BLUE);
-            desiredThrottle = (int16_t)(((uint16_t)(rxBuffer.u8_data[0] << 8) | rxBuffer.u8_data[1]) - 1000);
+            desiredThrottleX10 = (int16_t)(((uint16_t)(rxBuffer.u8_data[0] << 8) | rxBuffer.u8_data[1]) - 1000);
 
             uint16_t speedCnt = motorSpeedCount;
             if (speedCnt)
@@ -41,7 +41,7 @@ void main()
             debugData.u16_data[1] = 0; // set to zero until current consumption is calculated
             UARTSendData(debugData.u8_data);
 
-            if (desiredThrottle == 200 || desiredThrottle == -200)
+            if (desiredThrottleX10 == 200 || desiredThrottleX10 == -200)
             {
                 GPIO_SetBits(GPIOD, LED_ORANGE);
             }
@@ -51,6 +51,6 @@ void main()
             }
         }
 
-        //CalculatePhases();
+        CalculatePhases();
     }
 }

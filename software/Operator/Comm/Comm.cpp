@@ -10,7 +10,7 @@ Comm::Comm()
     UCSR0B = 0; // same for UCSR0B
     UCSR0C = 0; // same for UCSR0C
 
-    UBRR0 = 103; // for configuring baud rate of 115200bps - pg 163
+    UBRR0 = 8; // for configuring baud rate of 115200bps - pg 163
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes
     UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
 

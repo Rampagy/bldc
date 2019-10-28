@@ -23,11 +23,11 @@ const uint8_t SineLookupTable[360] = {
 };
 
 
-int16_t checkAngleOverflow(int16_t angle)
+uint16_t checkAngleOverflow(int16_t angle)
 {
     angle = (angle + 360) % 360;
 
-    return angle;
+    return (uint16_t)angle;
 }
 
 
@@ -36,14 +36,23 @@ void CalculatePhases(void)
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
 #ifdef PHASE_PREDICTION
     uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
-    uint16_t predictedPhaseAngle = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
+    int16_t predictedPhaseAngle = (((uint32_t)currentTimerCount * 100 * 60) / motorSpeedCount) / 100;
 #else
     // half of the hall effect resolution, so that active torque region is centered around max torque point
-    uint16_t predictedPhaseAngle = 30;
+    int16_t predictedPhaseAngle = 30;
 #endif
 
+    int16_t controlAngle = 90;
+    uint16_t absDesiredThrottleX10 = 0;
+    if (desiredThrottleX10 < 0)
+    {
+        controlAngle = -90;
+        predictedPhaseAngle *= -1;
+        absDesiredThrottleX10 = desiredThrottleX10 * -1;
+    }
+
     // add 1 degree to account for calculation delay and preloading delay of the dutycycle
-    int16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + 90 + predictedPhaseAngle + 1);
+    uint16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + controlAngle + predictedPhaseAngle + 1);
 
 
     /*--------------------- Calculate Phase Duty Cycles ---------------------*/
@@ -52,11 +61,11 @@ void CalculatePhases(void)
     uint16_t bMultiplier = SineLookupTable[checkAngleOverflow(quadratureAxisAngle + 120)];
     uint16_t cMultiplier = SineLookupTable[checkAngleOverflow(quadratureAxisAngle + 240)];
 
-    uint16_t aDutyCycle = (uint16_t)desiredThrottle * aMultiplier / 100;
-    uint16_t bDutyCycle = (uint16_t)desiredThrottle * bMultiplier / 100;
-    uint16_t cDutyCycle = (uint16_t)desiredThrottle * cMultiplier / 100;
+    uint16_t aDutyCycleX10 = (uint32_t)absDesiredThrottleX10 * aMultiplier / 100;
+    uint16_t bDutyCycleX10 = (uint32_t)absDesiredThrottleX10 * bMultiplier / 100;
+    uint16_t cDutyCycleX10 = (uint32_t)absDesiredThrottleX10 * cMultiplier / 100;
 
-    SetPhaseDutyCycles(aDutyCycle, bDutyCycle, cDutyCycle);
+    SetPhaseDutyCycles(aDutyCycleX10, bDutyCycleX10, cDutyCycleX10);
 
     return;
 }

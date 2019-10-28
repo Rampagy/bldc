@@ -2,7 +2,7 @@
 
 
 uint8_t buffer[TX_BYTES];
-int16_t desiredThrottle = 0;
+int16_t desiredThrottleX10 = 0;
 volatile rxBuffer_T rxBuffer;
 volatile uint8_t RS485RxCompleted = 0;
 
@@ -69,7 +69,7 @@ void TIM8_TRG_COM_TIM14_IRQHandler (void)
 {
     if (TIM_GetITStatus(TIM14, TIM_IT_Update) != RESET)
     {
-        desiredThrottle = 0;
+        desiredThrottleX10 = 0;
         GPIO_SetBits(GPIOD, LED_BLUE);
         TIM_ClearITPendingBit(TIM14, TIM_IT_Update);  //reset flag
     }
