@@ -171,20 +171,16 @@ void loop()
 //**************************************
 ISR(USART_TX_vect)
 {
-    static uint8_t txByteCount = 0;
-    txByteCount++;
-
-    switch (txByteCount)
+    if (comm.txPacketCounter >= TX_BYTES)
     {
-        case 1:
-            // write data to data register
-            UDR0 = comm.txPacket & 0x00FF;
-            break;
-        default:
-            // disable TX and TX complete interrupt
-            UCSR0B &= ~(1 << TXEN0) & ~(1 << TXCIE0);
-            txByteCount = 0;
-            break;
+        // disable TX and TX complete interrupt
+        UCSR0B &= ~(1 << TXEN0) & ~(1 << TXCIE0);
+    }
+    else
+    {
+        // write data to data register
+        UDR0 = comm.txPacket[comm.txPacketCounter];
+        comm.txPacketCounter++;
     }
 }
 

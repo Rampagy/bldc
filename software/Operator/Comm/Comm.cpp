@@ -17,7 +17,12 @@ Comm::Comm()
     this->timeout_threshold = 4;
     this->timed_out = 0;
     this->rxTimer = 0;
-    this->txPacket = 0;
+    this->txPacketCounter = 0;
+
+    for (uint8_t i = 0; i < TX_BYTES; i++)
+    {
+            this->txPacket[i] = 0;
+    }
 }
 
 
@@ -26,13 +31,24 @@ Comm::Comm()
 //*********************************************
 void Comm::SendData(uint16_t packet)
 {
-    this->txPacket = packet;
+    this->txPacketCounter = 0;
+    this->txPacket[0] = 10; // '\n'
+
+    uint16_t divisor = 1000;
+    for (uint8_t i = 1; i < TX_BYTES; i++)
+    {
+        uint8_t asciiDec = (packet / divisor);
+        this->txPacket[i] = asciiDec + 48;
+        packet -= asciiDec * divisor;
+        divisor /= 10;
+    }
 
     // enable TX and TX complete interrupt
     UCSR0B |= (1 << TXEN0) | (1 << TXCIE0);
 
     // write data to data register
-    UDR0 = (this->txPacket & 0xFF00) >> 8;
+    UDR0 = this->txPacket[this->txPacketCounter];
+    this->txPacketCounter++;
 }
 
 

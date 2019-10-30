@@ -30,18 +30,28 @@ void UARTSendData(uint8_t data[])
 void USART3_IRQHandler (void)
 {
     static uint8_t txPacketCounter = 0;
-    static uint8_t rxPacketCounter = 0;
+    static uint8_t rxPacketCounter = RX_BYTES+1; // prevents reading partial data
 
     if (USART3->SR & USART_FLAG_RXNE)
     {
         //Save the data, reading from USART3->DR clears interrupt
-        rxBuffer.u8_data[rxPacketCounter] = USART3->DR;
-        rxPacketCounter++;
+        uint8_t tempData = USART3->DR;
 
-        if (rxPacketCounter >= RX_BYTES)
+        if (tempData == 10) // '\n'
+        {
+            rxPacketCounter = 0;
+        }
+        else if (rxPacketCounter < RX_BYTES)
+        {
+            rxBuffer.u8_data[rxPacketCounter] = tempData;
+            rxPacketCounter++;
+        }
+
+        // set complete flag when '\n' followed by 4 data bytes are received
+        if (rxPacketCounter == RX_BYTES)
         {
             RS485RxCompleted = 1;
-            rxPacketCounter = 0;
+            rxPacketCounter = RX_BYTES+1; // prevents reading partial data
         }
     }
     else if(USART3->SR & USART_FLAG_TC)

@@ -6,6 +6,7 @@
 
 // defines
 #define RX_BYTES    4   // 2 for motor speed, 2 for current consumption (must be even)
+#define TX_BYTES    5   // 1 for start, 4 char data bytes
 
 //typedefs
 typedef union
@@ -25,9 +26,9 @@ class Comm
         packet_T rxBuffer;
         uint8_t timeout_threshold;
         uint8_t timed_out;
-        uint8_t bufferLoc;
         uint8_t rxTimer;
-        int16_t txPacket;
+        uint8_t txPacket[TX_BYTES];
+        uint8_t txPacketCounter;
 };
 
 #endif

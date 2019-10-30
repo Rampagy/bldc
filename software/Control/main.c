@@ -28,7 +28,15 @@ void main()
             //reset timer to avoid hitting the timeout
             TIM14->CNT = 0x00;
             GPIO_ResetBits(GPIOD, LED_BLUE);
-            desiredThrottleX10 = (int16_t)(((uint16_t)(rxBuffer.u8_data[0] << 8) | rxBuffer.u8_data[1]) - 1000);
+
+            desiredThrottleX10 = 0;
+            uint16_t multiplier = 1000;
+            for (uint8_t i = 0; i < RX_BYTES; i++)
+            {
+                desiredThrottleX10 += (uint16_t)(multiplier * (rxBuffer.u8_data[i] - 48));
+                multiplier /= 10;
+            }
+            desiredThrottleX10 = (int16_t)(desiredThrottleX10 - 1000);
 
             if (speedCnt)
             {
@@ -42,17 +50,19 @@ void main()
             }
             debugData.u16_data[1] = 0; // set to zero until current consumption is calculated
             UARTSendData(debugData.u8_data);
-
-            if (desiredThrottleX10 == 200 || desiredThrottleX10 == -200)
-            {
-                GPIO_SetBits(GPIOD, LED_ORANGE);
-            }
-            else
-            {
-                GPIO_ResetBits(GPIOD, LED_ORANGE);
-            }
         }
 
+        // set LED indicator
+        if (desiredThrottleX10 == 200 || desiredThrottleX10 == -200)
+        {
+            GPIO_SetBits(GPIOD, LED_ORANGE);
+        }
+        else
+        {
+            GPIO_ResetBits(GPIOD, LED_ORANGE);
+        }
+
+        // apply moving average
         speedCnt = 0;
         for (uint8_t i = 0 ; i < SPEED_BUFFER_LENGTH; i++)
         {
