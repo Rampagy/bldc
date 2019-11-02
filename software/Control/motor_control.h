@@ -9,7 +9,7 @@
 #define PHASE_PREDICTION
 
 // function declarations
-void CalculatePhases(uint16_t);
+void CalculatePhases(uint16_t, int16_t);
 
 // externs
 extern int16_t  directAxisAngle;

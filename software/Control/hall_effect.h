@@ -18,11 +18,11 @@
 
 // function declarations
 void Hall_Init(void);
-void Hall_Decoder(void);
-
+void CalcInitialPosition(void);
 void EXTI4_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
 void EXTI0_IRQHandler(void);
 void TIM8_UP_TIM13_IRQHandler(void);
+
 
 #endif

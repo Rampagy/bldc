@@ -15,10 +15,11 @@ void main()
     TIM_Config();
 
     // figure out what the initial motor position is
-    Hall_Decoder();
+    CalcInitialPosition();
 
     // variable initializations
     uint32_t speedCnt = 0;
+    int16_t aveDeltaAngle = 0;
 
     while(1)
     {
@@ -40,7 +41,8 @@ void main()
 
             if (speedCnt)
             {
-                uint16_t motorSpeed = ((uint32_t)250000) / speedCnt;
+                // 60,000,000 counts/min * (1 rev/360 deg) * (1 mech rotation / 4 elec rotation)
+                uint16_t motorSpeed = ((uint32_t)41667 * aveDeltaAngle) / speedCnt;
                 debugData.u8_data[0] = (uint8_t)((motorSpeed & 0xFF00) >> 8);
                 debugData.u8_data[1] = (uint8_t)(motorSpeed & 0x00FF);
             }
@@ -48,7 +50,9 @@ void main()
             {
                 debugData.u16_data[0] = 0;
             }
-            debugData.u16_data[1] = 0; // set to zero until current consumption is calculated
+
+            // set to zero until current consumption is calculated
+            debugData.u16_data[1] = 0;
             UARTSendData(debugData.u8_data);
         }
 
@@ -64,12 +68,15 @@ void main()
 
         // apply moving average
         speedCnt = 0;
+        aveDeltaAngle = 0;
         for (uint8_t i = 0 ; i < SPEED_BUFFER_LENGTH; i++)
         {
             speedCnt += motorSpeedCount[i];
+            aveDeltaAngle += deltaSpeedAngles[i];
         }
         speedCnt /= SPEED_BUFFER_LENGTH;
+        aveDeltaAngle /= SPEED_BUFFER_LENGTH;
 
-        CalculatePhases((uint16_t)speedCnt);
+        CalculatePhases((uint16_t)speedCnt, aveDeltaAngle);
     }
 }

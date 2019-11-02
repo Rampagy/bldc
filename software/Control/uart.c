@@ -37,11 +37,12 @@ void USART3_IRQHandler (void)
         //Save the data, reading from USART3->DR clears interrupt
         uint8_t tempData = USART3->DR;
 
-        if (tempData == 10) // '\n'
+        if (tempData == 10)
         {
+            // Every packet starts with a '\n'
             rxPacketCounter = 0;
         }
-        else if (rxPacketCounter < RX_BYTES)
+        else if (rxPacketCounter < RX_BYTES && tempData >= '0' && tempData <= '9')
         {
             rxBuffer.u8_data[rxPacketCounter] = tempData;
             rxPacketCounter++;

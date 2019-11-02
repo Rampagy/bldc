@@ -1,9 +1,86 @@
 #include "hall_effect.h"
 
 int16_t  directAxisAngle = 0;
-uint16_t motorSpeedCount[SPEED_BUFFER_LENGTH] = {0};
+uint16_t motorSpeedCount[SPEED_BUFFER_LENGTH] = { 0 };
+int16_t deltaSpeedAngles[SPEED_BUFFER_LENGTH] = { 0 };
 uint8_t  motorSpeedTimerOverrun = 0;
 uint8_t speedIdx = 0;
+
+//this calculates the speed of the motor
+#define DETECT_SPEED(void)                                                      \
+{                                                                               \
+    /* capture motor speed, start counter for next hall effect interrupt */     \
+    motorSpeedCount[speedIdx] = TIM13->CNT;                                     \
+    TIM13->CNT = 0x0000;                                                        \
+    speedIdx++;                                                                 \
+    speedIdx %= SPEED_BUFFER_LENGTH;                                            \
+                                                                                \
+    motorSpeedTimerOverrun = 0;                                                 \
+    GPIO_ResetBits(GPIOD, LED_RED);                                             \
+                                                                                \
+    uint16_t prevDirectAxisAngle = directAxisAngle;                             \
+    GET_ANGLE();                                                                \
+                                                                                \
+    deltaSpeedAngles[speedIdx] =                                                \
+        (int16_t)(directAxisAngle - prevDirectAxisAngle);                       \
+}                                                                               \
+
+//this re-calculates the motor position based off hall state
+#define GET_ANGLE(void)                                                         \
+{                                                                               \
+    /* Make motorPosition var with hallAState as MSB */                         \
+    /*   hallBState as middle bit, hallCState as LSB */                         \
+    uint8_t gpioB = GPIOB->IDR;                                                 \
+    uint8_t motorPosition =                                                     \
+        /* hall A (PB4) */                                                      \
+        ((gpioB & 0x10) >> 2) |                                                 \
+        /* hall B (PB5) */                                                      \
+        ((gpioB & 0x20) >> 4) |                                                 \
+        /* hall C (PB0) */                                                      \
+        (gpioB & 0x1);                                                          \
+                                                                                \
+    switch (motorPosition){                                                     \
+      case 5:                                                                   \
+        /* 0b101 (0 degrees) */                                                 \
+        directAxisAngle = 0;                                                    \
+        break;                                                                  \
+      case 4:                                                                   \
+        /* 0b100 (60 degrees) */                                                \
+        directAxisAngle = 60;                                                   \
+        break;                                                                  \
+      case 6:                                                                   \
+        /* 0b110 (120 degrees) */                                               \
+        directAxisAngle = 120;                                                  \
+        break;                                                                  \
+      case 2:                                                                   \
+        /* 0b010 (180 degrees) */                                               \
+        directAxisAngle = 180;                                                  \
+        break;                                                                  \
+      case 3:                                                                   \
+        /* 0b011 (240 degrees) */                                               \
+        directAxisAngle = 240;                                                  \
+        break;                                                                  \
+      case 1:                                                                   \
+        /* 0b001 (300 degrees) */                                               \
+        directAxisAngle = 300;                                                  \
+        break;                                                                  \
+      default:                                                                  \
+        /* Error State, Use last good known value if none are active */         \
+        break;                                                                  \
+    }                                                                           \
+}                                                                               \
+
+
+#define HALL_DECODER(void)                                                      \
+{                                                                               \
+    DETECT_SPEED();                                                             \
+}                                                                               \
+
+void CalcInitialPosition(void)
+{
+    GET_ANGLE();
+    return;
+}
 
 /* Handle PB4 interrupt */
 void EXTI4_IRQHandler(void)
@@ -17,7 +94,7 @@ void EXTI4_IRQHandler(void)
     // Read value from GPIO to determine if rising or falling edge
     // if 1 = rising edge, if 0 = falling edge
 
-    Hall_Decoder();
+    HALL_DECODER();
 
     return;
 }
@@ -34,7 +111,7 @@ void EXTI9_5_IRQHandler(void)
     // Read value from GPIO to determine if rising or falling edge
     // if 1 = rising edge, if 0 = falling edge
 
-    Hall_Decoder();
+    HALL_DECODER();
 
     return;
 }
@@ -54,57 +131,11 @@ void EXTI0_IRQHandler(void)
     EXTI_ClearITPendingBit(EXTI_Line0);
 
 
-    Hall_Decoder();
+    HALL_DECODER();
 
     return;
 }
 
-//this interrupt re-calculates the motor position based off of the hall state
-void Hall_Decoder (void)
-{
-    // capture motor speed, start counter for next hall effect interrupt
-    motorSpeedCount[speedIdx] = TIM13->CNT;
-    TIM13->CNT = 0x0000;
-    speedIdx++;
-    speedIdx %= SPEED_BUFFER_LENGTH;
-
-    motorSpeedTimerOverrun = 0;
-    GPIO_ResetBits(GPIOD, LED_RED);
-
-    /* Make motorPosition var with hallAState as MSB,
-       hallBState as middle bit, hallCState as LSB */
-    uint8_t gpioB = GPIOB->IDR;
-    uint8_t motorPosition =
-        ((gpioB & 0x10) >> 2) |       // hall A (PB4)
-        ((gpioB & 0x20) >> 4) |       // hall B (PB5)
-         (gpioB & 0x1);              // hall C (PB0)
-
-    switch (motorPosition){
-      case 5: //0b101:
-        directAxisAngle = 0;
-        break; // 0 degrees
-      case 4: //0b100:
-        directAxisAngle = 60;
-        break; // 60 degrees
-      case 6: //0b110:
-        directAxisAngle = 120;
-        break; // 120 degrees
-      case 2: //0b010:
-        directAxisAngle = 180;
-        break; // 180 degrees
-      case 3: //0b011:
-        directAxisAngle = 240;
-        break; // 240 degrees
-      case 1: //0b001:
-        directAxisAngle = 300;
-        break; // 300 degrees
-      default: // Error State
-        // Use last good known value if none are active
-        break;
-    }
-
-    return;
-}
 
 // motor speed count timeout, sets speed to zero if not hall effect has been detected
 void TIM8_UP_TIM13_IRQHandler(void)
