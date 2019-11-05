@@ -44,8 +44,38 @@ ISR(TIMER0_COMPA_vect)
 //*********************************************
 void TenMsTask()
 {
+    uint16_t throttleEcho = 0;
+    uint16_t motorSpeed = 0;
+    uint16_t motorCurrent = 0;
+
     ComputeThrottle();
-    SetTransEnable(!comm.CheckWatchdog());
+    SetTransEnable(1);
+
+    // comm received
+    if (!comm.neverReceived)
+    {
+        (void)comm.CheckWatchdog();
+
+        // decipher data
+        uint16_t multiplier = 1000;
+        for (uint8_t i = 0; i < 4; i++)
+        {
+            // each packet is 4 bytes long
+            throttleEcho += multiplier * (comm.rxBuffer[i] - 48);
+            motorSpeed += multiplier * (comm.rxBuffer[i+4] - 48);
+            motorCurrent += multiplier * (comm.rxBuffer[i+8] - 48);
+            multiplier /= 10;
+        }
+
+        if (throttleEcho == 1200 || throttleEcho == 800)
+        {
+            //digitalWrite(LED_BUILTIN, LOW);
+        }
+        else
+        {
+            //digitalWrite(LED_BUILTIN, HIGH);
+        }
+    }
 }
 
 //*********************************************
@@ -143,21 +173,12 @@ void SetupTimer0()
 
 void loop()
 {
-    uint16_t startupTimer = 0;
-
     while (1)
     {
         if (Run10msTask)
         {
             Run10msTask = 0;
-            if (startupTimer >= 99) // one second startup delay
-            {
-                TenMsTask();
-            }
-            else
-            {
-                startupTimer++;
-            }
+            TenMsTask();
         }
     }
 }
@@ -171,6 +192,9 @@ void loop()
 //**************************************
 ISR(USART_TX_vect)
 {
+    // clear transmission complete flag
+    UCSR0A &= ~(1 << TXC0);
+    
     if (comm.txPacketCounter >= TX_BYTES)
     {
         // disable TX and TX complete interrupt
@@ -191,26 +215,39 @@ ISR(USART_TX_vect)
 //**************************************
 ISR(USART_RX_vect)
 {
-    static uint8_t rxByteCount = 0;
+    static uint8_t rxByteCount = RX_BYTES+1; // prevents reading partial data
 
-    comm.rxTimer = 0;
-    digitalWrite(LED_BUILTIN, LOW);
-
-    switch(rxByteCount)
-    {
-        case 1:
-        case 2:
-        case 3:
-            // transfer the data to the rxBuffer
-            comm.rxBuffer.u8_data[rxByteCount] = UDR0;
-            break;
-        default:
-            // transfer the data to the rxBuffer
-            comm.rxBuffer.u8_data[rxByteCount] = UDR0;
-            rxByteCount = 0;
-            break;
-    }
-
+    // Save the data
+    uint8_t tempData = UDR0;
+    digitalWrite(LED_BUILTIN, HIGH);
     // clear the rx complete flag
     UCSR0A &= ~(1 << RXC0);
+
+    if (tempData == 10)
+    {
+        // Every packet starts with a '\n'
+        rxByteCount = 0;
+    }
+    else if (rxByteCount < RX_BYTES && tempData >= '0' && tempData <= '9')
+    {
+        // only capture data in valid range
+        comm.rxTempBuffer[rxByteCount] = tempData;
+        rxByteCount++;
+    }
+
+    if (rxByteCount == RX_BYTES)
+    {
+        // prevents reading partial data
+        rxByteCount = RX_BYTES+1;
+
+        // copy temp buffer to permanent buffer
+        for (uint8_t i = 0; i < RX_BYTES; i++)
+        {
+            comm.rxBuffer[i] = comm.rxTempBuffer[i];
+        }
+
+        // reset timer and flag
+        comm.neverReceived = 0;
+        comm.rxTimer = 0;
+    }
 }

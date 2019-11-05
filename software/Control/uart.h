@@ -14,7 +14,7 @@
 //  UARTInit(9600);
 //  UARTSendLine(tempBuf);
 
-void UARTSendData(uint8_t[]);
+void UARTSendData(uint16_t, uint16_t, uint16_t);
 
 void USART3_IRQHandler (void);
 void TIM8_TRG_COM_TIM14_IRQHandler (void);

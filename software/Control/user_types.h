@@ -7,7 +7,7 @@
 #define LED_RED     GPIO_Pin_14     // Zero Motor Speed
 #define LED_BLUE    GPIO_Pin_15     // RS485 Rx Timed out
 
-#define TX_BYTES 4              // 2 bytes for motor speed, 2 bytes for current consumption (must be even)
+#define TX_BYTES 12             // 4 bytes for echoing command, 4 bytes for motor speed, 4 bytes for current consumption
 #define RX_BYTES 4              // 4 data bytes
 #define SPEED_BUFFER_LENGTH 5   // length of speed (moving average) filter
 
@@ -15,7 +15,6 @@
 typedef union
 {
     uint8_t     u8_data     [TX_BYTES];
-    uint16_t    u16_data    [TX_BYTES >> 1];
 } debug_T;
 
 // typedefs

@@ -8,3 +8,5 @@ timed_out	KEYWORD2
 bufferLoc	KEYWORD2
 rxTimer	KEYWORD2
 txPacket	KEYWORD2
+rxTempBuffer	KEYWORD2
+neverReceived	KEYWORD2

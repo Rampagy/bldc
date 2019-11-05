@@ -12,17 +12,7 @@ Comm::Comm()
 
     UBRR0 = 8; // for configuring baud rate of 115200bps - pg 163
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // Use 8-bit character sizes
-    UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on the reception, and Receive interrupt
-
-    this->timeout_threshold = 4;
-    this->timed_out = 0;
-    this->rxTimer = 0;
-    this->txPacketCounter = 0;
-
-    for (uint8_t i = 0; i < TX_BYTES; i++)
-    {
-            this->txPacket[i] = 0;
-    }
+    UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); // Turn on reception, and Receive interrupt
 }
 
 
@@ -61,8 +51,11 @@ uint8_t Comm::CheckWatchdog()
     if (this->rxTimer >= this->timeout_threshold)
     {
         // debug timeout - RS485 not connected
-        digitalWrite(LED_BUILTIN, HIGH);
         this->timed_out = 1;
+    }
+    else
+    {
+        this->timed_out = 0;
     }
     return this->timed_out;
 }

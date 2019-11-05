@@ -39,21 +39,16 @@ void main()
             }
             desiredThrottleX10 = (int16_t)(desiredThrottleX10 - 1000);
 
+            uint16_t motorSpeed = 0;
             if (speedCnt)
             {
                 // 60,000,000 counts/min * (1 rev/360 deg) * (1 mech rotation / 4 elec rotation)
-                uint16_t motorSpeed = ((uint32_t)41667 * aveDeltaAngle) / speedCnt;
-                debugData.u8_data[0] = (uint8_t)((motorSpeed & 0xFF00) >> 8);
-                debugData.u8_data[1] = (uint8_t)(motorSpeed & 0x00FF);
-            }
-            else
-            {
-                debugData.u16_data[0] = 0;
+                motorSpeed = ((uint32_t)41667 * aveDeltaAngle) / speedCnt;
             }
 
             // set to zero until current consumption is calculated
-            debugData.u16_data[1] = 0;
-            UARTSendData(debugData.u8_data);
+            uint16_t currentConsumption = 0;
+            UARTSendData((uint16_t)(desiredThrottleX10 + 1000), motorSpeed, currentConsumption);
         }
 
         // set LED indicator

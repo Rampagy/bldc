@@ -1,7 +1,7 @@
 #include "uart.h"
 
 
-uint8_t buffer[TX_BYTES];
+uint8_t buffer[TX_BYTES+1];
 int16_t desiredThrottleX10 = 0;
 volatile rxBuffer_T rxBuffer;
 volatile uint8_t RS485RxCompleted = 0;
@@ -12,12 +12,27 @@ volatile uint8_t RS485RxCompleted = 0;
  *a new transfer
 */
 
-void UARTSendData(uint8_t data[])
+void UARTSendData(uint16_t throttleEcho, uint16_t motorSpeed, uint16_t currentConsumption)
 {
-    for(uint8_t i = 0; i < TX_BYTES; i++)
+    buffer[0] = 10; // '\n'
+
+    uint16_t divisor = 1000;
+    for(uint8_t i = 1; i < (TX_BYTES/3)+1; i++)
     {
         //Copy String into Buffer
-        buffer[i] = data[i];
+        uint8_t asciiDec = (throttleEcho / divisor);
+        buffer[i] = asciiDec + 48;
+        throttleEcho -= asciiDec * divisor;
+
+        asciiDec = (motorSpeed / divisor);
+        buffer[i + (TX_BYTES/3)] = asciiDec + 48;
+        motorSpeed -= asciiDec * divisor;
+
+        asciiDec = (currentConsumption / divisor);
+        buffer[i + (TX_BYTES*2/3)] = asciiDec + 48;
+        currentConsumption -= asciiDec * divisor;
+
+        divisor /= 10;
     }
 
     // Enable the transmitter
@@ -57,18 +72,18 @@ void USART3_IRQHandler (void)
     }
     else if(USART3->SR & USART_FLAG_TC)
     {
-        if (txPacketCounter <= TX_BYTES)
-        {
-            //Put the next data in the Data Register
-            USART3->DR = buffer[txPacketCounter];
-            txPacketCounter++;
-        }
-        else
+        if (txPacketCounter >= (TX_BYTES+1))
         {
             //disable transmit mode, clear the data register and clear the flag
             USART3->CR1 &= ~USART_Mode_Tx;
             USART_SendData(USART3, 0);
             txPacketCounter = 0;
+        }
+        else
+        {
+            //Put the next data in the Data Register
+            USART3->DR = buffer[txPacketCounter];
+            txPacketCounter++;
         }
     }
     return;
