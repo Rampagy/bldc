@@ -1,10 +1,17 @@
 #include "Comm.h"
 
+//*********************************************
+//  Initialize
+//*********************************************
+Comm::Comm()
+{
+
+}
 
 //*********************************************
 //  Configure UART
 //*********************************************
-Comm::Comm()
+void Comm::ConfigureComm()
 {
     UCSR0A = 0; // set entire UCSR0A register to 0
     UCSR0B = 0; // same for UCSR0B

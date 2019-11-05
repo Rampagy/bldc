@@ -1,5 +1,5 @@
 Comm	KEYWORD1
-SetupComm	KEYWORD2
+ConfigureComm	KEYWORD2
 SendData	KEYWORD2
 CheckWatchdog	KEYWORD2
 rxBuffer	KEYWORD2

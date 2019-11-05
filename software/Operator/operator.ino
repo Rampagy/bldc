@@ -20,6 +20,9 @@ void setup()
     // Enable global interrupt
     sei();
 
+    // Setup UART
+    comm.ConfigureComm();
+    
     // Set built in LED as an output
     pinMode(LED_BUILTIN, OUTPUT);
 
@@ -69,11 +72,11 @@ void TenMsTask()
 
         if (throttleEcho == 1200 || throttleEcho == 800)
         {
-            //digitalWrite(LED_BUILTIN, LOW);
+            digitalWrite(LED_BUILTIN, HIGH);
         }
         else
         {
-            //digitalWrite(LED_BUILTIN, HIGH);
+            digitalWrite(LED_BUILTIN, LOW);
         }
     }
 }
@@ -219,7 +222,7 @@ ISR(USART_RX_vect)
 
     // Save the data
     uint8_t tempData = UDR0;
-    digitalWrite(LED_BUILTIN, HIGH);
+
     // clear the rx complete flag
     UCSR0A &= ~(1 << RXC0);
 

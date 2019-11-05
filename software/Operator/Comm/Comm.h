@@ -12,7 +12,7 @@ class Comm
 {
     public:
         Comm(void);
-        void SetupComm(void);
+        void ConfigureComm(void);
         void SendData(uint16_t packet);
         uint8_t CheckWatchdog(void);
         uint8_t rxTempBuffer[RX_BYTES] = {0};
