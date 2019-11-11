@@ -30,33 +30,50 @@ uint16_t checkAngleOverflow(int16_t angle)
     return (uint16_t)angle;
 }
 
-void CalculatePhases(uint16_t speedCnt, int16_t deltaAngle)
+void CalculatePhases(uint16_t speedCnt, int16_t deltaAngle, int16_t desiredThrotX10)
 {
     /*------------------- Calculate Quadrature Axis Angle -------------------*/
-#ifdef PHASE_PREDICTION
-    uint16_t currentTimerCount = motorSpeedTimerOverrun ? TIM13_PERIOD : TIM13->CNT;
-    currentTimerCount = currentTimerCount > speedCnt ? speedCnt : currentTimerCount;
-    int16_t predictedPhaseAngle = (((int32_t)currentTimerCount * 100 * deltaAngle) / speedCnt) / 100;
-#else
     // half of the hall effect resolution, so that active torque region is centered around max torque point
     int16_t predictedPhaseAngle = 30;
-#endif
 
-    int16_t controlAngle = 90;
-    uint16_t absDesiredThrottleX10 = desiredThrottleX10;
-    if (desiredThrottleX10 < 0)
+#ifdef PHASE_PREDICTION
+    if (!motorSpeedTimerOverrun)
     {
-        controlAngle = -90;
-        absDesiredThrottleX10 = desiredThrottleX10 * -1;
+        // estimate the current angle based on previous completion times
+        uint16_t currentTimerCount = TIM13->CNT > speedCnt ? speedCnt : TIM13->CNT;
 
-#ifndef PHASE_PREDICTION
-        predictedPhaseAngle *= -1;
+        // 100's are here for extra resolution
+        predictedPhaseAngle = (((int32_t)currentTimerCount * 100 * deltaAngle) / speedCnt) / 100;
+    }
 #endif
+
+    if ((deltaAngle < 0 && predictedPhaseAngle > 0) ||
+        (deltaAngle > 0 && predictedPhaseAngle < 0))
+    {
+        // make sure deltaAngle and predictedPhaseAngle have the same sign
+        predictedPhaseAngle *= -1;
+    }
+    else if (deltaAngle == 0)
+    {
+        // in the event that deltaAngle is zero use same sign as desiredThrotX10
+        if (desiredThrotX10 < 0)
+        {
+            predictedPhaseAngle *= -1;
+        }
     }
 
-    // add 1 degree to account for calculation delay and preloading delay of the dutycycle
-    uint16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + controlAngle + predictedPhaseAngle + 1);
 
+    // control angle is -91 or 91 to compensate for calculation and
+    // preloading delay of the dutycycle
+    int16_t controlAngle = 91;
+    uint16_t absDesiredThrottleX10 = desiredThrotX10;
+    if (desiredThrotX10 < 0)
+    {
+        controlAngle = -91;
+        absDesiredThrottleX10 = desiredThrotX10 * -1;
+    }
+
+    uint16_t quadratureAxisAngle = checkAngleOverflow(directAxisAngle + controlAngle + predictedPhaseAngle);
 
     /*--------------------- Calculate Phase Duty Cycles ---------------------*/
     // Set phase multipliers to adjust voltages

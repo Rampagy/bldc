@@ -2,8 +2,8 @@
 
 int16_t  directAxisAngle = 0;
 uint16_t motorSpeedCount[SPEED_BUFFER_LENGTH] = { 0 };
-int16_t deltaSpeedAngles[SPEED_BUFFER_LENGTH] = { 0 };
-uint8_t  motorSpeedTimerOverrun = 0;
+int16_t deltaSpeedAngle = 0;
+uint8_t  motorSpeedTimerOverrun = 1;
 uint8_t speedIdx = 0;
 
 //this calculates the speed of the motor
@@ -21,8 +21,7 @@ uint8_t speedIdx = 0;
     uint16_t prevDirectAxisAngle = directAxisAngle;                             \
     GET_ANGLE();                                                                \
                                                                                 \
-    deltaSpeedAngles[speedIdx] =                                                \
-        (int16_t)(directAxisAngle - prevDirectAxisAngle);                       \
+    deltaSpeedAngle = (int16_t)(directAxisAngle - prevDirectAxisAngle);         \
 }                                                                               \
 
 //this re-calculates the motor position based off hall state
