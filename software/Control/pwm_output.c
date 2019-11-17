@@ -126,8 +126,15 @@ void TIM_Config(void)
     TIM_BDTRConfig(TIM1, &TIM_BDTRInitStructure);
 
     /* Custom TIM setup that isn't provided in default structures */
-    TIM1->CCMR1 |= 0x0808;  // enable CCR preloading for channel 1 and 2 (preload duty cycle changes)
-    TIM1->CCMR2 |= 0x0008;  // enable CCR preloading for channel 3 (preload duty cycle changes)
+
+    // enable CCR preloading for channels 1, 2, and 3 (preload duty cycle changes)
+    TIM1->CCMR1 |= TIM_OCPreload_Enable | (TIM_OCPreload_Enable << 8);
+    TIM1->CCMR2 |= TIM_OCPreload_Enable;
+
+    // enable fast output compare events for channels 1, 2, and 3
+    // 5 clock cycles to 3 clock cycles
+    TIM1->CCMR1 |= TIM_OCFast_Enable | (TIM_OCFast_Enable << 8);
+    TIM1->CCMR2 |= TIM_OCFast_Enable;
 
     /* TIM1 counter enable */
     TIM_Cmd(TIM1, ENABLE);
