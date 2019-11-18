@@ -6,13 +6,14 @@
 
 #include "main.h"
 
-void main()
+int main()
 {
     SystemCoreClockUpdate();
     UARTInit(115200);
     Debug_Init();
     Hall_Init();
     TIM_Config();
+    InitTask();
 
     // figure out what the initial motor position is
     CalcInitialPosition();
@@ -47,11 +48,17 @@ void main()
 
             // set to zero until current consumption is calculated
             uint16_t currentConsumption = 0;
-            UARTSendData((uint16_t)(desiredThrottleX10 + 1000), motorSpeed, currentConsumption);
+            UARTSendData((uint16_t)(slewedThrottleX10 + 1000), motorSpeed, currentConsumption);
+        }
+
+        if (Run10msTask)
+        {
+            Run10msTask = 0;
+            TenMsTask();
         }
 
         // set LED indicator
-        if (desiredThrottleX10 == 200 || desiredThrottleX10 == -200)
+        if (slewedThrottleX10 == 200 || slewedThrottleX10 == -200)
         {
             GPIO_SetBits(GPIOD, LED_ORANGE);
         }
@@ -68,6 +75,6 @@ void main()
         }
         speedCnt /= SPEED_BUFFER_LENGTH;
 
-        CalculatePhases((uint16_t)speedCnt, deltaSpeedAngle, desiredThrottleX10);
+        CalculatePhases((uint16_t)speedCnt, deltaSpeedAngle, slewedThrottleX10);
     }
 }

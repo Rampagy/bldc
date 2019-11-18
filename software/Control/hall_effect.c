@@ -143,10 +143,14 @@ void TIM8_UP_TIM13_IRQHandler(void)
     {
         GPIO_SetBits(GPIOD, LED_RED);
         motorSpeedTimerOverrun = 1;
-        motorSpeedCount[speedIdx] = TIM13_PERIOD;  // on timeout set to max count so quadrature angle doesn't jump all crazy
+
+        // populate circular buffer with motor speed times
+        motorSpeedCount[speedIdx] = TIM13_PERIOD;
         speedIdx++;
         speedIdx %= SPEED_BUFFER_LENGTH;
-        TIM_ClearITPendingBit(TIM13, TIM_IT_Update);  // reset flag
+
+        // reset flag
+        TIM_ClearITPendingBit(TIM13, TIM_IT_Update);
     }
     return;
 }
