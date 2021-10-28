@@ -145,7 +145,7 @@
 		
 		\noindent When comparing the calculations to \textit{Silicon Labs} \cite{silabs}, the boot strap capacitor values are within $\pm 63nF$ of each other, as shown in Figure \ref{fig:silabsCalc}.
 	
-		\begin{figure}[h!]
+		\begin{figure}[!h]
 			\begin{center}
 				\includegraphics[scale=0.3]{silabs_bootstrap_cap}
 			\end{center}
@@ -186,7 +186,7 @@
 		Write your subsection text here.
 	
 		\subsection{Microcontroller}
-		Write your subsection text here.
+		The STM32F407VG microcontroller was chosen for this project because it contains several features that make PMAC control easier.  The first feature this microcontroller has is automatic dead time insertion \cite{stm32f4 ref manual}.  The second feature is  complementary (low side) wave generation \cite{stm32f4 ref manual}.  In additional to these feature the high clock frequency (168MHz) and built in digital signal processor (DSP) \cite{stm32f4 ref manual} also make this microcontroller a prime choice for this project.
 	
 		\begin{equation}
 		\label{simple_equation}
@@ -195,6 +195,26 @@
 	
 	\section{Commutation Techniques}
 	Write your section text here.
+	
+		\subsection{Pulse Width Modulation (PWM) Strategy}
+		Up/down counting mode instead of up counting mode to reduce transients so the MOSFETs don't all turn on and off at the same time. Figure \ref{fig:UpCountingMode} shows the up counting mode.  Figure \ref{fig:UpDownCountingMode} shows the 
+	
+		\begin{figure}[!h]
+			\begin{center}
+				\includegraphics[scale=0.4, angle=90]{UpCountingMode}
+			\end{center}
+			\caption{Up counting mode for phases A, B, and C.  Turning off all the phases at the same point will induce a transient in voltage and reduce the device's overall electromagnetic compatibility.}
+			\label{fig:UpCountingMode}
+		\end{figure}
+	
+	
+		\begin{figure}[!h]
+			\begin{center}
+				\includegraphics[scale=0.5, angle=90]{UpDownCountingMode}
+			\end{center}
+			\caption{Up/down counting mode for phases A, B, and C.  This method of PWM reduces electromagnetic interference and also reduces voltage transients by staggering when the MOSFETs turn on and off.}
+			\label{fig:UpDownCountingMode}
+		\end{figure}
 	
 		\subsection{Trapezoidal Control}
 		Write your subsection text here.
@@ -227,6 +247,13 @@
 		\textit{TL2575, TL2575HV 1-A Simple Step-Down Switching Voltage Regulators}
 		\texttt{http://www.ti.com/lit/ds/symlink/tl2575-12.pdf}
 		
+		
+		\bibitem{stm32f4 ref manual}
+		RM0090 Reference Manual
+		\textit{STM32F405/415, STM32F407/417, STM32F427/437 and STM32F429/439 advanced Arm-based 32-bit MCUs}
+		
+		\texttt{https://www.st.com/resource/en/reference\_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427
+			-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf}
 		
 		
 	\end{thebibliography}
