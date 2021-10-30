@@ -2,9 +2,20 @@
 \usepackage{array}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \graphicspath{ {./images/} }
 
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\hypersetup{
+	colorlinks=false,
+	hidelinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Permanent Magnet Alternating Current Motor Controller},
+	pdfpagemode=FullScreen,
+}
 
 \begin{document}
 	
@@ -186,35 +197,31 @@
 		Write your subsection text here.
 	
 		\subsection{Microcontroller}
-		The STM32F407VG microcontroller was chosen for this project because it contains several features that make PMAC control easier.  The first feature this microcontroller has is automatic dead time insertion \cite{stm32f4 ref manual}.  The second feature is  complementary (low side) wave generation \cite{stm32f4 ref manual}.  In additional to these feature the high clock frequency (168MHz) and built in digital signal processor (DSP) \cite{stm32f4 ref manual} also make this microcontroller a prime choice for this project.
+		The STM32F407VG microcontroller was chosen for this project because it contains several key features that make PMAC control easier.  The first feature this microcontroller has is automatic dead time insertion \cite{stm32f4 ref manual}.  The second feature is  complementary (low side) wave generation \cite{stm32f4 ref manual}.  In addition to these featurse the high clock frequency (168MHz) and built in digital signal processor (DSP) \cite{stm32f4 ref manual} also make this microcontroller a prime choice for this project.
 	
-		\begin{equation}
-		\label{simple_equation}
-		\alpha = \sqrt{ \beta }
-		\end{equation}
+			\subsubsection{Pulse Width Modulation (PWM) Strategy}
+			One method to reduce electromagnetic noise and voltage transients within the system is to stagger the set/reset events in the timing module of the microntroller.  As shown in Figure \ref{fig:UpCountingMode} when the timer is set to up counting in set/reset mode all of the MOSFETs turn off at the same time it generates an unnecessary amount of electromagnetic noise and transients.  To combat this issue I decided to stagger the events by setting the timer to up/down counting in reset/set/reset mode.  As shown in Figure \ref{fig:UpDownCountingMode} this staggers the transition events which helps reduce electromagnetic noise and voltage transients  which in turn increases the longevity of the electrical components.
+			
+			\begin{figure}[!h]
+				\begin{center}
+					\includegraphics[scale=0.4, angle=90]{UpCountingMode}
+				\end{center}
+				\caption{Up counting mode for phases A, B, and C.  Turning off all the phases at the same time will induce a transient in voltage and reduce the device's overall electromagnetic compatibility.}
+				\label{fig:UpCountingMode}
+			\end{figure}
+			
+			
+			\begin{figure}[!h]
+				\begin{center}
+					\includegraphics[scale=0.5, angle=90]{UpDownCountingMode}
+				\end{center}
+				\caption{Up/down counting mode for phases A, B, and C.  This method of PWM reduces electromagnetic interference and voltage transients by staggering when the MOSFETs turn on and off.}
+				\label{fig:UpDownCountingMode}
+			\end{figure}
 	
 	\section{Commutation Techniques}
 	Write your section text here.
 	
-		\subsection{Pulse Width Modulation (PWM) Strategy}
-		Up/down counting mode instead of up counting mode to reduce transients so the MOSFETs don't all turn on and off at the same time. Figure \ref{fig:UpCountingMode} shows the up counting mode.  Figure \ref{fig:UpDownCountingMode} shows the 
-	
-		\begin{figure}[!h]
-			\begin{center}
-				\includegraphics[scale=0.4, angle=90]{UpCountingMode}
-			\end{center}
-			\caption{Up counting mode for phases A, B, and C.  Turning off all the phases at the same point will induce a transient in voltage and reduce the device's overall electromagnetic compatibility.}
-			\label{fig:UpCountingMode}
-		\end{figure}
-	
-	
-		\begin{figure}[!h]
-			\begin{center}
-				\includegraphics[scale=0.5, angle=90]{UpDownCountingMode}
-			\end{center}
-			\caption{Up/down counting mode for phases A, B, and C.  This method of PWM reduces electromagnetic interference and also reduces voltage transients by staggering when the MOSFETs turn on and off.}
-			\label{fig:UpDownCountingMode}
-		\end{figure}
 	
 		\subsection{Trapezoidal Control}
 		Write your subsection text here.
@@ -253,7 +260,7 @@
 		\textit{STM32F405/415, STM32F407/417, STM32F427/437 and STM32F429/439 advanced Arm-based 32-bit MCUs}
 		
 		\texttt{https://www.st.com/resource/en/reference\_manual/dm00031020-stm32f405-415-stm32f407-417-stm32f427
-			-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf}
+-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf}
 		
 		
 	\end{thebibliography}
